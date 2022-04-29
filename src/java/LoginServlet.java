@@ -56,7 +56,11 @@ public class LoginServlet extends BaseTAWServlet {
             } else {
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", u);
-                request.getRequestDispatcher("jsplogged.jsp").forward(request, response);
+                if(u.getRol().getId() == 1){
+                    request.getRequestDispatcher("inicioComprador.jsp").forward(request, response);
+                }else{
+                    request.getRequestDispatcher("jsplogged.jsp").forward(request, response);
+                }
             }                    
         }
     }
