@@ -4,9 +4,11 @@
  */
 package taw.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import taw.entities.Categoria;
 
 /**
@@ -26,6 +28,13 @@ public class CategoriaFacade extends AbstractFacade<Categoria> {
 
     public CategoriaFacade() {
         super(Categoria.class);
+    }
+
+    public List<Categoria> findByUserID(int userid) {
+        Query q;
+        q = this.getEntityManager().createQuery("select c from Categoria c join c.categoriasPreferidasList cp WHERE cp.usuario.id = :userid");
+        q.setParameter("userid", userid);
+        return q.getResultList();
     }
     
 }
