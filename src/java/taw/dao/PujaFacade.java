@@ -4,9 +4,11 @@
  */
 package taw.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import taw.entities.Puja;
 
 /**
@@ -26,6 +28,13 @@ public class PujaFacade extends AbstractFacade<Puja> {
 
     public PujaFacade() {
         super(Puja.class);
+    }
+
+    public List<Puja> findByID(int userid) {
+        Query q;
+        q = this.getEntityManager().createQuery("select p from Puja p where p.comprador.id = :comprador");
+        q.setParameter("comprador", userid);
+        return q.getResultList();
     }
     
 }
