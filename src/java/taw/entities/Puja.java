@@ -37,6 +37,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Puja.findByPrecio", query = "SELECT p FROM Puja p WHERE p.precio = :precio")})
 public class Puja implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ADJUDICADO")
+    private Boolean adjudicado;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,10 +53,6 @@ public class Puja implements Serializable {
     @Column(name = "FECHA")
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ADJUDICADO")
-    private Character adjudicado;
     @Basic(optional = false)
     @NotNull
     @Column(name = "PRECIO")
@@ -70,7 +71,7 @@ public class Puja implements Serializable {
         this.id = id;
     }
 
-    public Puja(Integer id, Date fecha, Character adjudicado, double precio) {
+    public Puja(Integer id, Date fecha, Boolean adjudicado, double precio) {
         this.id = id;
         this.fecha = fecha;
         this.adjudicado = adjudicado;
@@ -93,13 +94,6 @@ public class Puja implements Serializable {
         this.fecha = fecha;
     }
 
-    public Character getAdjudicado() {
-        return adjudicado;
-    }
-
-    public void setAdjudicado(Character adjudicado) {
-        this.adjudicado = adjudicado;
-    }
 
     public double getPrecio() {
         return precio;
@@ -148,6 +142,14 @@ public class Puja implements Serializable {
     @Override
     public String toString() {
         return "taw.entities.Puja[ id=" + id + " ]";
+    }
+
+    public Boolean getAdjudicado() {
+        return adjudicado;
+    }
+
+    public void setAdjudicado(Boolean adjudicado) {
+        this.adjudicado = adjudicado;
     }
     
 }
