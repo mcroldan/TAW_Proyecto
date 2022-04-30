@@ -4,9 +4,11 @@
  */
 package taw.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import taw.entities.Producto;
 
 /**
@@ -26,6 +28,13 @@ public class ProductoFacade extends AbstractFacade<Producto> {
 
     public ProductoFacade() {
         super(Producto.class);
+    }
+
+    public List<Producto> findAllButMyProducts(int userid) {
+        Query q;
+        q = this.getEntityManager().createQuery("select p from Producto p where p.vendedor.id != :vendedor");
+        q.setParameter("vendedor", userid);
+        return q.getResultList();
     }
     
 }
