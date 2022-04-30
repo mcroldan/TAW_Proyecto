@@ -32,7 +32,7 @@ public class CategoriaFacade extends AbstractFacade<Categoria> {
 
     public List<Categoria> findByUserID(int userid) {
         Query q;
-        q = this.getEntityManager().createQuery("select c from Categoria c join c.categoriasPreferidasList cp WHERE cp.usuario.id = :userid");
+        q = this.getEntityManager().createQuery("select DISTINCT c from Categoria c join c.categoriasPreferidasList cp WHERE cp.usuario.id = :userid");
         q.setParameter("userid", userid);
         return q.getResultList();
     }
