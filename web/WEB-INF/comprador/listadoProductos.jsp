@@ -43,7 +43,8 @@
                         <td> <%= prod.getMarca() %> </td>
                         <td> <%= prod.getCategoria().getNombre() %>
                         <td> <%= df.format(prod.getFechainicio()) %> </td>
-                        <td><a href="ProductoAlternarFavorito?id=<%= prod.getId() %>+userid=<%= user.getId() %>">Borrar</a></td>
+                        <td><a href="ProductoAlternarFavoritoServlet?id=<%= prod.getId() %>+userid=<%= user.getId() %>">Borrar</a></td>
+                        <td><a href="PujaNuevaServlet?id=<%= prod.getId() %>">Hacer puja</a></td>
                         
                        </tr>
            <%
