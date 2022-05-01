@@ -1,6 +1,7 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package taw.entities;
 
@@ -29,20 +30,20 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author xdmrg
+ * @author Carlos
  */
 @Entity
 @Table(name = "PRODUCTO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p"),
-    @NamedQuery(name = "Producto.findById", query = "SELECT p FROM Producto p WHERE p.id = :id"),
-    @NamedQuery(name = "Producto.findByTitulo", query = "SELECT p FROM Producto p WHERE p.titulo = :titulo"),
-    @NamedQuery(name = "Producto.findByDescripcion", query = "SELECT p FROM Producto p WHERE p.descripcion = :descripcion"),
-    @NamedQuery(name = "Producto.findByPreciosalida", query = "SELECT p FROM Producto p WHERE p.preciosalida = :preciosalida"),
-    @NamedQuery(name = "Producto.findByUrlFoto", query = "SELECT p FROM Producto p WHERE p.urlFoto = :urlFoto"),
-    @NamedQuery(name = "Producto.findByMarca", query = "SELECT p FROM Producto p WHERE p.marca = :marca"),
-    @NamedQuery(name = "Producto.findByFechainicio", query = "SELECT p FROM Producto p WHERE p.fechainicio = :fechainicio")})
+    @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p")
+    , @NamedQuery(name = "Producto.findById", query = "SELECT p FROM Producto p WHERE p.id = :id")
+    , @NamedQuery(name = "Producto.findByTitulo", query = "SELECT p FROM Producto p WHERE p.titulo = :titulo")
+    , @NamedQuery(name = "Producto.findByDescripcion", query = "SELECT p FROM Producto p WHERE p.descripcion = :descripcion")
+    , @NamedQuery(name = "Producto.findByPreciosalida", query = "SELECT p FROM Producto p WHERE p.preciosalida = :preciosalida")
+    , @NamedQuery(name = "Producto.findByUrlFoto", query = "SELECT p FROM Producto p WHERE p.urlFoto = :urlFoto")
+    , @NamedQuery(name = "Producto.findByMarca", query = "SELECT p FROM Producto p WHERE p.marca = :marca")
+    , @NamedQuery(name = "Producto.findByFechainicio", query = "SELECT p FROM Producto p WHERE p.fechainicio = :fechainicio")})
 public class Producto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -80,6 +81,8 @@ public class Producto implements Serializable {
     @JoinColumn(name = "VENDEDOR", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Usuario vendedor;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto")
+    private List<Favoritos> favoritosList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto")
     private List<Puja> pujaList;
 
@@ -167,6 +170,15 @@ public class Producto implements Serializable {
 
     public void setVendedor(Usuario vendedor) {
         this.vendedor = vendedor;
+    }
+
+    @XmlTransient
+    public List<Favoritos> getFavoritosList() {
+        return favoritosList;
+    }
+
+    public void setFavoritosList(List<Favoritos> favoritosList) {
+        this.favoritosList = favoritosList;
     }
 
     @XmlTransient

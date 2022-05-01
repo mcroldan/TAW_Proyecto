@@ -1,30 +1,33 @@
+package taw.servlet;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import taw.dao.RolFacade;
+import javax.servlet.http.HttpSession;
+import org.jboss.weld.bean.builtin.FacadeInjectionPoint;
 import taw.dao.UsuarioFacade;
-import taw.entities.Rol;
 import taw.entities.Usuario;
 
 /**
  *
  * @author xdmrg
  */
-@WebServlet(urlPatterns = {"/RegisterServlet"})
-public class RegisterServlet extends HttpServlet {
+@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
+public class LoginServlet extends BaseTAWServlet {
     
     @EJB UsuarioFacade usuarioFacade;
-    @EJB RolFacade rolFacade;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,52 +40,27 @@ public class RegisterServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        try{
-            String nombre = request.getParameter("nombre");
-            String apellidos = request.getParameter("apellido");
-            String direccion = request.getParameter("direccion");
-            String codigo_postal = request.getParameter("cp");
-            String ciudad = request.getParameter("ciudad");
-            String pais = request.getParameter("pais");
-            String telefono = request.getParameter("tel");
-            String email = request.getParameter("email");
-            char sexo = (Character)request.getParameter("sexo").charAt(0);
-            String usuario = request.getParameter("usuario");
-            String password = request.getParameter("password");
-           
-            if(ciudad.equals("") || nombre.equals("") || apellidos.equals("") || direccion.equals("") || usuario.equals("") || password.equals("")
-                    || codigo_postal.equals("") || pais.equals("") || telefono.equals("") || email.equals("")){
-                throw new Exception(telefono);
-            }
-            int edad = Integer.parseInt(request.getParameter("edad"));
-            int rol = Integer.parseInt(request.getParameter("rol"));
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            String username = request.getParameter("loginInput");
+            String password = request.getParameter("passInput");
             
-            Usuario u = new Usuario();
+            // CRUD (Only Read by now)
+            /*List<Usuario> usuarios = this.usuarioFacade.findAll();
+            request.setAttribute("usuarios", usuarios);
+            request.getRequestDispatcher("jsplogged.jsp").forward(request, response);*/
             
-            u.setCp(codigo_postal);
-            u.setNombre(nombre);
-            u.setApellidos(apellidos);
-            u.setDireccion(direccion);
-            u.setCiudad(ciudad);
-            u.setPais(pais);
-            u.setTelefono(telefono);
-            u.setEmail(email);
-            u.setEdad(edad);
-            u.setSexo(sexo);
-            u.setUsername(usuario);
-            u.setPassword(password);
-            u.setRol(rolFacade.comprobarRol(rol));
-
-            this.usuarioFacade.create(u);
-            
-
-            request.setAttribute("error", "Nuevo usuario creado con éxito. Inicie sesión");
-            request.getRequestDispatcher("jsplogin.jsp").forward(request, response);
-        }catch(Exception err){
-            request.setAttribute("error", "Rellene todos los campos obligatorios correctamente para crear un usuario.");
-            request.getRequestDispatcher("jsplogin.jsp").forward(request, response);
-        }        
+            // Login Check
+            Usuario u = this.usuarioFacade.comprobarUsuario(username, password);
+            if(u == null){
+                request.setAttribute("error", "Usuario no encontrado");
+                request.getRequestDispatcher("jsplogin.jsp").forward(request, response);
+            } else {
+                HttpSession session = request.getSession();
+                session.setAttribute("usuario", u);
+                request.getRequestDispatcher("jsplogged.jsp").forward(request, response);
+            }                    
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
