@@ -21,7 +21,7 @@ import taw.entities.Usuario;
 
 /**
  *
- * @author PC
+ * @author Carlos
  */
 @WebServlet(name = "ListadoProductosServlet", urlPatterns = {"/ListadoProductosServlet"})
 public class ListadoProductosServlet extends HttpServlet {

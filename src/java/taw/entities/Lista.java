@@ -1,6 +1,7 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package taw.entities;
 
@@ -22,14 +23,14 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author xdmrg
+ * @author Carlos
  */
 @Entity
 @Table(name = "LISTA")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Lista.findAll", query = "SELECT l FROM Lista l"),
-    @NamedQuery(name = "Lista.findById", query = "SELECT l FROM Lista l WHERE l.id = :id")})
+    @NamedQuery(name = "Lista.findAll", query = "SELECT l FROM Lista l")
+    , @NamedQuery(name = "Lista.findById", query = "SELECT l FROM Lista l WHERE l.id = :id")})
 public class Lista implements Serializable {
 
     private static final long serialVersionUID = 1L;

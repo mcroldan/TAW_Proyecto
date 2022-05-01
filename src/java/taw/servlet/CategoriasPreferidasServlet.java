@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author PC
+ * @author Carlos
  */
 @WebServlet(name = "CategoriasPreferidasServlet", urlPatterns = {"/CategoriasPreferidasServlet"})
 public class CategoriasPreferidasServlet extends HttpServlet {

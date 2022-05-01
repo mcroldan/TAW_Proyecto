@@ -1,6 +1,7 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package taw.entities;
 
@@ -19,15 +20,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author xdmrg
+ * @author Carlos
  */
 @Entity
 @Table(name = "ESTUDIO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Estudio.findAll", query = "SELECT e FROM Estudio e"),
-    @NamedQuery(name = "Estudio.findById", query = "SELECT e FROM Estudio e WHERE e.id = :id"),
-    @NamedQuery(name = "Estudio.findByNombre", query = "SELECT e FROM Estudio e WHERE e.nombre = :nombre")})
+    @NamedQuery(name = "Estudio.findAll", query = "SELECT e FROM Estudio e")
+    , @NamedQuery(name = "Estudio.findById", query = "SELECT e FROM Estudio e WHERE e.id = :id")
+    , @NamedQuery(name = "Estudio.findByNombre", query = "SELECT e FROM Estudio e WHERE e.nombre = :nombre")})
 public class Estudio implements Serializable {
 
     private static final long serialVersionUID = 1L;

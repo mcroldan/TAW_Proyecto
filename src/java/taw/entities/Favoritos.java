@@ -24,12 +24,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Carlos
  */
 @Entity
-@Table(name = "LISTAS_USUARIO")
+@Table(name = "FAVORITOS")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ListasUsuario.findAll", query = "SELECT l FROM ListasUsuario l")
-    , @NamedQuery(name = "ListasUsuario.findById", query = "SELECT l FROM ListasUsuario l WHERE l.id = :id")})
-public class ListasUsuario implements Serializable {
+    @NamedQuery(name = "Favoritos.findAll", query = "SELECT f FROM Favoritos f")
+    , @NamedQuery(name = "Favoritos.findById", query = "SELECT f FROM Favoritos f WHERE f.id = :id")})
+public class Favoritos implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,17 +37,17 @@ public class ListasUsuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @JoinColumn(name = "LISTA", referencedColumnName = "ID")
+    @JoinColumn(name = "PRODUCTO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Lista lista;
+    private Producto producto;
     @JoinColumn(name = "USUARIO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Usuario usuario;
 
-    public ListasUsuario() {
+    public Favoritos() {
     }
 
-    public ListasUsuario(Integer id) {
+    public Favoritos(Integer id) {
         this.id = id;
     }
 
@@ -59,12 +59,12 @@ public class ListasUsuario implements Serializable {
         this.id = id;
     }
 
-    public Lista getLista() {
-        return lista;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setLista(Lista lista) {
-        this.lista = lista;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     public Usuario getUsuario() {
@@ -85,10 +85,10 @@ public class ListasUsuario implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ListasUsuario)) {
+        if (!(object instanceof Favoritos)) {
             return false;
         }
-        ListasUsuario other = (ListasUsuario) object;
+        Favoritos other = (Favoritos) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -97,7 +97,7 @@ public class ListasUsuario implements Serializable {
 
     @Override
     public String toString() {
-        return "taw.entities.ListasUsuario[ id=" + id + " ]";
+        return "taw.entities.Favoritos[ id=" + id + " ]";
     }
     
 }

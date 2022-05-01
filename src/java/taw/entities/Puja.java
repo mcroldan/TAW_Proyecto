@@ -1,6 +1,7 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package taw.entities;
 
@@ -24,23 +25,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author xdmrg
+ * @author Carlos
  */
 @Entity
 @Table(name = "PUJA")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Puja.findAll", query = "SELECT p FROM Puja p"),
-    @NamedQuery(name = "Puja.findById", query = "SELECT p FROM Puja p WHERE p.id = :id"),
-    @NamedQuery(name = "Puja.findByFecha", query = "SELECT p FROM Puja p WHERE p.fecha = :fecha"),
-    @NamedQuery(name = "Puja.findByAdjudicado", query = "SELECT p FROM Puja p WHERE p.adjudicado = :adjudicado"),
-    @NamedQuery(name = "Puja.findByPrecio", query = "SELECT p FROM Puja p WHERE p.precio = :precio")})
+    @NamedQuery(name = "Puja.findAll", query = "SELECT p FROM Puja p")
+    , @NamedQuery(name = "Puja.findById", query = "SELECT p FROM Puja p WHERE p.id = :id")
+    , @NamedQuery(name = "Puja.findByFecha", query = "SELECT p FROM Puja p WHERE p.fecha = :fecha")
+    , @NamedQuery(name = "Puja.findByAdjudicado", query = "SELECT p FROM Puja p WHERE p.adjudicado = :adjudicado")
+    , @NamedQuery(name = "Puja.findByPrecio", query = "SELECT p FROM Puja p WHERE p.precio = :precio")})
 public class Puja implements Serializable {
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ADJUDICADO")
-    private Boolean adjudicado;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -53,6 +49,10 @@ public class Puja implements Serializable {
     @Column(name = "FECHA")
     @Temporal(TemporalType.DATE)
     private Date fecha;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ADJUDICADO")
+    private Boolean adjudicado;
     @Basic(optional = false)
     @NotNull
     @Column(name = "PRECIO")
@@ -94,6 +94,13 @@ public class Puja implements Serializable {
         this.fecha = fecha;
     }
 
+    public Boolean getAdjudicado() {
+        return adjudicado;
+    }
+
+    public void setAdjudicado(Boolean adjudicado) {
+        this.adjudicado = adjudicado;
+    }
 
     public double getPrecio() {
         return precio;
@@ -142,14 +149,6 @@ public class Puja implements Serializable {
     @Override
     public String toString() {
         return "taw.entities.Puja[ id=" + id + " ]";
-    }
-
-    public Boolean getAdjudicado() {
-        return adjudicado;
-    }
-
-    public void setAdjudicado(Boolean adjudicado) {
-        this.adjudicado = adjudicado;
     }
     
 }

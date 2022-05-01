@@ -8,14 +8,14 @@ package taw.dao;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import taw.entities.Estudio;
+import taw.entities.Favoritos;
 
 /**
  *
  * @author Carlos
  */
 @Stateless
-public class EstudioFacade extends AbstractFacade<Estudio> {
+public class FavoritosFacade extends AbstractFacade<Favoritos> {
 
     @PersistenceContext(unitName = "TAWBDPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class EstudioFacade extends AbstractFacade<Estudio> {
         return em;
     }
 
-    public EstudioFacade() {
-        super(Estudio.class);
+    public FavoritosFacade() {
+        super(Favoritos.class);
     }
     
 }
