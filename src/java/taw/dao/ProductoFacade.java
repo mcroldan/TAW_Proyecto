@@ -37,5 +37,12 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         q.setParameter("vendedor", userid);
         return q.getResultList();
     }
+
+    public List<Producto> findBoughtAndFavorites(int userid) {
+        Query q;
+        q = this.getEntityManager().createQuery("select DISTINCT p from Producto p join p.favoritosList f join p.pujaList pu where f.usuario.id = :userid OR (pu.comprador.id = :userid AND pu.adjudicado = TRUE)");
+        q.setParameter("userid", userid);
+        return q.getResultList();
+    }
     
 }

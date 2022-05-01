@@ -1,7 +1,7 @@
 <%-- 
-    Document   : listadoProductos
-    Created on : 30-abr-2022, 22:14:48
-    Author     : Carlos
+    Document   : compradosYFavoritos
+    Created on : 01-may-2022, 15:35:19
+    Author     : PC
 --%>
 
 <%@page import="taw.entities.Usuario"%>
@@ -12,17 +12,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Listado de productos</title>
+        <title>Mis productos</title>
     </head>
     <body>
-        <h1>Listado de productos</h1>
+        <h1>Productos comprados y favoritos</h1>
             <%
                 List<Producto> productos = (List)request.getAttribute("productos");
                 Usuario user =  (Usuario)session.getAttribute("usuario");
                 java.text.DateFormat df = new java.text.SimpleDateFormat("dd.MM.yyyy 'a las' HH:mm:ss z");
                 if(productos.isEmpty()){
             %>
-                    No hay productos disponibles.
+                    No tienes productos favoritos ni comprados.
             <% }else { %>
                     <table border="1"> 
                         <tr>
@@ -42,7 +42,7 @@
                         <td> <%= prod.getMarca() %> </td>
                         <td> <%= prod.getCategoria().getNombre() %>
                         <td> <%= df.format(prod.getFechainicio()) %> </td>
-                        <td><a href="ProductoAlternarFavoritoServlet?id=<%= prod.getId() %>+userid=<%= user.getId() %>">Alternar favorito</a></td>
+                        <td><a href="ProductoAlternarFavoritoServlet?id=<%= prod.getId() %>+userid=<%= user.getId() %>">Borrar</a></td>
                         <td><a href="PujaNuevaServlet?id=<%= prod.getId() %>">Hacer puja</a></td>
                         
                        </tr>
@@ -53,5 +53,6 @@
             %>
             
         
+    </body>
     </body>
 </html>
