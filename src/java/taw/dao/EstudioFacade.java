@@ -1,18 +1,19 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package taw.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import taw.entities.Estudio;
 
 /**
  *
- * @author Carlos
+ * @author xdmrg
  */
 @Stateless
 public class EstudioFacade extends AbstractFacade<Estudio> {
@@ -29,4 +30,24 @@ public class EstudioFacade extends AbstractFacade<Estudio> {
         super(Estudio.class);
     }
     
+            
+    /*
+        EstudioService
+    */
+    
+    public List<Estudio> findByName(String name){
+        Query q = this.getEntityManager().createQuery("SELECT e FROM Estudio e WHERE e.nombre LIKE :name");
+        q.setParameter("name", "%" + name + "%");
+
+        List<Estudio> lista = q.getResultList();
+        if (lista == null || lista.isEmpty()) {
+            return null;
+        } else {
+            return lista;
+        }        
+    }
+    
 }
+
+
+

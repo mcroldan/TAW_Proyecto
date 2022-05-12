@@ -16,21 +16,20 @@
         <%
             Usuario u = (Usuario)session.getAttribute("usuario");
             String[] roles = {"Usuario", "Moderador", "Agua"};
-            int rol = u.getRol().getId();
+            String rol = u.getRol().getNombre();
         %>
         
         ¡Bienvenido, <%= u.getUsername() %> , tu rol es <%= u.getRol().getNombre() %> y tu ID es <%= u.getId() %>!
         
+        <%
+          if(rol.equalsIgnoreCase("Analista")){  
+        %>
+        <form method="get" action="AnalistaServlet" name="goToCrud">
+            <button>Estudios estadísticos</button>
+        </form>
         
         <form method="post" action="LogoutServlet">
             <button>Cerrar sesión</button>
-        </form>
-        
-        <%
-          if(rol == 4){  
-        %>
-        <form method="get" action="AdminServlet" name="goToCrud">
-            <button>Crud Administrador</button>
         </form>
         
         <%
