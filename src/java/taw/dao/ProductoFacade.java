@@ -45,4 +45,35 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         return q.getResultList();
     }
     
+    public List<Producto> filtroNombreSimilar(String filtro){
+        Query q;
+        q = em.createNamedQuery("Producto.findbyTitulo");
+        q.setParameter("titulo","%"+filtro+"%");
+        return q.getResultList();
+    }
+    
+    public List<Producto> filtroPrecioSalida (String filtro){
+        Query q;
+        
+        q = em.createNamedQuery("SELECT e FROM Producto e WHERE e.precioSalida >= :precioSalida");
+        q.setParameter("precioSalida", "%" + filtro + "%");
+        return q.getResultList();
+    }
+    
+    public List<Producto> filtroMarca (String filtro){
+        Query q;
+        
+        q = em.createNamedQuery("SELECT e FROM Producto e WHERE e.marca >= :marca");
+        q.setParameter("marca", "%" + filtro + "%");
+        return q.getResultList();
+    }
+    
+    public List<Producto> filtroFechaInicio (String filtro){
+        Query q;
+        
+        q = em.createNamedQuery("SELECT e FROM Producto e WHERE e.FechaInicio >= :FechaInicio");
+        q.setParameter("FechaInicio", "%" + filtro + "%");
+        return q.getResultList();
+    }
+    
 }
