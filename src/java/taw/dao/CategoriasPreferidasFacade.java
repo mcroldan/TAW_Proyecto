@@ -5,10 +5,14 @@
  */
 package taw.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import taw.entities.Categoria;
 import taw.entities.CategoriasPreferidas;
+import taw.entities.Usuario;
 
 /**
  *
@@ -28,5 +32,13 @@ public class CategoriasPreferidasFacade extends AbstractFacade<CategoriasPreferi
     public CategoriasPreferidasFacade() {
         super(CategoriasPreferidas.class);
     }
-    
+
+    public void crearRelacion(Usuario user, Categoria cat) {
+        CategoriasPreferidas nuevaRelacion = new CategoriasPreferidas();
+        
+        nuevaRelacion.setUsuario(user);
+        nuevaRelacion.setCategoria(cat);
+        
+        this.create(nuevaRelacion);
+    }
 }

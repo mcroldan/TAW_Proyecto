@@ -4,6 +4,7 @@
     Author     : Carlos
 --%>
 
+<%@page import="taw.entities.Usuario"%>
 <%@page import="java.util.List"%>
 <%@page import="taw.entities.Categoria"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -18,6 +19,7 @@
         <table border="1">
             <% 
                 List<Categoria> categorias = (List)request.getAttribute("categorias");
+                Usuario user = (Usuario)session.getAttribute("usuario");
                 if(categorias.isEmpty()){
             %>
                 No tienes categorías preferidas.
@@ -41,5 +43,7 @@
                 }
             %>
         </table>
+        <a href="AnyadirCategoriaPreferidaServlet">Añadir categoría</a>
+        </form>
     </body>
 </html>
