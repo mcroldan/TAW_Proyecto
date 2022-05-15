@@ -43,5 +43,18 @@ public class RolFacade extends AbstractFacade<Rol> {
             return lista.get(0);
         } 
     }
+    
+    public Rol findBynombre(String N){
+        Query q = this.getEntityManager().createQuery("SELECT r FROM rol r WHERE r.ID LIKE :rol OR r.nombre LIKE :rol");
+        q.setParameter("rol", "%" + N + "%");
+
+        List<Rol> lista = q.getResultList();
+        if (lista == null || lista.isEmpty()) {
+            return null;
+        } else {
+            return lista.get(0);
+        }
+
+    }
         
 }

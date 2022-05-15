@@ -49,4 +49,17 @@ public class CategoriaFacade extends AbstractFacade<Categoria> {
         return res;
     }
     
+    public Categoria findBynombre(String N){
+        Query q = this.getEntityManager().createQuery("SELECT c FROM categoria c WHERE c.ID LIKE :categoria OR c.nombre LIKE :categoria");
+        q.setParameter("categoria", "%" + N + "%");
+
+        List<Categoria> lista = q.getResultList();
+        if (lista == null || lista.isEmpty()) {
+            return null;
+        } else {
+            return lista.get(0);
+        }
+
+    }
+    
 }
