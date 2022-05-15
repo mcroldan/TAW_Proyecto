@@ -18,7 +18,8 @@ import taw.services.UsuarioService;
 
 /**
  *
- * @author Manuel Cristóbal Roldán Gómez
+ * @author Manuel Cristóbal Roldán Gómez    50%
+ * @author Alfonso García Gálvez            50%
  */
 @WebServlet(urlPatterns = {"/RegisterServlet"})
 public class RegisterServlet extends HttpServlet {

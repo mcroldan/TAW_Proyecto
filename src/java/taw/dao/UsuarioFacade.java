@@ -14,7 +14,7 @@ import taw.entities.Usuario;
 
 /**
  *
- * @author Carlos Ortega Chirito
+ * @author Manuel Cristóbal Roldán Gómez
  */
 @Stateless
 public class UsuarioFacade extends AbstractFacade<Usuario> {

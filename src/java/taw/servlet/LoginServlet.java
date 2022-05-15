@@ -21,7 +21,8 @@ import taw.services.UsuarioService;
 
 /**
  *
- * @author Manuel Cristóbal Roldán Gómez
+ * @author Manuel Cristóbal Roldán Gómez    60%
+ * @author Carlos Ortega Chirito            40%
  */
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends BaseTAWServlet {

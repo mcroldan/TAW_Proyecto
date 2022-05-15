@@ -28,7 +28,8 @@ import taw.dto.UsuarioDTO;
 
 /**
  *
- * @author Carlos Ortega Chirito
+ * @author Carlos Ortega Chirito          50%
+ * @author Manuel Cristóbal Roldán Gómez  50%
  */
 @Entity
 @Table(name = "USUARIO")

@@ -17,6 +17,7 @@ import taw.entities.Puja;
 /**
  *
  * @author Carlos Ortega Chirito
+ * @author Alfonso García Gálvez
  */
 @Stateless
 public class ProductoFacade extends AbstractFacade<Producto> {

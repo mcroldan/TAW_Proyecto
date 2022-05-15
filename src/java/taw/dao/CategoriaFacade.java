@@ -14,7 +14,8 @@ import taw.entities.Categoria;
 
 /**
  *
- * @author Carlos Ortega Chirito
+ * @author Carlos Ortega Chirito    50%
+ * @author Alfonso García Gálvez    50%
  */
 @Stateless
 public class CategoriaFacade extends AbstractFacade<Categoria> {
