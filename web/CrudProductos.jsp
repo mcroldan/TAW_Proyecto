@@ -37,6 +37,7 @@
         </tr>
         <%
             List<Producto > productos = (List)request.getAttribute("productos");
+            if(productos != null){
             for (Producto prod : productos){
         %>
         <tr>
@@ -44,14 +45,17 @@
             <td><%= prod.getDescripcion()%></td>
             <td><%= prod.getPreciosalida()%></td>
             <td><%= prod.getMarca()%></td>
-            <td><%= prod.getCategoria()%></td>
+            <td><%= prod.getCategoria().getNombre() %></td>
             <td><a href="ProductoBorrarServlet?id=<%= prod.getId()%>">Borrar</a></td> 
-            <td><a href="ProductoCrearEditarServlet?id=<%= prod.getId() %>">Editar</a></td>
         </tr>
         <%
             }
+            }
         %>
+        
+        <form method="post" action="LogoutServlet">
+            <button>Cerrar sesión</button>
+        </form>
     </table>
-    <a href="ProductoCrearEditarServlet">Crear nuevo Producto ... </a>
     </body>
 </html>

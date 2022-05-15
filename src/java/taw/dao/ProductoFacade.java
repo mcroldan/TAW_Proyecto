@@ -105,7 +105,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     }
     
     public List<Producto> findByCategoria(String filtro){
-        Query q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE p.categotia LIKE :producto ");
+        Query q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE p.categoria.nombre LIKE :producto ");
         q.setParameter("producto", "%" + filtro + "%");
 
         List<Producto> lista = q.getResultList();

@@ -57,10 +57,10 @@ public class UsuarioBorrarServlet extends BaseTAWServlet {
         if(super.comprobarSesion(request, response)){
             if(((Usuario)session.getAttribute("usuario")).getRol().getNombre().equalsIgnoreCase("administrador")){
                 
-                Integer id = Integer.parseInt(request.getParameter("usuario"));
+                Integer id = Integer.parseInt(request.getParameter("id"));
                 Usuario u = this.usuarioFacade.find(id);
                 this.usuarioFacade.remove(u);
-                response.sendRedirect("AministradorServlet");
+                response.sendRedirect("AdministradorServlet");
             }
  }
     }

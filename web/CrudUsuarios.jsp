@@ -1,7 +1,7 @@
 <%-- 
     Document   : CrudUsuarios
     Created on : 13-may-2022, 23:26:59
-    Author     : Alfonso García Gálvez
+        Author     : Alfonso García Gálvez
 --%>
 
 
@@ -24,7 +24,7 @@
         <%
             List<Rol>roles= (List<Rol>)request.getAttribute("roles");
             %>
-        <form method="post" action="newUser.jsp">
+        <form method="post" action="AdministradorCrearUserServlet">
             <select name="rol">
                 <% for(Rol rol : roles) {%>
                 <option value=<%= rol.getId() %>><%= rol.getNombre()%></option>
@@ -54,13 +54,15 @@
             <td><%= user.getPassword()%></td>
             <td><%= user.getEdad() %></td>
             <td><%= user.getId()%></td>
-            <td><a href="UsuarioBorrarServlet?id=<%= user.getId()%>">Borrar</a></td> 
-            <td><a href="UsuarioCrearEditarServlet?id=<%= user.getId() %>">Editar</a></td>
+            <td><a href="UsuarioBorrarServlet?id=<%= user.getId() %>">Borrar</a></td> 
         </tr>
         <%
             }
         %>
+        
+        <form method="post" action="LogoutServlet">
+            <button>Cerrar sesión</button>
+        </form>
     </table>
-    <a href="UsuarioCrearEditarServlet">Crear nuevo Usuario ... </a>
     </body>
 </html>

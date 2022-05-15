@@ -27,12 +27,19 @@
             <button>Estudios estadísticos</button>
         </form>
         
+        <%
+          } else if(rol.equalsIgnoreCase("Administrador")){ %>
+        <form method="get" action="AdministradorServlet" name="goToCrud">
+            <button>CRUD Usuarios</button>
+        </form>
+        
+        <form method="post" action="AdministradorProductoServlet">
+            <button>CRUD Productos</button>
+        </form>
+        <%  } %>
+        
         <form method="post" action="LogoutServlet">
             <button>Cerrar sesión</button>
         </form>
-        
-        <%
-            }
-        %>
     </body>
 </html>
