@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package taw.service;
+package taw.services;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -15,13 +15,14 @@ import taw.entities.Usuario;
  * @author PC
  */
 @Stateless
-public class UsuarioService {
+public class UsuarioService{
     @EJB UsuarioFacade usuarioFacade;
     
     public Usuario comprobarUsuario(String username, String password){
         return this.usuarioFacade.comprobarUsuario(username, password);
     }
-    public void create(Usuario u){
-        this.usuarioFacade.create(u);
+
+    public void create(Usuario u) throws Exception{
+            this.usuarioFacade.create(u);
     }
 }

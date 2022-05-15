@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import taw.dao.RolFacade;
 import taw.entities.Usuario;
-import taw.service.UsuarioService;
+import taw.services.UsuarioService;
 
 /**
  *
@@ -81,7 +81,9 @@ public class RegisterServlet extends HttpServlet {
             request.setAttribute("error", "Nuevo usuario creado con éxito. Inicie sesión");
             request.getRequestDispatcher("jsplogin.jsp").forward(request, response);
         }catch(Exception err){
-            request.setAttribute("error", "Rellene todos los campos obligatorios correctamente para crear un usuario.");
+            String error = "Rellene todos los campos obligatorios correctamente para crear un usuario.";
+            if(err.getMessage() != null && !err.getMessage().equalsIgnoreCase("")) error = err.getMessage();
+            request.setAttribute("error", error);
             request.getRequestDispatcher("jsplogin.jsp").forward(request, response);
         }        
     }
