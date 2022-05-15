@@ -45,10 +45,13 @@
             <td><%= prod.getPreciosalida()%></td>
             <td><%= prod.getMarca()%></td>
             <td><%= prod.getCategoria()%></td>
+            <td><a href="ProductoBorrarServlet?id=<%= prod.getId()%>">Borrar</a></td> 
+            <td><a href="ProductoCrearEditarServlet?id=<%= prod.getId() %>">Editar</a></td>
         </tr>
         <%
             }
         %>
     </table>
+    <a href="ProductoCrearEditarServlet">Crear nuevo Producto ... </a>
     </body>
 </html>

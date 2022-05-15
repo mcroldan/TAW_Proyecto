@@ -54,10 +54,13 @@
             <td><%= user.getPassword()%></td>
             <td><%= user.getEdad() %></td>
             <td><%= user.getId()%></td>
+            <td><a href="UsuarioBorrarServlet?id=<%= user.getId()%>">Borrar</a></td> 
+            <td><a href="UsuarioCrearEditarServlet?id=<%= user.getId() %>">Editar</a></td>
         </tr>
         <%
             }
         %>
     </table>
+    <a href="UsuarioCrearEditarServlet">Crear nuevo Usuario ... </a>
     </body>
 </html>
