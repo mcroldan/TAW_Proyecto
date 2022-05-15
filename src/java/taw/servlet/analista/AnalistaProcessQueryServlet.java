@@ -16,8 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import taw.dao.EstudioFacade;
 import taw.dao.ProductoFacade;
 import taw.dao.UsuarioFacade;
+import taw.dto.EstudioDTO;
 import taw.entities.Estudio;
 import taw.entities.Usuario;
+import taw.services.EstudioService;
 import taw.servlet.BaseTAWServlet;
 
 /**
@@ -27,9 +29,7 @@ import taw.servlet.BaseTAWServlet;
 @WebServlet(name = "AnalistaProcessQueryServlet", urlPatterns = {"/AnalistaProcessQueryServlet"})
 public class AnalistaProcessQueryServlet extends BaseTAWServlet {
     
-    @EJB EstudioFacade estudioFacade;
-    @EJB UsuarioFacade usuarioFacade;
-    @EJB ProductoFacade productoFacade;
+    @EJB EstudioService es;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,25 +46,8 @@ public class AnalistaProcessQueryServlet extends BaseTAWServlet {
         
         if(super.comprobarSesion(request, response)){
             Integer id = Integer.parseInt(request.getParameter("estudio"));
-            Estudio e = this.estudioFacade.find(id);
-            Integer count = 1;
-
-            if(e.getTabla().equalsIgnoreCase("Usuario")){
-                count = this.usuarioFacade.count();
-            } else if(e.getTabla().equalsIgnoreCase("Producto")){
-                count = this.productoFacade.count();
-            }
-
-            List l;
-            if(e.getAgrupar().equalsIgnoreCase("-")){
-                l = this.estudioFacade.findAnalistaQueryNoGroup(e.getTabla(), e.getOrdenar(), e.getNumElementos(), e.getTipoOrden());
-            } else {
-                if(e.getOperacion().equalsIgnoreCase("Cantidad")) {
-                    l = this.estudioFacade.findAnalistaQueryGroup(e.getTabla(), e.getOrdenar(), e.getNumElementos(), e.getTipoOrden(), e.getAgrupar());
-                } else {
-                    l = this.estudioFacade.findAnalistaQueryGroupPercentage(e.getTabla(), e.getOrdenar(), e.getNumElementos(), e.getTipoOrden(), e.getAgrupar(), count);
-                }    
-            }
+            EstudioDTO e = this.es.buscarEstudio(id);
+            List l = this.es.getQueryList(e);
 
             request.setAttribute("resultado", l);
             request.setAttribute("estudio", e);

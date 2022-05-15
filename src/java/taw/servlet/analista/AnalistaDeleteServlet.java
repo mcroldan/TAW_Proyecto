@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import taw.dao.EstudioFacade;
+import taw.dto.EstudioDTO;
 import taw.entities.Estudio;
+import taw.services.EstudioService;
 import taw.servlet.BaseTAWServlet;
 
 /**
@@ -23,7 +25,7 @@ import taw.servlet.BaseTAWServlet;
 @WebServlet(name = "AnalistaDeleteServlet", urlPatterns = {"/AnalistaDeleteServlet"})
 public class AnalistaDeleteServlet extends BaseTAWServlet {
     
-    @EJB EstudioFacade estudioFacade;
+    @EJB EstudioService es;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,8 +42,7 @@ public class AnalistaDeleteServlet extends BaseTAWServlet {
 
      if(super.comprobarSesion(request, response)){
         Integer id = Integer.parseInt(request.getParameter("estudio"));
-        Estudio e = this.estudioFacade.find(id);
-        this.estudioFacade.remove(e);
+        this.es.borrarEstudio(id);
         response.sendRedirect("AnalistaServlet");
      }
     }

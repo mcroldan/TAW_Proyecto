@@ -4,6 +4,10 @@
     Author     : xdmrg
 --%>
 
+<%@page import="taw.dto.ProductoDTO"%>
+<%@page import="taw.dto.UsuarioDTO"%>
+<%@page import="taw.dto.EstudioDTO"%>
+<%@page import="taw.dto.EstudioDTO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="taw.entities.Producto"%>
 <%@page import="taw.entities.Estudio"%>
@@ -18,7 +22,7 @@
     </head>
     <body>
         <% 
-            Estudio e = (Estudio)request.getAttribute("estudio");
+            EstudioDTO e = (EstudioDTO)request.getAttribute("estudio");
         %>
         <h1><%= e.getNombre() %></h1>
         
@@ -73,8 +77,8 @@
         <%
                     }
                 } else if(e.getTabla().equalsIgnoreCase("Usuario")) { 
-                    List<Usuario> resultado = (List<Usuario>)request.getAttribute("resultado");
-                    for (Usuario u : resultado){
+                    List<UsuarioDTO> resultado = (List<UsuarioDTO>)request.getAttribute("resultado");
+                    for (UsuarioDTO u : resultado){
         %>
                     <tr>
                         <td><%= u.getId() %></td>
@@ -92,9 +96,9 @@
         <%
                     }
                 } else if (e.getTabla().equalsIgnoreCase("Producto")) { 
-                    List<Producto> resultado = (List<Producto>)request.getAttribute("resultado");
+                    List<ProductoDTO> resultado = (List<ProductoDTO>)request.getAttribute("resultado");
                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-                    for (Producto p : resultado){ %>
+                    for (ProductoDTO p : resultado){ %>
                     <tr>
                         <td><%= p.getId() %></td>
                         <td><%= p.getVendedor().getNombre() + " " + p.getVendedor().getApellidos() + " (" + p.getVendedor().getId() + ")" %></td>
@@ -104,7 +108,7 @@
                         <td><img height="128" src=<%= p.getUrlFoto()%>></td>
                         <td><%= p.getMarca()%></td>
                         <td><%= p.getCategoria().getNombre() %></td>
-                        <td><%= format.format(p.getFechainicio()) %></td>
+                        <td><%= format.format(p.getFechaInicio()) %></td>
                     </tr>
               <%    }
             }

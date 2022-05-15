@@ -17,8 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import taw.dao.EstudioFacade;
 import taw.dao.UsuarioFacade;
+import taw.dto.EstudioDTO;
 import taw.entities.Estudio;
 import taw.entities.Usuario;
+import taw.services.EstudioService;
 import taw.servlet.BaseTAWServlet;
 
 /**
@@ -27,8 +29,8 @@ import taw.servlet.BaseTAWServlet;
  */
 @WebServlet(urlPatterns = {"/AnalistaServlet"})
 public class AnalistaServlet extends BaseTAWServlet {
-    
-    @EJB EstudioFacade estudioFacade;
+
+    @EJB EstudioService es;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,16 +48,12 @@ public class AnalistaServlet extends BaseTAWServlet {
         
         //CRUD (Only Read by now)
         String filtro = request.getParameter("filtro");
-        List<Estudio> estudios;
+        List<EstudioDTO> estudios;
         HttpSession session = request.getSession();
                 
         if(super.comprobarSesion(request, response)){
             if(((Usuario)session.getAttribute("usuario")).getRol().getNombre().equalsIgnoreCase("Analista")){
-                if(filtro == null || filtro.equals("")){
-                estudios = this.estudioFacade.findAll();
-            } else {
-                estudios = this.estudioFacade.findByName(filtro);
-            }
+            estudios = this.es.listarEstudios(filtro);
             
             request.setAttribute("estudios", estudios);
             request.getRequestDispatcher("jsp_analistacrud.jsp").forward(request, response);

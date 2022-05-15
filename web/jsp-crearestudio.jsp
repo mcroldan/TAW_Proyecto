@@ -4,6 +4,7 @@
     Author     : xdmrg
 --%>
 
+<%@page import="taw.dto.EstudioDTO"%>
 <%@page import="taw.entities.Estudio"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,7 +17,7 @@
         <%
             String tabla = (String)request.getAttribute("tabla");
             String str = (String)request.getAttribute("str");
-            Estudio e = (Estudio)request.getAttribute("estudio");
+            EstudioDTO e = (EstudioDTO)request.getAttribute("estudio");
             if(tabla == null) tabla = "";
             if(str == null) str = "";
             

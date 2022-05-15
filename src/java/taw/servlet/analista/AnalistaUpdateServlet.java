@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import taw.dao.EstudioFacade;
+import taw.dto.EstudioDTO;
 import taw.entities.Estudio;
+import taw.services.EstudioService;
 import taw.servlet.BaseTAWServlet;
 
 /**
@@ -23,7 +25,7 @@ import taw.servlet.BaseTAWServlet;
 @WebServlet(name = "AnalistaUpdateServlet", urlPatterns = {"/AnalistaUpdateServlet"})
 public class AnalistaUpdateServlet extends BaseTAWServlet {
     
-    @EJB EstudioFacade estudioFacade;
+    @EJB EstudioService es;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +42,7 @@ public class AnalistaUpdateServlet extends BaseTAWServlet {
         if(super.comprobarSesion(request, response)){
             Integer e_id = Integer.parseInt(request.getParameter("estudio"));
             String tabla = request.getParameter("tabla");
-            Estudio e = this.estudioFacade.find(e_id);
+            EstudioDTO e = this.es.buscarEstudio(e_id);
             request.setAttribute("estudio", e);
             request.setAttribute("tabla", tabla);
             request.getRequestDispatcher("jsp-crearestudio.jsp").forward(request, response);

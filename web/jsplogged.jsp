@@ -15,7 +15,6 @@
     <body>
         <%
             Usuario u = (Usuario)session.getAttribute("usuario");
-            String[] roles = {"Usuario", "Moderador", "Agua"};
             String rol = u.getRol().getNombre();
         %>
         

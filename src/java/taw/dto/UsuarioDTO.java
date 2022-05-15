@@ -17,6 +17,7 @@ public class UsuarioDTO {
     private String ciudad;
     private String pais;
     private String email;
+    private String telefono;
     private int edad;
     private Character sexo;
     private String username;
@@ -53,6 +54,10 @@ public class UsuarioDTO {
 
     public String getEmail() {
         return email;
+    }
+    
+    public String getTelefono() {
+        return telefono;
     }
 
     public int getEdad() {
@@ -105,6 +110,10 @@ public class UsuarioDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public void setEdad(int edad) {

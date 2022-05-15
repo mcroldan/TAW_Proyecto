@@ -4,6 +4,7 @@
     Author     : xdmrg
 --%>
 
+<%@page import="taw.dto.EstudioDTO"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="taw.entities.Estudio"%>
@@ -56,9 +57,9 @@
             
         </tr>
         <%
-            List<Estudio> estudios = (List)request.getAttribute("estudios");
+            List<EstudioDTO> estudios = (List)request.getAttribute("estudios");
             if(estudios != null){
-                for (Estudio estudio : estudios){
+                for (EstudioDTO estudio : estudios){
         %>
         <tr>
             <td><%= estudio.getId()%></td>

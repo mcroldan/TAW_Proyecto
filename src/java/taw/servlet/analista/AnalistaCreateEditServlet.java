@@ -17,8 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import taw.dao.EstudioFacade;
 import taw.dao.UsuarioFacade;
+import taw.dto.EstudioDTO;
+import taw.dto.UsuarioDTO;
 import taw.entities.Estudio;
 import taw.entities.Usuario;
+import taw.services.EstudioService;
 import taw.servlet.BaseTAWServlet;
 
 /**
@@ -27,9 +30,8 @@ import taw.servlet.BaseTAWServlet;
  */
 @WebServlet(urlPatterns = {"/AnalistaCreateEditServlet"})
 public class AnalistaCreateEditServlet extends BaseTAWServlet {
-    
-    @EJB UsuarioFacade usuarioFacade;
-    @EJB EstudioFacade estudioFacade;
+
+    @EJB EstudioService es;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,7 +49,6 @@ public class AnalistaCreateEditServlet extends BaseTAWServlet {
         
                 //CRUD (Only Read by now)      
         
-        List<Usuario> usuarios;
         HttpSession session = request.getSession();
                 
         if(super.comprobarSesion(request, response)){
@@ -65,44 +66,17 @@ public class AnalistaCreateEditServlet extends BaseTAWServlet {
                         
                         if(name.equalsIgnoreCase("")) {throw new Exception(); }
 
-                        Estudio e = null;
+                        EstudioDTO e = null;
                         if(id != null){
-                            Integer idd = Integer.parseInt(id);
-                            e = this.estudioFacade.find(idd);
+                            e = this.es.buscarEstudio(Integer.parseInt(id));
                         }
                         
                         if(e == null) { // El estudio no existe, se crea
-                            e = new Estudio();
-                            e.setId(this.estudioFacade.getLastId()+1);
-                            e.setNombre(name);
-                            e.setTabla(tabla);
-                            if(!group.equalsIgnoreCase("-")){
-                                param = group;
-                            }
-                            e.setOrdenar(param);
-                            e.setAgrupar(group);
-                            if(!group.equalsIgnoreCase("") && operations.equalsIgnoreCase("")){
-                                operations = "Cantidad";
-                            }
-                            e.setOperacion(operations);
-                            e.setTipoOrden(order);
-                            e.setNumElementos(numElementos);
-                            this.estudioFacade.create(e);
+                            this.es.crearEstudio(-1, name, tabla, param, group, operations, order, numElementos);
+        
                         } else { // Se edita el estudio
-                            if(!e.getNombre().equalsIgnoreCase(name)) e.setNombre(name);
-                            if(!e.getTabla().equalsIgnoreCase(tabla)) e.setTabla(tabla);
-                            if(!group.equalsIgnoreCase("-")){
-                                param = group;
-                            }
-                            if(!e.getOrdenar().equalsIgnoreCase(param)) e.setOrdenar(param);
-                            if(!e.getAgrupar().equalsIgnoreCase(group)) e.setAgrupar(group);
-                            if(!e.getOperacion().equalsIgnoreCase(operations)){
-                                if(!e.getAgrupar().equalsIgnoreCase("") && operations.equalsIgnoreCase("")) operations = "Cantidad";
-                                e.setOperacion(operations);
-                            }
-                            if(!e.getTipoOrden().equalsIgnoreCase(order)) e.setTipoOrden(order);
-                            if(e.getNumElementos()!= (numElementos)) e.setNumElementos(numElementos);
-                            this.estudioFacade.edit(e);
+                            this.es.modificarEstudio(e.getId(), name, tabla, param, group, operations, order, numElementos);
+                            
                         }
              
             response.sendRedirect("AnalistaServlet");
