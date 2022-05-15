@@ -10,7 +10,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import taw.entities.Favoritos;
 import taw.entities.Producto;
+import taw.entities.Puja;
 
 /**
  *
@@ -31,18 +33,21 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         super(Producto.class);
     }
 
-    public List<Producto> findAllButMyProducts(int userid) {
+    public List<Producto> findAllSalvoMisProductosYLosAdjudicados(int userid) {
         Query q;
-        q = this.getEntityManager().createQuery("select p from Producto p where p.vendedor.id != :vendedor");
+        Boolean adj = false;
+        q = this.getEntityManager().createQuery("select DiSTINCT p FROM Producto p LEFT JOIN p.pujaList pu WHERE (pu.adjudicado = FALSE OR pu.adjudicado = NULL) AND (p.vendedor.id != :vendedor)");
         q.setParameter("vendedor", userid);
-        return q.getResultList();
+        List<Producto> res = q.getResultList();
+        return res;
     }
 
     public List<Producto> findBoughtAndFavorites(int userid) {
         Query q;
-        q = this.getEntityManager().createQuery("select DISTINCT p from Producto p join p.favoritosList f join p.pujaList pu where f.usuario.id = :userid OR (pu.comprador.id = :userid AND pu.adjudicado = TRUE)");
+        q = this.getEntityManager().createQuery("select DISTINCT p FROM Producto p LEFT JOIN p.favoritosList pf LEFT JOIN p.pujaList pu WHERE (pu.adjudicado = TRUE) OR (pf.usuario.id = :userid)");
         q.setParameter("userid", userid);
-        return q.getResultList();
+        List<Producto> res = q.getResultList();
+        return res;
     }
     
     public List<Producto> filtroNombreSimilar(String filtro){
@@ -74,6 +79,13 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         q = em.createNamedQuery("SELECT e FROM Producto e WHERE e.FechaInicio >= :FechaInicio");
         q.setParameter("FechaInicio", "%" + filtro + "%");
         return q.getResultList();
+    }
+
+    public Double maxPuja(Integer id) {
+        Query q;
+        q = this.em.createQuery("SELECT max(p.precio) FROM Puja p");
+        List<Double> res = q.getResultList();
+        return(res.isEmpty())?null:res.get(0);
     }
     
 }

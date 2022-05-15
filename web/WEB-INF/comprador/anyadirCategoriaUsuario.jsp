@@ -14,6 +14,7 @@
         <title>Nueva categoría preferida</title>
     </head>
     <body>
+        <jsp:include page="/WEB-INF/comprador/cabeceraComprador.jsp" />
         <h1>Nueva categoría preferida</h1>
         <form action="AnyadirCategoriaPreferidaServlet" method="POST">
         <% String error = (String)request.getAttribute("error");

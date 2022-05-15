@@ -14,7 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Mis pujas</title>
     </head>
-    <body>
+    <body> <jsp:include page="/WEB-INF/comprador/cabeceraComprador.jsp" />
         <h1>Mis pujas</h1>
             <%
                 List<Puja> pujas = (List)request.getAttribute("pujas");
@@ -35,7 +35,7 @@
                             <%= df.format(puja.getFecha()) %>
                         </td>
                         <td><%= puja.getPrecio() %></td>
-                       <td><a href="PujaBorrarServlet?id=<%= puja.getId() %>">Borrar</a></td>
+                       <td><a href="PujaBorrarServlet?pujaid=<%= puja.getId() %>">Borrar</a></td>
                        </tr>
            <%
                     } %>

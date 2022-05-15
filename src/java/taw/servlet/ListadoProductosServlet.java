@@ -41,7 +41,7 @@ public class ListadoProductosServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Usuario user = (Usuario)session.getAttribute("usuario");
         int userid = user.getId();
-        productos = this.productoFacade.findAllButMyProducts(userid);
+        productos = this.productoFacade.findAllSalvoMisProductosYLosAdjudicados(userid);
         request.setAttribute("productos", productos);
         request.getRequestDispatcher("/WEB-INF/comprador/listadoProductos.jsp").forward(request, response);
     }

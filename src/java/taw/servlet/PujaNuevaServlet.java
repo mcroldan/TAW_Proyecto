@@ -6,24 +6,27 @@
 package taw.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ejb.EJB;
-import java.util.List;
+import javax.servlet.http.HttpSession;
+import taw.dao.ProductoFacade;
 import taw.dao.PujaFacade;
+import taw.entities.Producto;
 import taw.entities.Puja;
 import taw.entities.Usuario;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Carlos
+ * @author PC
  */
-@WebServlet(name = "PujaServlet", urlPatterns = {"/PujaServlet"})
-public class PujaServlet extends HttpServlet {
+@WebServlet(name = "PujaNuevaServlet", urlPatterns = {"/PujaNuevaServlet"})
+public class PujaNuevaServlet extends HttpServlet {
+    @EJB ProductoFacade productoFacade;
     @EJB PujaFacade pujaFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,14 +39,26 @@ public class PujaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Puja> pujas;
-        HttpSession session = request.getSession();
-        Usuario user = (Usuario)session.getAttribute("usuario");
-        int userid = user.getId();
-        pujas = this.pujaFacade.findByUserID(userid);
-        
-        request.setAttribute("pujas", pujas);
-        request.getRequestDispatcher("/WEB-INF/comprador/pujas.jsp").forward(request, response);
+        String precio = (String)request.getParameter("precio");
+        String productoid = (String)request.getParameter("productoid");
+        Producto producto = productoFacade.find(Integer.parseInt(productoid));
+        String desdefavoritos = (String)request.getParameter("desdefavoritos");
+        if(precio == null){
+            Double preciomayorPuja = productoFacade.maxPuja(producto.getId());
+            request.setAttribute("producto", producto);
+            request.setAttribute("preciopujanterior", preciomayorPuja);
+            request.setAttribute("desdefavoritos", desdefavoritos);
+            request.getRequestDispatcher("/WEB-INF/comprador/nuevaPuja.jsp").forward(request, response);
+        }else{
+            HttpSession session = request.getSession();
+            Usuario usuario = (Usuario)session.getAttribute("usuario");
+            pujaFacade.nuevaPuja(precio, usuario, producto);
+        }
+        if(request.getAttribute("desdefavoritos")==null){
+            request.getRequestDispatcher("ListadoProductosServlet").forward(request, response);
+        }else{
+            request.getRequestDispatcher("ListadoCompradosYFavoritosServlet").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
