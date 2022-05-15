@@ -14,8 +14,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Listado de productos</title>
     </head>
-    <body>
+    <body> <jsp:include page="/WEB-INF/comprador/cabeceraComprador.jsp" />
         <h1>Listado de productos</h1>
+        <%  String resultadoPuja = (String)request.getAttribute("resultadoPuja");
+            if(resultadoPuja != null){
+        %>
+            <%= resultadoPuja %>
+        <% } %>
             <%
                 List<Producto> productos = (List)request.getAttribute("productos");
                 Usuario user =  (Usuario)session.getAttribute("usuario");
@@ -42,9 +47,17 @@
                         <td> <%= prod.getMarca() %> </td>
                         <td> <%= prod.getCategoria().getNombre() %>
                         <td> <%= df.format(prod.getFechainicio()) %> </td>
-                        <td><a href="ProductoAlternarFavoritoServlet?id=<%= prod.getId() %>+userid=<%= user.getId() %>">Alternar favorito</a></td>
-                        <td><a href="PujaNuevaServlet?id=<%= prod.getId() %>">Hacer puja</a></td>
-                        
+                        <td><form action="AlternarFavoritoServlet" method="POST">
+                            <input type="hidden" name="productoid" value="<%= prod.getId() %>"/>
+                            <input type="submit" value="Alternar favorito" />
+                            </form>
+                        </td>
+                        <td>
+                        <form action="PujaNuevaServlet" method="POST">
+                            <input type="hidden" name="productoid" value="<%= prod.getId() %>"/>
+                            <input type="submit" value="Hacer puja" />
+                        </form>
+                        </td>
                        </tr>
            <%
                     } %>

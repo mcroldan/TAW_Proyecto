@@ -14,7 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Mis categorías preferidas</title>
     </head>
-    <body>
+    <body> <jsp:include page="/WEB-INF/comprador/cabeceraComprador.jsp" />
         <h1>Mis categorías</h1>
         <table border="1">
             <% 
@@ -36,7 +36,7 @@
             <td>
                 <%= categoria.getNombre() %>
             </td>
-           <td><a href="CategoriaPreferidaQuitarServlet?cat_id=<%= categoria.getId() + "user_id"%>">Quitar</a></td>
+            <td><a href="CategoriaPreferidaQuitarServlet?categoriaid=<%= categoria.getId() %>">Quitar</a></td>
            </tr>
            <%
                     }

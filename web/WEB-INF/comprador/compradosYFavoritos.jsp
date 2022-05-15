@@ -14,7 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Mis productos</title>
     </head>
-    <body>
+    <body> <jsp:include page="/WEB-INF/comprador/cabeceraComprador.jsp" />
         <h1>Productos comprados y favoritos</h1>
             <%
                 List<Producto> productos = (List)request.getAttribute("productos");
@@ -42,8 +42,18 @@
                         <td> <%= prod.getMarca() %> </td>
                         <td> <%= prod.getCategoria().getNombre() %>
                         <td> <%= df.format(prod.getFechainicio()) %> </td>
-                        <td><a href="ProductoAlternarFavoritoServlet?id=<%= prod.getId() %>+userid=<%= user.getId() %>">Borrar</a></td>
-                        <td><a href="PujaNuevaServlet?id=<%= prod.getId() %>">Hacer puja</a></td>
+                        <td><form action="AlternarFavoritoServlet" method="POST">
+                            <input type="hidden" name="productoid" value="<%= prod.getId() %>"/>
+                            <input type="hidden" name="desdefavoritos" value="1"/>
+                            <input type="submit" value="Alternar favorito" />
+                            </form>
+                        </td>
+                        <td>
+                        <form action="PujaNuevaServlet" method="POST">
+                            <input type="hidden" name="productoid" value="<%= prod.getId() %>"/>
+                            <input type="hidden" name="desdefavoritos" value="1"/>
+                            <input type="submit" value="Hacer puja" />
+                        </form>
                         
                        </tr>
            <%

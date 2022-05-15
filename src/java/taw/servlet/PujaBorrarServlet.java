@@ -6,24 +6,21 @@
 package taw.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ejb.EJB;
-import java.util.List;
 import taw.dao.PujaFacade;
-import taw.entities.Puja;
-import taw.entities.Usuario;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Carlos
+ * @author PC
  */
-@WebServlet(name = "PujaServlet", urlPatterns = {"/PujaServlet"})
-public class PujaServlet extends HttpServlet {
+@WebServlet(name = "PujaBorrarServlet", urlPatterns = {"/PujaBorrarServlet"})
+public class PujaBorrarServlet extends HttpServlet {
     @EJB PujaFacade pujaFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,14 +33,10 @@ public class PujaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Puja> pujas;
-        HttpSession session = request.getSession();
-        Usuario user = (Usuario)session.getAttribute("usuario");
-        int userid = user.getId();
-        pujas = this.pujaFacade.findByUserID(userid);
-        
-        request.setAttribute("pujas", pujas);
-        request.getRequestDispatcher("/WEB-INF/comprador/pujas.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        Integer pujaid = Integer.valueOf(request.getParameter("pujaid"));
+        pujaFacade.borrarPuja(pujaid);
+        response.sendRedirect("PujaServlet");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
