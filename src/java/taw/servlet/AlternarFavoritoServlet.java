@@ -22,7 +22,7 @@ import taw.entities.Usuario;
 
 /**
  *
- * @author PC
+ * @author Carlos Ortega Chirito
  */
 @WebServlet(name = "AlternarFavoritoServlet", urlPatterns = {"/AlternarFavoritoServlet"})
 public class AlternarFavoritoServlet extends HttpServlet {

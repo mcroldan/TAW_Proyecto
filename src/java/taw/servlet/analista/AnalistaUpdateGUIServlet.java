@@ -16,7 +16,7 @@ import taw.servlet.BaseTAWServlet;
 
 /**
  *
- * @author xdmrg
+ * @author Manuel Cristóbal Roldán Gómez
  */
 @WebServlet(name = "AnalistaUpdateGUIServlet", urlPatterns = {"/AnalistaUpdateGUIServlet"})
 public class AnalistaUpdateGUIServlet extends BaseTAWServlet {

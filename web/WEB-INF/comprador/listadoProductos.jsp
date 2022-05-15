@@ -1,7 +1,7 @@
 <%-- 
     Document   : listadoProductos
     Created on : 30-abr-2022, 22:14:48
-    Author     : Carlos
+    Author     : Carlos Ortega Chirito
 --%>
 
 <%@page import="taw.entities.Usuario"%>

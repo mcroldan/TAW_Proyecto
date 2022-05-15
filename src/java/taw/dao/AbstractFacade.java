@@ -16,7 +16,7 @@ import javax.validation.ValidatorFactory;
 
 /**
  *
- * @author Carlos
+ * @author Carlos Ortega Chirito
  */
 public abstract class AbstractFacade<T> {
 

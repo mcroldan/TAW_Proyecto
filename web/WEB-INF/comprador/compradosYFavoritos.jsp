@@ -1,7 +1,7 @@
 <%-- 
     Document   : compradosYFavoritos
     Created on : 01-may-2022, 15:35:19
-    Author     : PC
+    Author     : Carlos Ortega Chirito
 --%>
 
 <%@page import="taw.entities.Usuario"%>

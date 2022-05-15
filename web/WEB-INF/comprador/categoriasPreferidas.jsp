@@ -1,7 +1,7 @@
 <%-- 
     Document   : categoriasPreferidas
     Created on : 24-abr-2022, 22:23:36
-    Author     : Carlos
+    Author     : Carlos Ortega Chirito
 --%>
 
 <%@page import="taw.entities.Usuario"%>

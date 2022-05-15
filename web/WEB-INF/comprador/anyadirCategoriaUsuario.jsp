@@ -1,7 +1,7 @@
 <%-- 
     Document   : anyadirCategoriaUsuario
     Created on : 14-may-2022, 20:12:59
-    Author     : PC
+    Author     : Carlos Ortega Chirito
 --%>
 
 <%@page import="taw.entities.Categoria"%>

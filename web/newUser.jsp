@@ -1,7 +1,7 @@
 <%-- 
     Document   : newUser
     Created on : 3 abr 2022, 18:58:33
-    Author     : xdmrg
+    Author     : Manuel Cristóbal Roldán Gómez
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

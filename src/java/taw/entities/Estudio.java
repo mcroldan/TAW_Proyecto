@@ -19,7 +19,7 @@ import taw.dto.EstudioDTO;
 
 /**
  *
- * @author xdmrg
+ * @author Manuel Cristóbal Roldán Gómez
  */
 @Entity
 @Table(name = "ESTUDIO")

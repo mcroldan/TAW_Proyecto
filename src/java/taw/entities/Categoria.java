@@ -26,7 +26,7 @@ import taw.dto.CategoriaDTO;
 
 /**
  *
- * @author Carlos
+ * @author Carlos Ortega Chirito
  */
 @Entity
 @Table(name = "CATEGORIA")

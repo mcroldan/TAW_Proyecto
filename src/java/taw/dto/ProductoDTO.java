@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  *
- * @author xdmrg
+ * @author Manuel Cristóbal Roldán Gómez
  */
 public class ProductoDTO {
     private Integer id;

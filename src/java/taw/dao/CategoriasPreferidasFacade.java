@@ -17,7 +17,7 @@ import taw.servlet.CategoriaPreferidaQuitarServlet;
 
 /**
  *
- * @author Carlos
+ * @author Carlos Ortega Chirito
  */
 @Stateless
 public class CategoriasPreferidasFacade extends AbstractFacade<CategoriasPreferidas> {

@@ -28,7 +28,7 @@ import taw.dto.UsuarioDTO;
 
 /**
  *
- * @author Carlos
+ * @author Carlos Ortega Chirito
  */
 @Entity
 @Table(name = "USUARIO")

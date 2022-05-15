@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Carlos
+ * @author Carlos Ortega Chirito
  */
 @WebServlet(name = "PujaServlet", urlPatterns = {"/PujaServlet"})
 public class PujaServlet extends HttpServlet {

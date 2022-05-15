@@ -20,7 +20,7 @@ import taw.entities.Usuario;
 
 /**
  *
- * @author xdmrg
+ * @author Manuel Cristóbal Roldán Gómez
  */
 
 @Stateless

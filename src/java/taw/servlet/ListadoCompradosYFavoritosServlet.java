@@ -21,7 +21,7 @@ import taw.entities.Usuario;
 
 /**
  *
- * @author PC
+ * @author Carlos Ortega Chirito
  */
 @WebServlet(name = "ListadoCompradosYFavoritosServlet", urlPatterns = {"/ListadoCompradosYFavoritosServlet"})
 public class ListadoCompradosYFavoritosServlet extends HttpServlet {

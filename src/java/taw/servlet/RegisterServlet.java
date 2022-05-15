@@ -18,7 +18,7 @@ import taw.services.UsuarioService;
 
 /**
  *
- * @author xdmrg
+ * @author Manuel Cristóbal Roldán Gómez
  */
 @WebServlet(urlPatterns = {"/RegisterServlet"})
 public class RegisterServlet extends HttpServlet {

@@ -12,7 +12,7 @@ import taw.entities.Usuario;
 
 /**
  *
- * @author PC
+ * @author Carlos Ortega Chirito
  */
 @Stateless
 public class UsuarioService{

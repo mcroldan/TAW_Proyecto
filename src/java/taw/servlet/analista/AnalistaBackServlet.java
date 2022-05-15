@@ -17,7 +17,7 @@ import taw.servlet.BaseTAWServlet;
 
 /**
  *
- * @author xdmrg
+ * @author Manuel Cristóbal Roldán Gómez
  */
 @WebServlet(name = "AnalistaBackServlet", urlPatterns = {"/AnalistaBackServlet"})
 public class AnalistaBackServlet extends BaseTAWServlet {

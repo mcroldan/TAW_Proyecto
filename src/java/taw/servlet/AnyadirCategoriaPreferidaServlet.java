@@ -23,7 +23,7 @@ import taw.entities.Usuario;
 
 /**
  *
- * @author PC
+ * @author Carlos Ortega Chirito
  */
 @WebServlet(name = "AnyadirCategoriaPreferidaServlet", urlPatterns = {"/AnyadirCategoriaPreferidaServlet"})
 public class AnyadirCategoriaPreferidaServlet extends HttpServlet {

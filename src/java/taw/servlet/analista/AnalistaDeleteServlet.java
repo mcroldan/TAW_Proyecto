@@ -20,7 +20,7 @@ import taw.servlet.BaseTAWServlet;
 
 /**
  *
- * @author xdmrg
+ * @author Manuel Cristóbal Roldán Gómez
  */
 @WebServlet(name = "AnalistaDeleteServlet", urlPatterns = {"/AnalistaDeleteServlet"})
 public class AnalistaDeleteServlet extends BaseTAWServlet {

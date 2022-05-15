@@ -1,7 +1,7 @@
 <%-- 
     Document   : jsplogged
     Created on : 2 abr 2022, 22:20:45
-    Author     : xdmrg
+    Author     : Manuel Cristóbal Roldán Gómez
 --%>
 
 <%@page import="taw.entities.Usuario"%>

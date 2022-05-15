@@ -17,7 +17,7 @@ import taw.entities.Usuario;
 
 /**
  *
- * @author xdmrg
+ * @author Manuel Cristóbal Roldán Gómez
  */
 @WebServlet(urlPatterns = {"/BaseTAWServlet"})
 public abstract class BaseTAWServlet extends HttpServlet {

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author xdmrg
+ * @author Manuel Cristóbal Roldán Gómez
  */
 @WebServlet(urlPatterns = {"/LogoutServlet"})
 public class LogoutServlet extends BaseTAWServlet {

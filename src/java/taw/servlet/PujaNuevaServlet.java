@@ -22,7 +22,7 @@ import taw.entities.Usuario;
 
 /**
  *
- * @author PC
+ * @author Carlos Ortega Chirito
  */
 @WebServlet(name = "PujaNuevaServlet", urlPatterns = {"/PujaNuevaServlet"})
 public class PujaNuevaServlet extends HttpServlet {

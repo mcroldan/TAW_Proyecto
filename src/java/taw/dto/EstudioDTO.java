@@ -6,7 +6,7 @@ package taw.dto;
 
 /**
  *
- * @author xdmrg
+ * @author Manuel Cristóbal Roldán Gómez
  */
 public class EstudioDTO {
     private Integer id;

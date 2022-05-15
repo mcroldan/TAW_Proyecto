@@ -12,7 +12,7 @@ import taw.entities.ListasUsuario;
 
 /**
  *
- * @author Carlos
+ * @author Carlos Ortega Chirito
  */
 @Stateless
 public class ListasUsuarioFacade extends AbstractFacade<ListasUsuario> {

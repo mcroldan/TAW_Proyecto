@@ -17,7 +17,7 @@ import taw.dao.PujaFacade;
 
 /**
  *
- * @author PC
+ * @author Carlos Ortega Chirito
  */
 @WebServlet(name = "PujaBorrarServlet", urlPatterns = {"/PujaBorrarServlet"})
 public class PujaBorrarServlet extends HttpServlet {

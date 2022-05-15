@@ -20,7 +20,7 @@ import taw.entities.Usuario;
 
 /**
  *
- * @author PC
+ * @author Carlos Ortega Chirito
  */
 @WebServlet(name = "CategoriaPreferidaQuitarServlet", urlPatterns = {"/CategoriaPreferidaQuitarServlet"})
 public class CategoriaPreferidaQuitarServlet extends HttpServlet {

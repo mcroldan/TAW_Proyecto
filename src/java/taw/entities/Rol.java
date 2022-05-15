@@ -26,7 +26,7 @@ import taw.dto.RolDTO;
 
 /**
  *
- * @author Carlos
+ * @author Carlos Ortega Chirito
  */
 @Entity
 @Table(name = "ROL")

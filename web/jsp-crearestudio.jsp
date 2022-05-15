@@ -1,7 +1,7 @@
 <%-- 
     Document   : jsp-crearestudio
     Created on : 5 may 2022, 19:04:25
-    Author     : xdmrg
+    Author     : Manuel Cristóbal Roldán Gómez
 --%>
 
 <%@page import="taw.dto.EstudioDTO"%>

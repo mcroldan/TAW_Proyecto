@@ -24,7 +24,7 @@ import taw.servlet.BaseTAWServlet;
 
 /**
  *
- * @author xdmrg
+ * @author Manuel Cristóbal Roldán Gómez
  */
 @WebServlet(name = "AnalistaProcessQueryServlet", urlPatterns = {"/AnalistaProcessQueryServlet"})
 public class AnalistaProcessQueryServlet extends BaseTAWServlet {

@@ -1,7 +1,7 @@
 <%-- 
     Document   : inicio
     Created on : 25-abr-2022, 14:05:53
-    Author     : Carlos
+    Author     : Carlos Ortega Chirito
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

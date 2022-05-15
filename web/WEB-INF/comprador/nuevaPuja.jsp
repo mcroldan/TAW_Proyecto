@@ -1,7 +1,7 @@
 <%-- 
     Document   : nuevaPuja
     Created on : 15-may-2022, 2:43:06
-    Author     : PC
+    Author     : Carlos Ortega Chirito
 --%>
 
 <%@page import="java.text.DateFormat"%>

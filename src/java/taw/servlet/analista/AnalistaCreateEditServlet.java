@@ -26,7 +26,7 @@ import taw.servlet.BaseTAWServlet;
 
 /**
  *
- * @author xdmrg
+ * @author Manuel Cristóbal Roldán Gómez
  */
 @WebServlet(urlPatterns = {"/AnalistaCreateEditServlet"})
 public class AnalistaCreateEditServlet extends BaseTAWServlet {

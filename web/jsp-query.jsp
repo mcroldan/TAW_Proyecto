@@ -1,7 +1,7 @@
 <%-- 
     Document   : jsp-query
     Created on : 14 may 2022, 18:05:02
-    Author     : xdmrg
+    Author     : Manuel Cristóbal Roldán Gómez
 --%>
 
 <%@page import="taw.dto.ProductoDTO"%>

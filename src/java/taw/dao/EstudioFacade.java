@@ -15,7 +15,7 @@ import taw.entities.Usuario;
 
 /**
  *
- * @author xdmrg
+ * @author Manuel Cristóbal Roldán Gómez
  */
 @Stateless
 public class EstudioFacade extends AbstractFacade<Estudio> {

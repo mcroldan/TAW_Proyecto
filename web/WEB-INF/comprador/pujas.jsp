@@ -1,7 +1,7 @@
 <%-- 
     Document   : pujas
     Created on : 24-abr-2022, 22:24:50
-    Author     : Carlos
+    Author     : Carlos Ortega Chirito
 --%>
 
 <%@page import="taw.entities.Producto"%>

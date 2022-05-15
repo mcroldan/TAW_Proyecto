@@ -14,7 +14,7 @@ import taw.entities.Rol;
 
 /**
  *
- * @author Carlos
+ * @author Carlos Ortega Chirito
  */
 @Stateless
 public class RolFacade extends AbstractFacade<Rol> {

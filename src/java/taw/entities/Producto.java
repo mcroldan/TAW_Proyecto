@@ -31,7 +31,7 @@ import taw.dto.ProductoDTO;
 
 /**
  *
- * @author Carlos
+ * @author Carlos Ortega Chirito
  */
 @Entity
 @Table(name = "PRODUCTO")

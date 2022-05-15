@@ -16,7 +16,7 @@ import taw.entities.Usuario;
 
 /**
  *
- * @author Carlos
+ * @author Carlos Ortega Chirito
  */
 @Stateless
 public class FavoritosFacade extends AbstractFacade<Favoritos> {

@@ -1,7 +1,7 @@
 <%-- 
     Document   : jsplogin
     Created on : 2 abr 2022, 21:44:26
-    Author     : xdmrg
+    Author     : Manuel Cristóbal Roldán Gómez
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

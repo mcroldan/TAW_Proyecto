@@ -20,7 +20,7 @@ import taw.entities.Usuario;
 
 /**
  *
- * @author Carlos
+ * @author Carlos Ortega Chirito
  */
 @Stateless
 public class PujaFacade extends AbstractFacade<Puja> {

@@ -1,7 +1,7 @@
 <%-- 
     Document   : cabecera
     Created on : 25-abr-2022, 14:18:56
-    Author     : Carlos
+    Author     : Carlos Ortega Chirito
 --%>
 
 <%@page import="taw.entities.Usuario"%>
