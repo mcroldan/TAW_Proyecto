@@ -14,13 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import taw.dao.EstudioFacade;
 import taw.entities.Estudio;
+import taw.servlet.BaseTAWServlet;
 
 /**
  *
  * @author xdmrg
  */
 @WebServlet(name = "AnalistaUpdateServlet", urlPatterns = {"/AnalistaUpdateServlet"})
-public class AnalistaUpdateServlet extends HttpServlet {
+public class AnalistaUpdateServlet extends BaseTAWServlet {
     
     @EJB EstudioFacade estudioFacade;
 
@@ -36,12 +37,14 @@ public class AnalistaUpdateServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Integer e_id = Integer.parseInt(request.getParameter("estudio"));
-        String tabla = request.getParameter("tabla");
-        Estudio e = this.estudioFacade.find(e_id);
-        request.setAttribute("estudio", e);
-        request.setAttribute("tabla", tabla);
-        request.getRequestDispatcher("jsp-crearestudio.jsp").forward(request, response);
+        if(super.comprobarSesion(request, response)){
+            Integer e_id = Integer.parseInt(request.getParameter("estudio"));
+            String tabla = request.getParameter("tabla");
+            Estudio e = this.estudioFacade.find(e_id);
+            request.setAttribute("estudio", e);
+            request.setAttribute("tabla", tabla);
+            request.getRequestDispatcher("jsp-crearestudio.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

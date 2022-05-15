@@ -12,13 +12,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import taw.servlet.BaseTAWServlet;
 
 /**
  *
  * @author xdmrg
  */
 @WebServlet(name = "AnalistaUpdateGUIServlet", urlPatterns = {"/AnalistaUpdateGUIServlet"})
-public class AnalistaUpdateGUIServlet extends HttpServlet {
+public class AnalistaUpdateGUIServlet extends BaseTAWServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,23 +34,16 @@ public class AnalistaUpdateGUIServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        HttpSession session = request.getSession();
-        String tabla = (String)session.getAttribute("tabla");
-        if(tabla == null){
-            tabla = request.getParameter("tabla");
-            request.setAttribute("tabla", tabla);
-        } else {
-            String[] name;
-        
-        // USUARIO
-        if(tabla.equalsIgnoreCase("usuario")){
-            //name = {"idUs1", "noUs1", "apUs1", "cpUs1", "dirUs1", "ciUs1", "paUs1", "telUs1", "mailUs1", "edUs1", "seUs1", "usUs1"};
-               
+        if(super.comprobarSesion(request, response)){
+            HttpSession session = request.getSession();
+            String tabla = (String)session.getAttribute("tabla");
+            if(tabla == null){
+                tabla = request.getParameter("tabla");
+                request.setAttribute("tabla", tabla);
+            }
+            
+            request.getRequestDispatcher("jsp-crearestudio.jsp").forward(request, response);
         }
-        }
-        
-        //request.setAttribute("str", string);
-        request.getRequestDispatcher("jsp-crearestudio.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

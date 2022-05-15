@@ -22,31 +22,37 @@
         </style>
     </head>
     <body>
+        <h1>LISTA DE ESTUDIOS</h1>
         <form method="post" action="AnalistaServlet">
-            <input type="text" placeholder="Introduzca filtro por nombre o apellido" name="filtro">
-            <button>Buscar</button>
+            <h3>Filtro por nombre</h3>
+            <input type="text" placeholder="Dejar en blanco para mostrar todo" name="filtro">
+            <button>Buscar</button><br/><br/>
         </form>
         
+        <h3>Acciones</h3>
         <a href="./jsp-crearestudio.jsp">
             <button name="button" value="OK" type="button">Nuevo estudio</button>
-        </a>
+        </a><br/><br/>
         
         <form method="post" action="LogoutServlet">
             <button>Cerrar sesión</button>
-        </form>
+        </form><br/>
         
+        <h3>Lista de estudios</h3>
     <table style="width:100%">
         <tr>
             <th>ID</th>
             <th>NOMBRE</th>
             <th>TABLA</th>
             <th>ORDEN</th>
+            <th>TIPO DE ORDEN</th>
             <th>GRUPOS</th>
             <th>OPERACION</th>
             <th>NUMERO ELEMENTOS</th>
             <th>BORRAR</th>
             <th>EDITAR</th>
             <th>DUPLICAR</th>
+            <th>VER</th>
             
         </tr>
         <%
@@ -59,12 +65,14 @@
             <td><%= estudio.getNombre()%></td>
             <td><%= estudio.getTabla() %></td>
             <td><%= estudio.getOrdenar() %></td>
+            <td><%= estudio.getTipoOrden()%></td>
             <td><%= estudio.getAgrupar() %></td>
             <td><%= estudio.getOperacion() %></td>
             <td><%= estudio.getNumElementos()%></td>
             <td><a href="AnalistaDeleteServlet?estudio=<%= estudio.getId()%>">Borrar</a></td> 
            <td><a href="AnalistaUpdateServlet?estudio=<%= estudio.getId() %>&tabla=<%= estudio.getTabla() %>" >Editar</a></td>  
            <td><a href="AnalistaDuplicateServlet?estudio=<%= estudio.getId() %>" >Duplicar</a></td>
+           <td><a href="AnalistaProcessQueryServlet?estudio=<%= estudio.getId() %>" >Ver</a></td>
         </tr>
         <%
                 }

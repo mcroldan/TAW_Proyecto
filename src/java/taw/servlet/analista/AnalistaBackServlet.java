@@ -6,23 +6,21 @@ package taw.servlet.analista;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import taw.dao.EstudioFacade;
-import taw.entities.Estudio;
+import javax.servlet.http.HttpSession;
+import taw.entities.Usuario;
 import taw.servlet.BaseTAWServlet;
 
 /**
  *
  * @author xdmrg
  */
-@WebServlet(name = "AnalistaDuplicateServlet", urlPatterns = {"/AnalistaDuplicateServlet"})
-public class AnalistaDuplicateServlet extends BaseTAWServlet {
-    @EJB EstudioFacade estudioFacade;
+@WebServlet(name = "AnalistaBackServlet", urlPatterns = {"/AnalistaBackServlet"})
+public class AnalistaBackServlet extends BaseTAWServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,23 +33,15 @@ public class AnalistaDuplicateServlet extends BaseTAWServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
+        HttpSession session = request.getSession();
         
         if(super.comprobarSesion(request, response)){
-            Integer id = Integer.parseInt(request.getParameter("estudio"));
-            Estudio e = this.estudioFacade.find(id);
-            Estudio e2 = new Estudio();
-            e2.setId(this.estudioFacade.getLastId()+1);
-            e2.setNombre(e.getNombre() + " - Copy");
-            e2.setTabla(e.getTabla());
-            e2.setOrdenar(e.getOrdenar());
-            e2.setAgrupar(e.getAgrupar());
-            e2.setOperacion(e.getOperacion());
-            e2.setTipoOrden(e.getTipoOrden());
-            e2.setNumElementos(e.getNumElementos());
-            this.estudioFacade.create(e2);
-            response.sendRedirect("AnalistaServlet");
+            if(((Usuario)session.getAttribute("usuario")).getRol().getNombre().equalsIgnoreCase("analista")){
+                response.sendRedirect("AnalistaServlet");
+            }
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -22,6 +22,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import taw.dto.RolDTO;
 
 /**
  *
@@ -112,4 +113,11 @@ public class Rol implements Serializable {
         return "taw.entities.Rol[ id=" + id + " ]";
     }
     
+    public RolDTO toDTO(){
+        RolDTO dto = new RolDTO();
+        dto.setId(id);
+        dto.setNombre(nombre);
+        
+        return dto;
+    }
 }

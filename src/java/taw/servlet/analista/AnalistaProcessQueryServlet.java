@@ -6,6 +6,7 @@ package taw.servlet.analista;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,16 +14,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import taw.dao.EstudioFacade;
+import taw.dao.ProductoFacade;
+import taw.dao.UsuarioFacade;
 import taw.entities.Estudio;
+import taw.entities.Usuario;
 import taw.servlet.BaseTAWServlet;
 
 /**
  *
  * @author xdmrg
  */
-@WebServlet(name = "AnalistaDuplicateServlet", urlPatterns = {"/AnalistaDuplicateServlet"})
-public class AnalistaDuplicateServlet extends BaseTAWServlet {
+@WebServlet(name = "AnalistaProcessQueryServlet", urlPatterns = {"/AnalistaProcessQueryServlet"})
+public class AnalistaProcessQueryServlet extends BaseTAWServlet {
+    
     @EJB EstudioFacade estudioFacade;
+    @EJB UsuarioFacade usuarioFacade;
+    @EJB ProductoFacade productoFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,18 +47,31 @@ public class AnalistaDuplicateServlet extends BaseTAWServlet {
         if(super.comprobarSesion(request, response)){
             Integer id = Integer.parseInt(request.getParameter("estudio"));
             Estudio e = this.estudioFacade.find(id);
-            Estudio e2 = new Estudio();
-            e2.setId(this.estudioFacade.getLastId()+1);
-            e2.setNombre(e.getNombre() + " - Copy");
-            e2.setTabla(e.getTabla());
-            e2.setOrdenar(e.getOrdenar());
-            e2.setAgrupar(e.getAgrupar());
-            e2.setOperacion(e.getOperacion());
-            e2.setTipoOrden(e.getTipoOrden());
-            e2.setNumElementos(e.getNumElementos());
-            this.estudioFacade.create(e2);
-            response.sendRedirect("AnalistaServlet");
+            Integer count = 1;
+
+            if(e.getTabla().equalsIgnoreCase("Usuario")){
+                count = this.usuarioFacade.count();
+            } else if(e.getTabla().equalsIgnoreCase("Producto")){
+                count = this.productoFacade.count();
+            }
+
+            List l;
+            if(e.getAgrupar().equalsIgnoreCase("-")){
+                l = this.estudioFacade.findAnalistaQueryNoGroup(e.getTabla(), e.getOrdenar(), e.getNumElementos(), e.getTipoOrden());
+            } else {
+                if(e.getOperacion().equalsIgnoreCase("Cantidad")) {
+                    l = this.estudioFacade.findAnalistaQueryGroup(e.getTabla(), e.getOrdenar(), e.getNumElementos(), e.getTipoOrden(), e.getAgrupar());
+                } else {
+                    l = this.estudioFacade.findAnalistaQueryGroupPercentage(e.getTabla(), e.getOrdenar(), e.getNumElementos(), e.getTipoOrden(), e.getAgrupar(), count);
+                }    
+            }
+
+            request.setAttribute("resultado", l);
+            request.setAttribute("estudio", e);
+            request.getRequestDispatcher("jsp-query.jsp").forward(request, response);
         }
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

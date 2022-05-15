@@ -26,8 +26,8 @@
         <form method="post" action="AnalistaUpdateGUIServlet">
             <select onchange="this.form.submit()" name="tabla">
                 <option disabled selected value> </option>
-                <option value="usuario">Usuario</option>
-                <option value="producto">Producto</option>
+                <option value="Usuario">Usuario</option>
+                <option value="Producto">Producto</option>
             </select>
         </form>
         
@@ -37,73 +37,73 @@
         <input type="text" name="name" placeholder="Introduzca nombre del estudio" value="<%= e != null ? e.getNombre() : "" %>"><br/><br/>
         
         <b><%= tabla.toUpperCase() %></b><br/><br/>
-        <%= str %>
+        <p style="color:red"><%= str %></p><br/>
         <br/><b>Ordenar según:</b><br/>
         <select name="param">
         <% if(tabla.equalsIgnoreCase("usuario")){ %>
-                <option <%= e == null || (e != null && e.getOrdenar()!= 0) ? "" : "selected" %> name="idUs1" value="0">Id</option>
-                <option <%= e != null && e.getOrdenar() == 1 ? "selected" : "" %> name="noUs1" value="1">Nombre</option>
-                <option <%= e != null && e.getOrdenar() == 2 ? "selected" : "" %> name="apUs1" value="2">Apellidos</option>
-                <option <%= e != null && e.getOrdenar() == 3 ? "selected" : "" %> name="cpUs1" value="3">Codigo postal</option>
-                <option <%= e != null && e.getOrdenar() == 4 ? "selected" : "" %> name="dirUs1" value="4">Direccion</option>
-                <option <%= e != null && e.getOrdenar() == 5 ? "selected" : "" %> name="ciUs1" value="5">Ciudad</option>
-                <option <%= e != null && e.getOrdenar() == 6 ? "selected" : "" %> name="paUs1" value="6">Pais</option>
-                <option <%= e != null && e.getOrdenar() == 7 ? "selected" : "" %> name="telUs1" value="7">Telefono</option>
-                <option <%= e != null && e.getOrdenar() == 8 ? "selected" : "" %> name="mailUs1" value="8">Email</option>
-                <option <%= e != null && e.getOrdenar() == 9 ? "selected" : "" %> name="edUs1" value="9">Edad</option>
-                <option <%= e != null && e.getOrdenar() == 10 ? "selected" : "" %> name="seUs1" value="10">Sexo</option>
-                <option <%= e != null && e.getOrdenar() == 11 ? "selected" : "" %> name="usUs1" value="11">Usuario</option>
+                <option <%= e == null || (e != null && e.getOrdenar().equalsIgnoreCase("id")) ? "selected" : "" %> name="idUs1" value="id">Id</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("Nombre") ? "selected" : "" %> name="noUs1" value="nombre">Nombre</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("Apellidos") ? "selected" : "" %> name="apUs1" value="apellidos">Apellidos</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("CP") ? "selected" : "" %> name="cpUs1" value="cp">Codigo postal</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("Direccion") ? "selected" : "" %> name="dirUs1" value="direccion">Direccion</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("Ciudad") ? "selected" : "" %> name="ciUs1" value="ciudad">Ciudad</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("Pais") ? "selected" : "" %> name="paUs1" value="pais">Pais</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("Telefono") ? "selected" : "" %> name="telUs1" value="telefono">Telefono</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("Email") ? "selected" : "" %> name="mailUs1" value="email">Email</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("Edad") ? "selected" : "" %> name="edUs1" value="edad">Edad</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("Sexo") ? "selected" : "" %> name="seUs1" value="sexo">Sexo</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("Username") ? "selected" : "" %> name="usUs1" value="username">Usuario</option>
         <%} else if(tabla.equalsIgnoreCase("producto")){ %>
             
-                <option <%= e == null || (e != null && e.getOrdenar()!= 0) ? "" : "selected" %>  name="idPr1" value="0">Id</option>
-                <option <%= e != null && e.getOrdenar() == 1 ? "selected" : "" %> name="venPr1" value="1">Vendedor</option>
-                <option <%= e != null && e.getOrdenar() == 2 ? "selected" : "" %> name="tiPr1" value="2">Titulo</option>
-                <option <%= e != null && e.getOrdenar() == 3 ? "selected" : "" %> name="desPr1" value="3">Descripcion</option>
-                <option <%= e != null && e.getOrdenar() == 4 ? "selected" : "" %> name="prePr1" value="4">Precio de Salida</option>
-                <option <%= e != null && e.getOrdenar() == 5 ? "selected" : "" %> name="foPr1" value="5">Foto</option>
-                <option <%= e != null && e.getOrdenar() == 6 ? "selected" : "" %> name="maPr1" value="6">Marca</option>
-                <option <%= e != null && e.getOrdenar() == 7 ? "selected" : "" %> name="catPr1" value="7">Categoría</option>
-                <option <%= e != null && e.getOrdenar() == 8 ? "selected" : "" %> name="fePr1" value="8">Fecha de Inicio</option>
-                <option <%= e != null && e.getOrdenar() == 9 ? "selected" : "" %> name="preAPrl" value="9">Precio actual</option>
+                <option <%= e == null || (e != null && e.getOrdenar().equalsIgnoreCase("id")) ? "selected" : "" %>  name="idPr1" value="id">Id</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("Vendedor") ? "selected" : "" %> name="venPr1" value="vendedor">Vendedor</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("Titulo") ? "selected" : "" %> name="tiPr1" value="titulo">Titulo</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("Descripcion") ? "selected" : "" %> name="desPr1" value="descripcion">Descripcion</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("Preciosalida") ? "selected" : "" %> name="prePr1" value="preciosalida">Precio de Salida</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("URL_Foto") ? "selected" : "" %> name="foPr1" value="urlFoto">Foto</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("Marca") ? "selected" : "" %> name="maPr1" value="marca">Marca</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("Categoria") ? "selected" : "" %> name="catPr1" value="categoria">Categoría</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("Fechainicio") ? "selected" : "" %> name="fePr1" value="fechainicio">Fecha de Inicio</option>
+                <option <%= e != null && e.getOrdenar().equalsIgnoreCase("PrecioActual") ? "selected" : "" %> name="preAPrl" value="PrecioActual">Precio actual</option>
         <%  } %>
         </select>
         <b><br/><br/>Agrupar según:</b><br/>
         <select name="group">
         <% if(tabla.equalsIgnoreCase("usuario")){ %>
             
-                <option <%= e == null || (e != null && e.getAgrupar()!= 0) ? "" : "selected" %> name="blank" value="0">No agrupar</option>
-                <option <%= e != null && e.getAgrupar() == 1 ? "selected" : "" %> name="idUs1" value="1">Id</option>
-                <option <%= e != null && e.getAgrupar() == 2 ? "selected" : "" %> name="noUs1" value="2">Nombre</option>
-                <option <%= e != null && e.getAgrupar() == 3 ? "selected" : "" %> name="apUs1" value="3">Apellidos</option>
-                <option <%= e != null && e.getAgrupar() == 4 ? "selected" : "" %> name="cpUs1" value="4">Codigo postal</option>
-                <option <%= e != null && e.getAgrupar() == 5 ? "selected" : "" %> name="ciUs1" value="5">Ciudad</option>
-                <option <%= e != null && e.getAgrupar() == 6 ? "selected" : "" %> name="paUs1" value="6">Pais</option
-                <option <%= e != null && e.getAgrupar() == 7 ? "selected" : "" %> name="edUs1" value="7">Edad</option>
-                <option <%= e != null && e.getAgrupar() == 8 ? "selected" : "" %> name="seUs1" value="8">Sexo</option>
+                <option <%= e == null || (e != null && e.getAgrupar().equalsIgnoreCase("-")) ? "selected" : "" %> name="blank" value="-">No agrupar</option>
+                <option <%= e != null && e.getAgrupar().equalsIgnoreCase("Id") ? "selected" : "" %> name="idUs1" value="id">Id</option>
+                <option <%= e != null && e.getAgrupar().equalsIgnoreCase("Nombre") ? "selected" : "" %> name="noUs1" value="nombre">Nombre</option>
+                <option <%= e != null && e.getAgrupar().equalsIgnoreCase("Apellidos") ? "selected" : "" %> name="apUs1" value="apellidos">Apellidos</option>
+                <option <%= e != null && e.getAgrupar().equalsIgnoreCase("CP") ? "selected" : "" %> name="cpUs1" value="cp">Codigo postal</option>
+                <option <%= e != null && e.getAgrupar().equalsIgnoreCase("Ciudad") ? "selected" : "" %> name="ciUs1" value="ciudad">Ciudad</option>
+                <option <%= e != null && e.getAgrupar().equalsIgnoreCase("Pais") ? "selected" : "" %> name="paUs1" value="pais">Pais</option
+                <option <%= e != null && e.getAgrupar().equalsIgnoreCase("Edad") ? "selected" : "" %> name="edUs1" value="edad">Edad</option>
+                <option <%= e != null && e.getAgrupar().equalsIgnoreCase("Sexo") ? "selected" : "" %> name="seUs1" value="sexo">Sexo</option>
         <%} else if(tabla.equalsIgnoreCase("producto")){ %>
-                <option <%= e == null || (e != null && e.getAgrupar()!= 0) ? "" : "selected" %> name="blank" value="0">No agrupar</option>
-                <option <%= e != null && e.getAgrupar() == 1 ? "selected" : "" %> name="idPr1" value="1">Id</option>
-                <option <%= e != null && e.getAgrupar() == 2 ? "selected" : "" %> name="venPr1" value="2">Vendedor</option>
-                <option <%= e != null && e.getAgrupar() == 3 ? "selected" : "" %> name="tiPr1" value="3">Titulo</option>
-                <option <%= e != null && e.getAgrupar() == 4 ? "selected" : "" %> name="desPr1" value="4">Descripcion</option>
-                <option <%= e != null && e.getAgrupar() == 5 ? "selected" : "" %> name="prePr1" value="5">Precio de Salida</option>
-                <option <%= e != null && e.getAgrupar() == 6 ? "selected" : "" %> name="foPr1" value="6">Foto</option>
-                <option <%= e != null && e.getAgrupar() == 7 ? "selected" : "" %> name="maPr1" value="7">Marca</option>
-                <option <%= e != null && e.getAgrupar() == 8 ? "selected" : "" %> name="catPr1" value="8">Categoría</option>
-                <option <%= e != null && e.getAgrupar() == 9 ? "selected" : "" %> name="fePr1" value="9">Fecha de Inicio</option>
+                <option <%= e == null || (e != null && e.getAgrupar().equalsIgnoreCase("-")) ? "selected" : "" %> name="blank" value="-">No agrupar</option>
+                <option <%= e != null && e.getAgrupar().equalsIgnoreCase("Id") ? "selected" : "" %> name="idPr1" value="id">Id</option>
+                <option <%= e != null && e.getAgrupar().equalsIgnoreCase("Vendedor") ? "selected" : "" %> name="venPr1" value="vendedor">Vendedor</option>
+                <option <%= e != null && e.getAgrupar().equalsIgnoreCase("Titulo") ? "selected" : "" %> name="tiPr1" value="titulo">Titulo</option>
+                <option <%= e != null && e.getAgrupar().equalsIgnoreCase("Descripcion") ? "selected" : "" %> name="desPr1" value="descripcion">Descripcion</option>
+                <option <%= e != null && e.getAgrupar().equalsIgnoreCase("Preciosalida") ? "selected" : "" %> name="prePr1" value="preciosalida">Precio de Salida</option>
+                <option <%= e != null && e.getAgrupar().equalsIgnoreCase("URL_Foto") ? "selected" : "" %> name="foPr1" value="urlFoto">Foto</option>
+                <option <%= e != null && e.getAgrupar().equalsIgnoreCase("Marca") ? "selected" : "" %> name="maPr1" value="marca">Marca</option>
+                <option <%= e != null && e.getAgrupar().equalsIgnoreCase("Categoria") ? "selected" : "" %> name="catPr1" value="categoria">Categoría</option>
+                <option <%= e != null && e.getAgrupar().equalsIgnoreCase("Fechainicio") ? "selected" : "" %> name="fePr1" value="fechainicio">Fecha de Inicio</option>
         <%  } %>
         </select>
         
         <b><br/><br/>Operaciones sobre agrupaciones:</b><br/>
         <select name="operations">
-            <option selected value="0">Ninguna</option>
-            <option <%= e == null || (e != null && e.getOperacion()!= 1) ? "" : "selected" %> value="1">Cantidad de elementos (en número)</option>
-            <option <%= e != null && e.getOperacion()== 2 ? "selected" : "" %> value="2">Cantidad de elementos (en porcentaje)</option>
+            <option <%= e == null || (e != null && e.getOperacion().equalsIgnoreCase("-")) ? "selected" : "" %> value="-">Ninguna</option>
+            <option <%= e != null && e.getOperacion().equalsIgnoreCase("Cantidad") ? "selected" : "" %> value="Cantidad">Cantidad de elementos (en número)</option>
+            <option <%= e != null && e.getOperacion().equalsIgnoreCase("Porcentaje") ? "selected" : "" %> value="Porcentaje">Cantidad de elementos (en porcentaje)</option>
         </select>
         
         <b><br/><br/>Tipo de orden:</b><br/>
-        <input <%= e == null || (e != null && e.getTipoOrden()!= 0) ? "" : "checked" %>  type="radio" name="order" value="0"> Desc.
-        <input <%= e != null && e.getTipoOrden()== 1 ? "checked" : "" %> type="radio" name="order" value="1"> Asc.
+        <input <%= e == null || (e != null && e.getTipoOrden().equalsIgnoreCase("Desc")) ? "checked" : "" %>  type="radio" name="order" value="desc"> Desc.
+        <input <%= e != null && e.getTipoOrden().equalsIgnoreCase("Asc") ? "checked" : "" %> type="radio" name="order" value="asc"> Asc.
         
         <b><br/><br/>Numero de elementos:</b><br/>
         <input type="number" max="100" name="numElementos" placeholder="Introduzca número de elementos" value="<%= e != null ? e.getNumElementos() : 10 %>">
@@ -112,7 +112,11 @@
         <input type="hidden" name="id_estudio" value= <%= e.getId() %>>
         <% } %>
         
-        <br/><br/><button>Crear estudio</button>
+        <br/><br/><button><%= e == null ? "Crear estudio" : "Editar estudio" %></button>
         </form>
+        
+        <form method="post" action="AnalistaBackServlet">
+            <button>Volver</button>
+        </form><br/>
     </body>
 </html>

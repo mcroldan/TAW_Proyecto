@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import taw.dto.EstudioDTO;
 
 /**
  *
@@ -43,30 +44,34 @@ public class Estudio implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 500)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 30)
+    @Size(min = 1, max = 50)
     @Column(name = "TABLA")
     private String tabla;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "ORDENAR")
-    private int ordenar;
+    private String ordenar;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "AGRUPAR")
-    private int agrupar;
+    private String agrupar;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "OPERACION")
-    private int operacion;
+    private String operacion;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "TIPO_ORDEN")
-    private int tipoOrden;
+    private String tipoOrden;
     @Basic(optional = false)
     @NotNull
     @Column(name = "NUM_ELEMENTOS")
@@ -79,7 +84,7 @@ public class Estudio implements Serializable {
         this.id = id;
     }
 
-    public Estudio(Integer id, String nombre, String tabla, int ordenar, int agrupar, int operacion, int tipoOrden, int numElementos) {
+    public Estudio(Integer id, String nombre, String tabla, String ordenar, String agrupar, String operacion, String tipoOrden, int numElementos) {
         this.id = id;
         this.nombre = nombre;
         this.tabla = tabla;
@@ -114,35 +119,35 @@ public class Estudio implements Serializable {
         this.tabla = tabla;
     }
 
-    public int getOrdenar() {
+    public String getOrdenar() {
         return ordenar;
     }
 
-    public void setOrdenar(int ordenar) {
+    public void setOrdenar(String ordenar) {
         this.ordenar = ordenar;
     }
 
-    public int getAgrupar() {
+    public String getAgrupar() {
         return agrupar;
     }
 
-    public void setAgrupar(int agrupar) {
+    public void setAgrupar(String agrupar) {
         this.agrupar = agrupar;
     }
 
-    public int getOperacion() {
+    public String getOperacion() {
         return operacion;
     }
 
-    public void setOperacion(int operacion) {
+    public void setOperacion(String operacion) {
         this.operacion = operacion;
     }
 
-    public int getTipoOrden() {
+    public String getTipoOrden() {
         return tipoOrden;
     }
 
-    public void setTipoOrden(int tipoOrden) {
+    public void setTipoOrden(String tipoOrden) {
         this.tipoOrden = tipoOrden;
     }
 
@@ -177,6 +182,20 @@ public class Estudio implements Serializable {
     @Override
     public String toString() {
         return "taw.entities.Estudio[ id=" + id + " ]";
+    }
+    
+    public EstudioDTO toDTO(){
+        EstudioDTO dto = new EstudioDTO();
+        dto.setId(id);
+        dto.setNombre(nombre);
+        dto.setTabla(tabla);
+        dto.setOrdenar(ordenar);
+        dto.setAgrupar(agrupar);
+        dto.setOperacion(operacion);
+        dto.setTipoOrden(tipoOrden);
+        dto.setNumElementos(numElementos);
+        
+        return dto;
     }
     
 }

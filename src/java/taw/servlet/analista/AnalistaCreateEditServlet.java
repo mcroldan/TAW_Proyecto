@@ -53,14 +53,17 @@ public class AnalistaCreateEditServlet extends BaseTAWServlet {
         if(super.comprobarSesion(request, response)){
             if(((Usuario)session.getAttribute("usuario")).getRol().getNombre().equalsIgnoreCase("analista")){
                 
+                try{
                         String id = request.getParameter("id_estudio");
                         String name = request.getParameter("name");
                         String tabla = request.getParameter("tabla");
-                        Integer param = Integer.parseInt(request.getParameter("param"));
-                        Integer group = Integer.parseInt(request.getParameter("group"));
-                        Integer operations = Integer.parseInt(request.getParameter("operations"));
-                        Integer order = Integer.parseInt(request.getParameter("order"));
+                        String param = request.getParameter("param");
+                        String group = request.getParameter("group");
+                        String operations = request.getParameter("operations");
+                        String order = request.getParameter("order");
                         Integer numElementos = Integer.parseInt(request.getParameter("numElementos"));
+                        
+                        if(name.equalsIgnoreCase("")) {throw new Exception(); }
 
                         Estudio e = null;
                         if(id != null){
@@ -70,11 +73,17 @@ public class AnalistaCreateEditServlet extends BaseTAWServlet {
                         
                         if(e == null) { // El estudio no existe, se crea
                             e = new Estudio();
-                            e.setId(this.estudioFacade.count()+1);
+                            e.setId(this.estudioFacade.getLastId()+1);
                             e.setNombre(name);
                             e.setTabla(tabla);
+                            if(!group.equalsIgnoreCase("-")){
+                                param = group;
+                            }
                             e.setOrdenar(param);
                             e.setAgrupar(group);
+                            if(!group.equalsIgnoreCase("") && operations.equalsIgnoreCase("")){
+                                operations = "Cantidad";
+                            }
                             e.setOperacion(operations);
                             e.setTipoOrden(order);
                             e.setNumElementos(numElementos);
@@ -82,17 +91,27 @@ public class AnalistaCreateEditServlet extends BaseTAWServlet {
                         } else { // Se edita el estudio
                             if(!e.getNombre().equalsIgnoreCase(name)) e.setNombre(name);
                             if(!e.getTabla().equalsIgnoreCase(tabla)) e.setTabla(tabla);
-                            if(e.getOrdenar() != (param)) e.setOrdenar(param);
-                            if(e.getAgrupar()!= (group)) e.setAgrupar(group);
-                            if(e.getOperacion()!= (operations)) e.setOperacion(operations);
-                            if(e.getTipoOrden()!= (order)) e.setTipoOrden(order);
+                            if(!group.equalsIgnoreCase("-")){
+                                param = group;
+                            }
+                            if(!e.getOrdenar().equalsIgnoreCase(param)) e.setOrdenar(param);
+                            if(!e.getAgrupar().equalsIgnoreCase(group)) e.setAgrupar(group);
+                            if(!e.getOperacion().equalsIgnoreCase(operations)){
+                                if(!e.getAgrupar().equalsIgnoreCase("") && operations.equalsIgnoreCase("")) operations = "Cantidad";
+                                e.setOperacion(operations);
+                            }
+                            if(!e.getTipoOrden().equalsIgnoreCase(order)) e.setTipoOrden(order);
                             if(e.getNumElementos()!= (numElementos)) e.setNumElementos(numElementos);
                             this.estudioFacade.edit(e);
                         }
              
             response.sendRedirect("AnalistaServlet");
+             } catch(Exception e) {
+             request.setAttribute("str", "Rellene correctamente todos los campos");
+             request.getRequestDispatcher("jsp-crearestudio.jsp").forward(request, response);
             }
         }
+    }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

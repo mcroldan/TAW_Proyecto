@@ -14,13 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import taw.dao.EstudioFacade;
 import taw.entities.Estudio;
+import taw.servlet.BaseTAWServlet;
 
 /**
  *
  * @author xdmrg
  */
 @WebServlet(name = "AnalistaDeleteServlet", urlPatterns = {"/AnalistaDeleteServlet"})
-public class AnalistaDeleteServlet extends HttpServlet {
+public class AnalistaDeleteServlet extends BaseTAWServlet {
     
     @EJB EstudioFacade estudioFacade;
 
@@ -37,10 +38,12 @@ public class AnalistaDeleteServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+     if(super.comprobarSesion(request, response)){
         Integer id = Integer.parseInt(request.getParameter("estudio"));
         Estudio e = this.estudioFacade.find(id);
         this.estudioFacade.remove(e);
         response.sendRedirect("AnalistaServlet");
+     }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
