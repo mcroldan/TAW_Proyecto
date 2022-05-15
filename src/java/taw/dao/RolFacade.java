@@ -11,7 +11,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import taw.entities.Rol;
-import taw.entities.Usuario;
 
 /**
  *
@@ -44,5 +43,5 @@ public class RolFacade extends AbstractFacade<Rol> {
             return lista.get(0);
         } 
     }
-    
+        
 }

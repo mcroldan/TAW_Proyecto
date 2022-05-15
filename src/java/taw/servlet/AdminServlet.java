@@ -6,26 +6,27 @@ package taw.servlet;
  */
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import taw.dao.RolFacade;
+import javax.servlet.http.HttpSession;
+import taw.dao.UsuarioFacade;
 import taw.entities.Usuario;
-import taw.service.UsuarioService;
 
 /**
  *
  * @author xdmrg
  */
-@WebServlet(urlPatterns = {"/RegisterServlet"})
-public class RegisterServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/AdminServlet"})
+public class AdminServlet extends BaseTAWServlet {
     
-    @EJB UsuarioService usuarioService;
-    @EJB RolFacade rolFacade;
-    
+    @EJB UsuarioFacade usuarioFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,53 +38,26 @@ public class RegisterServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
         
-        try{
-            String nombre = request.getParameter("nombre");
-            String apellidos = request.getParameter("apellido");
-            String direccion = request.getParameter("direccion");
-            String codigo_postal = request.getParameter("cp");
-            String ciudad = request.getParameter("ciudad");
-            String pais = request.getParameter("pais");
-            String telefono = request.getParameter("tel");
-            String email = request.getParameter("email");
-            char sexo = (Character)request.getParameter("sexo").charAt(0);
-            String usuario = request.getParameter("usuario");
-            String password = request.getParameter("password");
-           
-            if(ciudad.equals("") || nombre.equals("") || apellidos.equals("") || direccion.equals("") || usuario.equals("") || password.equals("")
-                    || codigo_postal.equals("") || pais.equals("") || telefono.equals("") || email.equals("")){
-                throw new Exception(telefono);
+        //CRUD (Only Read by now)
+        String filtro = request.getParameter("filtro");
+        List<Usuario> usuarios;
+        HttpSession session = request.getSession();
+                
+        if(super.comprobarSesion(request, response)){
+            if(((Usuario)session.getAttribute("usuario")).getRol().getId()== 2){
+                if(filtro == null || filtro.equals("")){
+                usuarios = this.usuarioFacade.findAll();
+            } else {
+                usuarios = this.usuarioFacade.findByName(filtro);
             }
-            int edad = Integer.parseInt(request.getParameter("edad"));
-            int rol = Integer.parseInt(request.getParameter("rol"));
             
-            Usuario u = new Usuario();
-            
-            u.setCp(codigo_postal);
-            u.setNombre(nombre);
-            u.setApellidos(apellidos);
-            u.setDireccion(direccion);
-            u.setCiudad(ciudad);
-            u.setPais(pais);
-            u.setTelefono(telefono);
-            u.setEmail(email);
-            u.setEdad(edad);
-            u.setSexo(sexo);
-            u.setUsername(usuario);
-            u.setPassword(password);
-            u.setRol(rolFacade.comprobarRol(rol));
-          
-            this.usuarioService.create(u);
-            
-
-            request.setAttribute("error", "Nuevo usuario creado con éxito. Inicie sesión");
-            request.getRequestDispatcher("jsplogin.jsp").forward(request, response);
-        }catch(Exception err){
-            request.setAttribute("error", "Rellene todos los campos obligatorios correctamente para crear un usuario.");
-            request.getRequestDispatcher("jsplogin.jsp").forward(request, response);
-        }        
+            request.setAttribute("usuarios", usuarios);
+            request.getRequestDispatcher("jspcrud.jsp").forward(request, response);
+            }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

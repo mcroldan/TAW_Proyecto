@@ -32,7 +32,7 @@ public class FavoritosFacade extends AbstractFacade<Favoritos> {
     public FavoritosFacade() {
         super(Favoritos.class);
     }
-
+  
     public Favoritos findByProductoAndUsuario(int productoid, int usuarioid) {
         Query q;
         q = this.em.createQuery("SELECT f from Favoritos f WHERE f.producto.id = :productoid AND f.usuario.id = :usuarioid");
@@ -53,6 +53,5 @@ public class FavoritosFacade extends AbstractFacade<Favoritos> {
     public void borrarFavorito(Favoritos f) {
         this.remove(f);
     }
-    
     
 }
