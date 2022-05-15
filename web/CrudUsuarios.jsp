@@ -47,6 +47,7 @@
         </tr>
         <%
             List<Usuario> usuarios = (List)request.getAttribute("usuarios");
+            if(usuarios != null){
             for (Usuario user : usuarios){
         %>
         <tr>
@@ -57,6 +58,7 @@
             <td><a href="UsuarioBorrarServlet?id=<%= user.getId() %>">Borrar</a></td> 
         </tr>
         <%
+            }
             }
         %>
         
