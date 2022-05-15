@@ -1,32 +1,36 @@
-package taw.servlet;
-
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
+package taw.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import taw.dao.CategoriaFacade;
+import taw.dao.CategoriasPreferidasFacade;
+import taw.dao.UsuarioFacade;
+import taw.entities.Categoria;
 import taw.entities.Usuario;
-import taw.service.UsuarioService;
 
 /**
  *
- * @author xdmrg
+ * @author PC
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends BaseTAWServlet {
-    @EJB UsuarioService usuarioService;
-
+@WebServlet(name = "AnyadirCategoriaPreferidaServlet", urlPatterns = {"/AnyadirCategoriaPreferidaServlet"})
+public class AnyadirCategoriaPreferidaServlet extends HttpServlet {
+    @EJB UsuarioFacade usuarioFacade;
+    @EJB CategoriasPreferidasFacade categoriasPreferidasFacade;
+    @EJB CategoriaFacade categoriaFacade;
+   
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,33 +42,24 @@ public class LoginServlet extends BaseTAWServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            String username = request.getParameter("loginInput");
-            String password = request.getParameter("passInput");
-            
-            // CRUD (Only Read by now)
-            /*List<Usuario> usuarios = this.usuarioFacade.findAll();
-            request.setAttribute("usuarios", usuarios);
-            request.getRequestDispatcher("jsplogged.jsp").forward(request, response);*/
-            
-            // Login Check
-            Usuario u = this.usuarioService.comprobarUsuario(username, password);
-            if(u == null){
-                request.setAttribute("error", "Usuario no encontrado");
-                request.getRequestDispatcher("jsplogin.jsp").forward(request, response);
-            } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("usuario", u);
-                String nombrerol = u.getRol().getNombre();
-                if(nombrerol.equalsIgnoreCase("Usuario")){
-                    request.getRequestDispatcher("inicioComprador.jsp").forward(request, response);
-                }else{
-                    request.getRequestDispatcher("jsplogged.jsp").forward(request, response);
-                }
-            }                    
+        HttpSession session = request.getSession();
+        String categoriaid = request.getParameter("categoriaid");
+        Usuario user = (Usuario)session.getAttribute("usuario");
+        if(categoriaid == null){
+            List<Categoria> categoriasDisponibles = categoriaFacade.findCategoriasDisponibles((int)user.getId());
+            if(categoriasDisponibles.isEmpty()){
+                String strerror = "No hay categorías disponibles para añadir";
+                request.setAttribute("error", strerror);
+            }else{
+                request.setAttribute("categorias", categoriasDisponibles);
+            }
+            request.getRequestDispatcher("/WEB-INF/comprador/anyadirCategoriaUsuario.jsp").forward(request, response);
+        }else{
+            Categoria cat = categoriaFacade.find(Integer.parseInt(categoriaid));
+            categoriasPreferidasFacade.crearRelacion(user, cat);
+            response.sendRedirect(request.getContextPath()+"/CategoriasPreferidasServlet");
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

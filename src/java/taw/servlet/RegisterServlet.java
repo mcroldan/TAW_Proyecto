@@ -13,9 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import taw.dao.RolFacade;
-import taw.dao.UsuarioFacade;
-import taw.entities.Rol;
 import taw.entities.Usuario;
+import taw.service.UsuarioService;
 
 /**
  *
@@ -24,7 +23,7 @@ import taw.entities.Usuario;
 @WebServlet(urlPatterns = {"/RegisterServlet"})
 public class RegisterServlet extends HttpServlet {
     
-    @EJB UsuarioFacade usuarioFacade;
+    @EJB UsuarioService usuarioService;
     @EJB RolFacade rolFacade;
     
     /**
@@ -75,8 +74,8 @@ public class RegisterServlet extends HttpServlet {
             u.setUsername(usuario);
             u.setPassword(password);
             u.setRol(rolFacade.comprobarRol(rol));
-
-            this.usuarioFacade.create(u);
+          
+            this.usuarioService.create(u);
             
 
             request.setAttribute("error", "Nuevo usuario creado con éxito. Inicie sesión");

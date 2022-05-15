@@ -1,32 +1,30 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package taw.servlet;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-
+import taw.dao.CategoriaFacade;
+import taw.entities.Categoria;
+import taw.entities.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import taw.entities.Usuario;
-import taw.service.UsuarioService;
 
 /**
  *
- * @author xdmrg
+ * @author Carlos
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends BaseTAWServlet {
-    @EJB UsuarioService usuarioService;
-
+@WebServlet(name = "CategoriasPreferidasServlet", urlPatterns = {"/CategoriasPreferidasServlet"})
+public class CategoriasPreferidasServlet extends HttpServlet {
+    @EJB CategoriaFacade categoriaFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,33 +36,14 @@ public class LoginServlet extends BaseTAWServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            String username = request.getParameter("loginInput");
-            String password = request.getParameter("passInput");
-            
-            // CRUD (Only Read by now)
-            /*List<Usuario> usuarios = this.usuarioFacade.findAll();
-            request.setAttribute("usuarios", usuarios);
-            request.getRequestDispatcher("jsplogged.jsp").forward(request, response);*/
-            
-            // Login Check
-            Usuario u = this.usuarioService.comprobarUsuario(username, password);
-            if(u == null){
-                request.setAttribute("error", "Usuario no encontrado");
-                request.getRequestDispatcher("jsplogin.jsp").forward(request, response);
-            } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("usuario", u);
-                String nombrerol = u.getRol().getNombre();
-                if(nombrerol.equalsIgnoreCase("Usuario")){
-                    request.getRequestDispatcher("inicioComprador.jsp").forward(request, response);
-                }else{
-                    request.getRequestDispatcher("jsplogged.jsp").forward(request, response);
-                }
-            }                    
-        }
+        List<Categoria> categorias;
+        HttpSession session = request.getSession();
+        Usuario user = (Usuario)session.getAttribute("usuario");
+        int userid = user.getId();
+        categorias = this.categoriaFacade.findByUserID(userid);
+        
+        request.setAttribute("categorias", categorias);
+        request.getRequestDispatcher("/WEB-INF/comprador/categoriasPreferidas.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
