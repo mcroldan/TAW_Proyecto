@@ -9,15 +9,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.jboss.weld.bean.builtin.FacadeInjectionPoint;
-import taw.dao.UsuarioFacade;
 import taw.entities.Usuario;
+import taw.service.UsuarioService;
 
 /**
  *
@@ -25,8 +25,7 @@ import taw.entities.Usuario;
  */
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends BaseTAWServlet {
-    
-    @EJB UsuarioFacade usuarioFacade;
+    @EJB UsuarioService usuarioService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,7 +50,7 @@ public class LoginServlet extends BaseTAWServlet {
             request.getRequestDispatcher("jsplogged.jsp").forward(request, response);*/
             
             // Login Check
-            Usuario u = this.usuarioFacade.comprobarUsuario(username, password);
+            Usuario u = this.usuarioService.comprobarUsuario(username, password);
             if(u == null){
                 request.setAttribute("error", "Usuario no encontrado");
                 request.getRequestDispatcher("jsplogin.jsp").forward(request, response);
