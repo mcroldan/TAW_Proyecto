@@ -41,7 +41,17 @@ public class ListadoProductosServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Usuario user = (Usuario)session.getAttribute("usuario");
         int userid = user.getId();
-        productos = this.productoFacade.findAllSalvoMisProductosYLosAdjudicados(userid);
+        String filtroTitulo = (String)request.getParameter("filtroTitulo");
+        String filtroMarca = (String)request.getParameter("filtroMarca");
+        if(filtroTitulo == null && filtroMarca == null){
+            productos = this.productoFacade.findAllSalvoMisProductosYLosAdjudicados(userid);
+        }else if(filtroMarca != null){
+            productos = this.productoFacade.findAllSalvoMisProductosYLosAdjudicadosFiltroMarca(userid, filtroMarca);
+            request.setAttribute("filtroMarca", filtroMarca);
+        }else{
+            productos = this.productoFacade.findAllSalvoMisProductosYLosAdjudicadosFiltroTitulo(userid, filtroTitulo);
+            request.setAttribute("filtroTitulo", filtroTitulo);
+        }
         request.setAttribute("productos", productos);
         request.getRequestDispatcher("/WEB-INF/comprador/listadoProductos.jsp").forward(request, response);
     }

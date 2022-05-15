@@ -4,6 +4,7 @@
     Author     : Carlos
 --%>
 
+<%@page import="taw.entities.Producto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@page import="taw.entities.Puja"%>
@@ -37,6 +38,26 @@
                         <td><%= puja.getPrecio() %></td>
                        <td><a href="PujaBorrarServlet?pujaid=<%= puja.getId() %>">Borrar</a></td>
                        </tr>
+                       <tr>
+                            <th>Vendedor</th>
+                            <th>Título</th>                
+                            <th>Imagen</th>
+                            <th>Marca</th>
+                            <th>Categoría</th>
+                            <th>Fecha de publicación</th>
+                        </tr>
+                        <% Producto prod = puja.getProducto(); %>
+                        <tr>
+                        <td> <%= prod.getVendedor().getUsername()%> </td>
+                        <td> <%= prod.getTitulo() %> </td>
+                        <td> <img src=<%= prod.getUrlFoto()%> width="" height="" alt="Foto del producto"/>
+                        </td>
+                        <td> <%= prod.getMarca() %> </td>
+                        <td> <%= prod.getCategoria().getNombre() %>
+                        <td> <%= df.format(prod.getFechainicio()) %> </td>
+                        </td>
+                       </tr>
+                       
            <%
                     } %>
                     </table>

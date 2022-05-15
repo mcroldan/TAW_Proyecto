@@ -16,11 +16,22 @@
     </head>
     <body> <jsp:include page="/WEB-INF/comprador/cabeceraComprador.jsp" />
         <h1>Listado de productos</h1>
-        <%  String resultadoPuja = (String)request.getAttribute("resultadoPuja");
-            if(resultadoPuja != null){
-        %>
-            <%= resultadoPuja %>
-        <% } %>
+        <form method="post" action="ListadoProductosServlet">
+            Título: <input type="text" 
+                           name="filtroTitulo"
+                           <% String filtroTitulo = (String)request.getAttribute("filtroTitulo"); 
+                           %>
+                           value="<%= (filtroTitulo==null)?"":filtroTitulo %>" />
+            <input type="submit" value="Filtrar" />
+        </form>
+        <form method="post" action="ListadoProductosServlet">
+            Marca: <input type="text" 
+                       name="filtroMarca"
+                       <% String filtroMarca = (String)request.getAttribute("filtroMarca"); 
+                       %>
+                       value="<%= (filtroMarca==null)?"":filtroMarca %>" />
+        <input type="submit" value="Filtrar" />                
+        </form>
             <%
                 List<Producto> productos = (List)request.getAttribute("productos");
                 Usuario user =  (Usuario)session.getAttribute("usuario");

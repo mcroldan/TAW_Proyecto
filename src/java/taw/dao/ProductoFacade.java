@@ -35,12 +35,19 @@ public class ProductoFacade extends AbstractFacade<Producto> {
 
     public List<Producto> findAllSalvoMisProductosYLosAdjudicados(int userid) {
         Query q;
-        Boolean adj = false;
         q = this.getEntityManager().createQuery("select DiSTINCT p FROM Producto p LEFT JOIN p.pujaList pu WHERE (pu.adjudicado = FALSE OR pu.adjudicado = NULL) AND (p.vendedor.id != :vendedor)");
         q.setParameter("vendedor", userid);
         List<Producto> res = q.getResultList();
         return res;
     }
+    public List<Producto> findAllSalvoMisProductosYLosAdjudicadosFiltroTitulo(int userid, String filtroTitulo) {
+        Query q;
+        q = this.getEntityManager().createQuery("select DiSTINCT p FROM Producto p LEFT JOIN p.pujaList pu WHERE (pu.adjudicado = FALSE OR pu.adjudicado = NULL) AND (p.vendedor.id != :vendedor AND LOWER(p.titulo) LIKE :filtroTitulo)");
+        q.setParameter("vendedor", userid);
+        q.setParameter("filtroTitulo", "%"+filtroTitulo.toLowerCase()+"%");
+        List<Producto> res = q.getResultList();
+        return res;
+    }    
 
     public List<Producto> findBoughtAndFavorites(int userid) {
         Query q;
@@ -86,6 +93,15 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         q = this.em.createQuery("SELECT max(p.precio) FROM Puja p");
         List<Double> res = q.getResultList();
         return(res.isEmpty())?null:res.get(0);
+    }
+
+    public List<Producto> findAllSalvoMisProductosYLosAdjudicadosFiltroMarca(int userid, String filtroMarca) {
+        Query q;
+        q = this.getEntityManager().createQuery("select DiSTINCT p FROM Producto p LEFT JOIN p.pujaList pu WHERE (pu.adjudicado = FALSE OR pu.adjudicado = NULL) AND (p.vendedor.id != :vendedor AND LOWER(p.marca) LIKE :filtroMarca)");
+        q.setParameter("vendedor", userid);
+        q.setParameter("filtroMarca", "%"+filtroMarca.toLowerCase()+"%");
+        List<Producto> res = q.getResultList();
+        return res;
     }
     
 }
