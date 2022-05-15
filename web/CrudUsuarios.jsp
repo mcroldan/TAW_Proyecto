@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="taw.entities.Rol"%>
 <%@page import="taw.entities.Usuario"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -20,7 +21,19 @@
         </style>
     </head>
     <body>
+        <%
+            List<Rol>roles= (List<Rol>)request.getAttribute("roles");
+            %>
+        <form method="post" action="newUser.jsp">
+            <select name="rol">
+                <% for(Rol rol : roles) {%>
+                <option value=<%= rol.getId() %>><%= rol.getNombre()%></option>
+                <% } %>
+            </select>
+            <button>Crear Usuario</button>
+        </form>
         <form method="post" action="AdministradorServlet">
+            
             <input type="text" placeholder="Introduzca filtro por nombre o apellido" name="filtro">
             <button>Buscar</button>
         </form>
@@ -40,7 +53,7 @@
             <td><%= user.getUsername()%></td>
             <td><%= user.getPassword()%></td>
             <td><%= user.getEdad() %></td>
-            <td><%= user.getIdUsuario()%></td>
+            <td><%= user.getId()%></td>
         </tr>
         <%
             }

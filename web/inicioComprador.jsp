@@ -17,6 +17,7 @@
         <a href="CategoriasPreferidasServlet">Categorías preferidas</a> <br>
         <a href="ListadoCompradosYFavoritosServlet">Productos comprados y favoritos</a> <br>
         <a href="ListadoProductosServlet">Listado de productos</a> <br>
-        <a href="PujaServlet">Mis pujas abiertas</a>
+        <a href="PujaServlet">Mis pujas abiertas</a><br>
+        <a href="CrudUsuarios.jsp">crear usuario</a> <br>
     </body>
 </html>

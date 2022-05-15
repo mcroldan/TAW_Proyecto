@@ -16,11 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import taw.dao.EstudioFacade;
+import taw.dao.RolFacade;
 import taw.dao.UsuarioFacade;
 import taw.entities.Estudio;
 import taw.entities.Usuario;
 import taw.servlet.BaseTAWServlet;
 import taw.dao.UsuarioFacade;
+import taw.entities.Rol;
 import taw.entities.Usuario;
 
 /**
@@ -29,6 +31,9 @@ import taw.entities.Usuario;
  */
 @WebServlet(name = "AdministradorServlet", urlPatterns = {"/AdministradorServlet"})
 public class AdministradorServlet extends BaseTAWServlet {
+
+    @EJB
+    private RolFacade rolFacade;
 
     @EJB
     private UsuarioFacade usuarioFacade;
@@ -61,6 +66,10 @@ public class AdministradorServlet extends BaseTAWServlet {
                 } else {
                     usuarios = this.usuarioFacade.findByName(filtro);
                 }
+                
+                List<Rol> roles=this.rolFacade.findAll();
+                
+                request.setAttribute("roles", roles);
                 
                 request.setAttribute("usuarios", usuarios);
                 request.getRequestDispatcher("CrudUsuarios.jsp").forward(request, response);
