@@ -4,6 +4,10 @@
  */
 package taw.services;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import taw.dao.EstudioFacade;
 import taw.dao.ProductoFacade;
 import taw.dao.UsuarioFacade;
