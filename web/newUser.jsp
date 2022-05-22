@@ -25,7 +25,7 @@
             *Nombre: <input type="text" name="nombre"/><br/><br/>
             *Apellidos: <input type="text" name="apellido"/><br/><br/><br/>
             *Dirección:<input type="text" name="direccion"/><br/><br/>
-            *Código Postal: <input type="number" name="cp"/><br/><br/>
+            *Código Postal: <input type="number" max="99999" name="cp"/><br/><br/>
             *Ciudad: <input type="text" name="ciudad"/><br/><br/>
             *Pais: <select name="pais">
                         <option value="Afganistan">Afghanistan</option>
@@ -275,7 +275,7 @@
                         <option value="Zambia">Zambia</option>
                         <option value="Zimbabwe">Zimbabwe</option>
                      </select><br/><br/>
-            *Teléfono: <input type="text" name="tel"/><br/><br/>
+            *Teléfono: <input type="text" maxlength="12" name="tel"/><br/><br/>
             
             *Email: <input type="email" name="email"/><br/><br/>
             *Sexo:
