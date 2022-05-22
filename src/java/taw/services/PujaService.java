@@ -18,7 +18,7 @@ import taw.entities.Puja;
 
 /**
  *
- * @author PC
+ * @author Carlos Ortega Chirito
  */
 @Stateless
 public class PujaService {

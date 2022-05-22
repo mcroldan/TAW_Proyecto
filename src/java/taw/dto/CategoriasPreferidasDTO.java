@@ -7,7 +7,7 @@ package taw.dto;
 
 /**
  *
- * @author PC
+ * @author Carlos Ortega Chirito
  */
 public class CategoriasPreferidasDTO {
     private CategoriaDTO categoriaDTO;

@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author PC
+ * @author Carlos Ortega Chirito
  */
 public class PujaDTO {
     private Integer id;

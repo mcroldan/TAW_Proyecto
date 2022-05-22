@@ -20,7 +20,7 @@ import taw.services.CategoriasPreferidasService;
 
 /**
  *
- * @author PC
+ * @author Carlos Ortega Chirito
  */
 @WebServlet(name = "CategoriasPreferidasMostrarProductosServlet", urlPatterns = {"/CategoriasPreferidasMostrarProductosServlet"})
 public class CategoriasPreferidasMostrarProductosServlet extends HttpServlet {

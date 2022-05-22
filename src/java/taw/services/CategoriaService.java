@@ -14,7 +14,7 @@ import taw.entities.Categoria;
 
 /**
  *
- * @author PC
+ * @author Carlos Ortega Chirito
  */
 @Stateless
 public class CategoriaService {

@@ -12,7 +12,7 @@ import taw.entities.Rol;
 
 /**
  *
- * @author PC
+ * @author Carlos Ortega Chirito
  */
 @Stateless
 public class RolService {

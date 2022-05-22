@@ -1,7 +1,7 @@
 <%-- 
     Document   : categoriasPreferidasMostrarProductos
     Created on : 22-may-2022, 21:23:24
-    Author     : PC
+    Author     : Carlos Ortega Chirito
 --%>
 
 <%@page import="taw.dto.ProductoDTO"%>

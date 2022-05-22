@@ -15,7 +15,7 @@ import taw.entities.Favoritos;
 
 /**
  *
- * @author PC
+ * @author Carlos Ortega Chirito
  */
 @Stateless
 public class FavoritosService {

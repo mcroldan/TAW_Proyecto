@@ -14,7 +14,7 @@ import taw.entities.Producto;
 
 /**
  *
- * @author PC
+ * @author Carlos Ortega Chirito
  */
 @Stateless
 public class ProductoService {
