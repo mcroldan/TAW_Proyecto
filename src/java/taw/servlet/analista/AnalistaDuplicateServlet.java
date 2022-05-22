@@ -4,18 +4,15 @@
  */
 package taw.servlet.analista;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import taw.services.EstudioService;
+import taw.servlet.BaseTAWServlet;
+
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import taw.dao.EstudioFacade;
-import taw.entities.Estudio;
-import taw.services.EstudioService;
-import taw.servlet.BaseTAWServlet;
+import java.io.IOException;
 
 /**
  *

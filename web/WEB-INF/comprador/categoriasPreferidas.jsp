@@ -4,6 +4,8 @@
     Author     : Carlos Ortega Chirito
 --%>
 
+<%@page import="taw.dto.CategoriaDTO"%>
+<%@page import="taw.dto.UsuarioDTO"%>
 <%@page import="taw.entities.Usuario"%>
 <%@page import="java.util.List"%>
 <%@page import="taw.entities.Categoria"%>
@@ -18,9 +20,9 @@
         <h1>Mis categorías</h1>
         <table border="1">
             <% 
-                List<Categoria> categorias = (List)request.getAttribute("categorias");
-                Usuario user = (Usuario)session.getAttribute("usuario");
-                if(categorias.isEmpty()){
+                List<CategoriaDTO> categorias = (List)request.getAttribute("categorias");
+                UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
+                if(categorias == null){
             %>
                 No tienes categorías preferidas.
             <%
@@ -30,20 +32,20 @@
                 <th>Nombre</th>
                 <th>Quitar categoría</th>                
             </tr>
-            <%      for (Categoria categoria: categorias) {
+            <%      for (CategoriaDTO categoria: categorias) {
             %>
             <tr>
             <td>
                 <%= categoria.getNombre() %>
             </td>
-            <td><a href="CategoriaPreferidaQuitarServlet?categoriaid=<%= categoria.getId() %>">Quitar</a></td>
+            <td><a href="CategoriasPreferidasQuitarServlet?categoriaid=<%= categoria.getId() %>">Quitar</a></td>
            </tr>
            <%
                     }
                 }
             %>
         </table>
-        <a href="AnyadirCategoriaPreferidaServlet">Añadir categoría</a>
+        <a href="CategoriasPreferidasAnyadirServlet">Añadir categoría</a>
         </form>
     </body>
 </html>

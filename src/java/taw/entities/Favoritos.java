@@ -5,19 +5,11 @@
  */
 package taw.entities;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import taw.dto.FavoritosDTO;
+
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  *
@@ -98,6 +90,15 @@ public class Favoritos implements Serializable {
     @Override
     public String toString() {
         return "taw.entities.Favoritos[ id=" + id + " ]";
+    }
+
+    public FavoritosDTO toDTO() {
+        FavoritosDTO dto = new FavoritosDTO();
+        dto.setProducto(this.getProducto().toDTO());
+        dto.setUsuario(this.getUsuario().toDTO());
+        dto.setId(this.getId());
+        
+        return dto;
     }
     
 }

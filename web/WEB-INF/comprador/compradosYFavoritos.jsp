@@ -4,8 +4,8 @@
     Author     : Carlos Ortega Chirito
 --%>
 
-<%@page import="taw.entities.Usuario"%>
-<%@page import="taw.entities.Producto"%>
+<%@page import="taw.dto.ProductoDTO"%>
+<%@page import="taw.dto.UsuarioDTO"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,10 +17,10 @@
     <body> <jsp:include page="/WEB-INF/comprador/cabeceraComprador.jsp" />
         <h1>Productos comprados y favoritos</h1>
             <%
-                List<Producto> productos = (List)request.getAttribute("productos");
-                Usuario user =  (Usuario)session.getAttribute("usuario");
+                List<ProductoDTO> productos = (List)request.getAttribute("productos");
+                UsuarioDTO user =  (UsuarioDTO)session.getAttribute("usuario");
                 java.text.DateFormat df = new java.text.SimpleDateFormat("dd.MM.yyyy 'a las' HH:mm:ss z");
-                if(productos.isEmpty()){
+                if(productos == null){
             %>
                     No tienes productos favoritos ni comprados.
             <% }else { %>
@@ -33,7 +33,7 @@
                             <th>Categoría</th>
                             <th>Fecha de publicación</th>
                         </tr>
-            <%      for (Producto prod: productos) { %>
+            <%      for (ProductoDTO prod: productos) { %>
                         <tr>
                         <td> <%= prod.getVendedor().getUsername()%> </td>
                         <td> <%= prod.getTitulo() %> </td>
@@ -41,7 +41,7 @@
                         </td>
                         <td> <%= prod.getMarca() %> </td>
                         <td> <%= prod.getCategoria().getNombre() %>
-                        <td> <%= df.format(prod.getFechainicio()) %> </td>
+                        <td> <%= df.format(prod.getFechaInicio()) %> </td>
                         <td><form action="AlternarFavoritoServlet" method="POST">
                             <input type="hidden" name="productoid" value="<%= prod.getId() %>"/>
                             <input type="hidden" name="desdefavoritos" value="1"/>

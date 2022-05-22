@@ -4,14 +4,14 @@
  */
 package taw.dao;
 
-import java.text.DecimalFormat;
-import java.util.List;
+import taw.entities.Estudio;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import taw.entities.Estudio;
-import taw.entities.Usuario;
+import java.text.DecimalFormat;
+import java.util.List;
 
 /**
  *

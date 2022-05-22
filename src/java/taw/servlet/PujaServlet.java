@@ -5,18 +5,19 @@
  */
 package taw.servlet;
 
-import java.io.IOException;
+import taw.dao.PujaFacade;
+import taw.dto.PujaDTO;
+import taw.dto.UsuarioDTO;
+
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ejb.EJB;
-import java.util.List;
-import taw.dao.PujaFacade;
-import taw.entities.Puja;
-import taw.entities.Usuario;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -36,9 +37,9 @@ public class PujaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Puja> pujas;
+        List<PujaDTO> pujas;
         HttpSession session = request.getSession();
-        Usuario user = (Usuario)session.getAttribute("usuario");
+        UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
         int userid = user.getId();
         pujas = this.pujaFacade.findByUserID(userid);
         

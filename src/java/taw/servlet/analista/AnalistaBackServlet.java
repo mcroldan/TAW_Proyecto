@@ -4,16 +4,15 @@
  */
 package taw.servlet.analista;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import taw.dto.UsuarioDTO;
+import taw.servlet.BaseTAWServlet;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import taw.entities.Usuario;
-import taw.servlet.BaseTAWServlet;
+import java.io.IOException;
 
 /**
  *
@@ -37,7 +36,7 @@ public class AnalistaBackServlet extends BaseTAWServlet {
         HttpSession session = request.getSession();
         
         if(super.comprobarSesion(request, response)){
-            if(((Usuario)session.getAttribute("usuario")).getRol().getNombre().equalsIgnoreCase("analista")){
+            if(((UsuarioDTO)session.getAttribute("usuario")).getRol().getNombre().equalsIgnoreCase("analista")){
                 response.sendRedirect("AnalistaServlet");
             }
         }

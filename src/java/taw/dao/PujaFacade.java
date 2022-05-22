@@ -5,18 +5,18 @@
  */
 package taw.dao;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import taw.dto.PujaDTO;
+import taw.entities.Producto;
+import taw.entities.Puja;
+
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.metamodel.SingularAttribute;
-import taw.entities.CategoriasPreferidas;
-import taw.entities.Producto;
-import taw.entities.Puja;
-import taw.entities.Usuario;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -24,7 +24,7 @@ import taw.entities.Usuario;
  */
 @Stateless
 public class PujaFacade extends AbstractFacade<Puja> {
-
+    @EJB UsuarioFacade usuarioFacade;
     @PersistenceContext(unitName = "TAWBDPU")
     private EntityManager em;
 
@@ -37,12 +37,26 @@ public class PujaFacade extends AbstractFacade<Puja> {
         super(Puja.class);
     }
 
-    public List<Puja> findByUserID(int userid) {
+    public List<PujaDTO> findByUserID(int userid) {
         Query q;
         q = this.getEntityManager().createQuery("select p from Puja p where p.comprador.id = :comprador");
         q.setParameter("comprador", userid);
-        return q.getResultList();
+        List<Puja> ent = q.getResultList();
+        if(ent.isEmpty()){
+            return null;
+        }else{
+            return this.toDTOList(ent);
+        }
     }
+    
+    private List<PujaDTO> toDTOList(List<Puja> ent) {
+        List<PujaDTO> res = new ArrayList<>();
+        for(Puja c : ent){
+            res.add(c.toDTO());
+        }
+        return res;
+    }
+    
     private List<Puja> findByUserIDAndProductID(int userid, int productoid) {
         Query q;
         q = this.getEntityManager().createQuery("select p from Puja p where p.comprador.id = :comprador AND p.producto.id = :productoid");
@@ -53,14 +67,14 @@ public class PujaFacade extends AbstractFacade<Puja> {
 
     
     
-    public void nuevaPuja(String precio, Usuario usuario, Producto producto) {
-        List<Puja> pujaAnt = this.findByUserIDAndProductID(usuario.getId(), producto.getId());
+    public void nuevaPuja(String precio, Integer usuarioid, Producto producto) {
+        List<Puja> pujaAnt = this.findByUserIDAndProductID(usuarioid, producto.getId());
         if(!pujaAnt.isEmpty()){
             this.remove(pujaAnt.get(0));
         }
         Puja nuevaPuja = new Puja();
         nuevaPuja.setAdjudicado(false);
-        nuevaPuja.setComprador(usuario);
+        nuevaPuja.setComprador(this.usuarioFacade.find(usuarioid));
         nuevaPuja.setFecha(new Date());
         nuevaPuja.setPrecio(Double.parseDouble(precio));
         nuevaPuja.setProducto(producto);

@@ -5,23 +5,13 @@
  */
 package taw.entities;
 
-import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import taw.dto.PujaDTO;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -149,6 +139,18 @@ public class Puja implements Serializable {
     @Override
     public String toString() {
         return "taw.entities.Puja[ id=" + id + " ]";
+    }
+
+    public PujaDTO toDTO() {
+        PujaDTO dto = new PujaDTO();
+        dto.setId(this.getId());
+        dto.setFecha(this.getFecha());
+        dto.setAdjudicado(this.getAdjudicado());
+        dto.setPrecio(this.getPrecio());
+        dto.setProducto(this.getProducto().toDTO());
+        dto.setComprador(this.getComprador().toDTO());
+        
+        return dto;
     }
     
 }

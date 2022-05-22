@@ -5,8 +5,11 @@
  */
 package taw.servlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import taw.dao.ProductoFacade;
+import taw.dao.PujaFacade;
+import taw.dto.UsuarioDTO;
+import taw.entities.Producto;
+
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,11 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import taw.dao.ProductoFacade;
-import taw.dao.PujaFacade;
-import taw.entities.Producto;
-import taw.entities.Puja;
-import taw.entities.Usuario;
+import java.io.IOException;
 
 /**
  *
@@ -51,13 +50,14 @@ public class PujaNuevaServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/comprador/nuevaPuja.jsp").forward(request, response);
         }else{
             HttpSession session = request.getSession();
-            Usuario usuario = (Usuario)session.getAttribute("usuario");
-            pujaFacade.nuevaPuja(precio, usuario, producto);
+            UsuarioDTO usuario = (UsuarioDTO)session.getAttribute("usuario");
+            if(Integer.valueOf(precio) >= producto.getPreciosalida() + 0.1)
+                pujaFacade.nuevaPuja(precio, usuario.getId(), producto);
         }
         if(request.getAttribute("desdefavoritos")==null){
-            request.getRequestDispatcher("ListadoProductosServlet").forward(request, response);
+            request.getRequestDispatcher("ListadoProductosDisponiblesServlet").forward(request, response);
         }else{
-            request.getRequestDispatcher("ListadoCompradosYFavoritosServlet").forward(request, response);
+            request.getRequestDispatcher("UsuarioProductosCompradosYFavoritosServlet").forward(request, response);
         }
     }
 

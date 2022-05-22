@@ -5,9 +5,10 @@
  */
 package taw.servlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
+import taw.dao.ProductoFacade;
+import taw.dto.ProductoDTO;
+import taw.dto.UsuarioDTO;
+
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,16 +16,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import taw.dao.ProductoFacade;
-import taw.entities.Producto;
-import taw.entities.Usuario;
+import java.io.IOException;
+import java.util.List;
 
 /**
  *
  * @author Carlos Ortega Chirito
  */
-@WebServlet(name = "ListadoProductosServlet", urlPatterns = {"/ListadoProductosServlet"})
-public class ListadoProductosServlet extends HttpServlet {
+@WebServlet(name = "ListadoProductosDisponiblesServlet", urlPatterns = {"/ListadoProductosDisponiblesServlet"})
+public class ListadoProductosDisponiblesServlet extends HttpServlet {
     @EJB ProductoFacade productoFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,9 +37,9 @@ public class ListadoProductosServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Producto> productos;
+        List<ProductoDTO> productos;
         HttpSession session = request.getSession();
-        Usuario user = (Usuario)session.getAttribute("usuario");
+        UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
         int userid = user.getId();
         String filtroTitulo = (String)request.getParameter("filtroTitulo");
         String filtroMarca = (String)request.getParameter("filtroMarca");

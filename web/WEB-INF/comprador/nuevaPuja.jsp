@@ -50,8 +50,8 @@
         
         <% Double preciopujanterior = (Double)request.getAttribute("preciopujanterior");
            Double minimoapujar; 
-           if(preciopujanterior == null){
-               minimoapujar = prod.getPreciosalida();
+           if(preciopujanterior == null || preciopujanterior < prod.getPreciosalida()){
+               minimoapujar = prod.getPreciosalida() + 0.1;
            }else{
                minimoapujar = preciopujanterior + 0.1;
            }

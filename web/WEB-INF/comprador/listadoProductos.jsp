@@ -4,6 +4,8 @@
     Author     : Carlos Ortega Chirito
 --%>
 
+<%@page import="taw.dto.ProductoDTO"%>
+<%@page import="taw.dto.UsuarioDTO"%>
 <%@page import="taw.entities.Usuario"%>
 <%@page import="taw.entities.Producto"%>
 <%@page import="java.util.List"%>
@@ -16,7 +18,7 @@
     </head>
     <body> <jsp:include page="/WEB-INF/comprador/cabeceraComprador.jsp" />
         <h1>Listado de productos</h1>
-        <form method="post" action="ListadoProductosServlet">
+        <form method="post" action="ListadoProductosDisponiblesServlet">
             Título: <input type="text" 
                            name="filtroTitulo"
                            <% String filtroTitulo = (String)request.getAttribute("filtroTitulo"); 
@@ -24,7 +26,7 @@
                            value="<%= (filtroTitulo==null)?"":filtroTitulo %>" />
             <input type="submit" value="Filtrar" />
         </form>
-        <form method="post" action="ListadoProductosServlet">
+        <form method="post" action="ListadoProductosDisponiblesServlet">
             Marca: <input type="text" 
                        name="filtroMarca"
                        <% String filtroMarca = (String)request.getAttribute("filtroMarca"); 
@@ -33,10 +35,10 @@
         <input type="submit" value="Filtrar" />                
         </form>
             <%
-                List<Producto> productos = (List)request.getAttribute("productos");
-                Usuario user =  (Usuario)session.getAttribute("usuario");
+                List<ProductoDTO> productos = (List)request.getAttribute("productos");
+                UsuarioDTO user =  (UsuarioDTO)session.getAttribute("usuario");
                 java.text.DateFormat df = new java.text.SimpleDateFormat("dd.MM.yyyy 'a las' HH:mm:ss z");
-                if(productos.isEmpty()){
+                if(productos == null){
             %>
                     No hay productos disponibles.
             <% }else { %>
@@ -49,7 +51,7 @@
                             <th>Categoría</th>
                             <th>Fecha de publicación</th>
                         </tr>
-            <%      for (Producto prod: productos) { %>
+            <%      for (ProductoDTO prod: productos) { %>
                         <tr>
                         <td> <%= prod.getVendedor().getUsername()%> </td>
                         <td> <%= prod.getTitulo() %> </td>
@@ -57,7 +59,7 @@
                         </td>
                         <td> <%= prod.getMarca() %> </td>
                         <td> <%= prod.getCategoria().getNombre() %>
-                        <td> <%= df.format(prod.getFechainicio()) %> </td>
+                        <td> <%= df.format(prod.getFechaInicio()) %> </td>
                         <td><form action="AlternarFavoritoServlet" method="POST">
                             <input type="hidden" name="productoid" value="<%= prod.getId() %>"/>
                             <input type="submit" value="Alternar favorito" />

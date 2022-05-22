@@ -4,6 +4,8 @@
     Author     : Carlos Ortega Chirito
 --%>
 
+<%@page import="taw.dto.ProductoDTO"%>
+<%@page import="taw.dto.PujaDTO"%>
 <%@page import="taw.entities.Producto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
@@ -18,9 +20,9 @@
     <body> <jsp:include page="/WEB-INF/comprador/cabeceraComprador.jsp" />
         <h1>Mis pujas</h1>
             <%
-                List<Puja> pujas = (List)request.getAttribute("pujas");
+                List<PujaDTO> pujas = (List)request.getAttribute("pujas");
                 java.text.DateFormat df = new java.text.SimpleDateFormat("dd.MM.yyyy 'a las' HH:mm:ss z");
-                if(pujas.isEmpty()){
+                if(pujas == null){
             %>
                     No tienes pujas abiertas en este momento.
             <% }else { %>
@@ -30,7 +32,7 @@
                             <th>Precio</th>                
                             <th>Cancelar puja</th>
                         </tr>
-            <%      for (Puja puja: pujas) { %>
+            <%      for (PujaDTO puja: pujas) { %>
                         <tr>
                         <td>
                             <%= df.format(puja.getFecha()) %>
@@ -46,7 +48,7 @@
                             <th>Categoría</th>
                             <th>Fecha de publicación</th>
                         </tr>
-                        <% Producto prod = puja.getProducto(); %>
+                        <% ProductoDTO prod = puja.getProducto(); %>
                         <tr>
                         <td> <%= prod.getVendedor().getUsername()%> </td>
                         <td> <%= prod.getTitulo() %> </td>
@@ -54,7 +56,7 @@
                         </td>
                         <td> <%= prod.getMarca() %> </td>
                         <td> <%= prod.getCategoria().getNombre() %>
-                        <td> <%= df.format(prod.getFechainicio()) %> </td>
+                        <td> <%= df.format(prod.getFechaInicio()) %> </td>
                         </td>
                        </tr>
                        

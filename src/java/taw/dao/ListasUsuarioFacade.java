@@ -5,10 +5,11 @@
  */
 package taw.dao;
 
+import taw.entities.ListasUsuario;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import taw.entities.ListasUsuario;
 
 /**
  *

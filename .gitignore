@@ -31,3 +31,6 @@ build.xml
 *.jar
 *.war
 *.ear
+
+.idea/
+TAW_Proyecto.iml

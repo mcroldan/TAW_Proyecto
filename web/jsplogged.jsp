@@ -5,6 +5,7 @@
     Author     : Alfonso García Gálvez          50%            
 --%>
 
+<%@page import="taw.dto.UsuarioDTO"%>
 <%@page import="taw.entities.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,7 +16,7 @@
     </head>
     <body>
         <%
-            Usuario u = (Usuario)session.getAttribute("usuario");
+            UsuarioDTO u = (UsuarioDTO)session.getAttribute("usuario");
             String rol = u.getRol().getNombre();
         %>
         

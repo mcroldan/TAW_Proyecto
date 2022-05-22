@@ -5,19 +5,17 @@ package taw.servlet;
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
+import taw.dto.UsuarioDTO;
+import taw.services.UsuarioService;
+
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import taw.entities.Usuario;
-import taw.services.UsuarioService;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  *
@@ -51,7 +49,7 @@ public class LoginServlet extends BaseTAWServlet {
             request.getRequestDispatcher("jsplogged.jsp").forward(request, response);*/
             
             // Login Check
-            Usuario u = this.usuarioService.comprobarUsuario(username, password);
+            UsuarioDTO u = this.usuarioService.comprobarUsuario(username, password);
             if(u == null){
                 request.setAttribute("error", "Usuario no encontrado");
                 request.getRequestDispatcher("jsplogin.jsp").forward(request, response);

@@ -5,21 +5,27 @@
  */
 package taw.servlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import taw.dao.CategoriaFacade;
+import taw.dto.CategoriaDTO;
+import taw.dto.UsuarioDTO;
+
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.List;
 
 /**
  *
  * @author Carlos Ortega Chirito
  */
-@WebServlet(name = "NuevaCategoriaUsuarioServlet", urlPatterns = {"/NuevaCategoriaUsuarioServlet"})
-public class NuevaCategoriaUsuarioServlet extends HttpServlet {
-
+@WebServlet(name = "UsuarioCategoriasPreferidasServlet", urlPatterns = {"/UsuarioCategoriasPreferidasServlet"})
+public class UsuarioCategoriasPreferidasServlet extends HttpServlet {
+    @EJB CategoriaFacade categoriaFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,19 +37,14 @@ public class NuevaCategoriaUsuarioServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NuevaCategoriaUsuarioServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet NuevaCategoriaUsuarioServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        List<CategoriaDTO> categorias;
+        HttpSession session = request.getSession();
+        UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
+        int userid = user.getId();
+        categorias = this.categoriaFacade.findByUserID(userid);
+        
+        request.setAttribute("categorias", categorias);
+        request.getRequestDispatcher("/WEB-INF/comprador/categoriasPreferidas.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

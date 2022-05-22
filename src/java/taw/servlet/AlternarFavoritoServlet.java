@@ -5,8 +5,12 @@
  */
 package taw.servlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import taw.dao.FavoritosFacade;
+import taw.dao.ProductoFacade;
+import taw.dto.FavoritosDTO;
+import taw.dto.UsuarioDTO;
+import taw.entities.Producto;
+
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,11 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import taw.dao.FavoritosFacade;
-import taw.dao.ProductoFacade;
-import taw.entities.Favoritos;
-import taw.entities.Producto;
-import taw.entities.Usuario;
+import java.io.IOException;
 
 /**
  *
@@ -41,19 +41,19 @@ public class AlternarFavoritoServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         int productoid = Integer.parseInt((String)request.getParameter("productoid"));
-        Usuario usuario = (Usuario)session.getAttribute("usuario");
-        Favoritos f = favoritosFacade.findByProductoAndUsuario(productoid, (int)usuario.getId());
+        UsuarioDTO usuario = (UsuarioDTO)session.getAttribute("usuario");
+        FavoritosDTO f = favoritosFacade.findByProductoAndUsuario(productoid, (int)usuario.getId());
         String ocurrido; 
         if(f == null){
             Producto p = productoFacade.find(productoid);
-            favoritosFacade.crearNuevoFavorito(usuario, p);
+            favoritosFacade.crearNuevoFavorito(usuario.getId(), p);
         }else{
-            favoritosFacade.borrarFavorito(f);
+            favoritosFacade.borrarFavorito(f.getId());
         }
         if(request.getParameter("desdefavoritos")==null){
-            response.sendRedirect(request.getContextPath()+"/ListadoProductosServlet");
+            response.sendRedirect(request.getContextPath()+"/ListadoProductosDisponiblesServlet");
         }else{
-            response.sendRedirect(request.getContextPath()+"/ListadoCompradosYFavoritosServlet");
+            response.sendRedirect(request.getContextPath()+"/UsuarioProductosCompradosYFavoritosServlet");
         }
         
     }

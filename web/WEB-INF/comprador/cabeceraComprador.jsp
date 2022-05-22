@@ -4,11 +4,12 @@
     Author     : Carlos Ortega Chirito
 --%>
 
+<%@page import="taw.dto.UsuarioDTO"%>
 <%@page import="taw.entities.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-    Usuario user = (Usuario)session.getAttribute("usuario");
+    UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
     if (user == null) {
         response.sendRedirect(request.getContextPath());
     }

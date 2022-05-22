@@ -5,10 +5,12 @@
  */
 package taw.services;
 
+import taw.dao.UsuarioFacade;
+import taw.dto.UsuarioDTO;
+import taw.entities.Usuario;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import taw.dao.UsuarioFacade;
-import taw.entities.Usuario;
 
 /**
  *
@@ -18,8 +20,14 @@ import taw.entities.Usuario;
 public class UsuarioService{
     @EJB UsuarioFacade usuarioFacade;
     
-    public Usuario comprobarUsuario(String username, String password){
-        return this.usuarioFacade.comprobarUsuario(username, password);
+    public UsuarioDTO comprobarUsuario(String username, String password){
+        Usuario usuario = this.usuarioFacade.comprobarUsuario(username, password);
+        if(usuario != null){
+            return usuario.toDTO();
+        }else{
+            return null;
+        }
+        
     }
 
     public void create(Usuario u) throws Exception{
