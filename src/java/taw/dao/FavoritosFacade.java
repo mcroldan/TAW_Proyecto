@@ -5,14 +5,16 @@
  */
 package taw.dao;
 
-import java.util.List;
+import taw.dto.FavoritosDTO;
+import taw.entities.Favoritos;
+import taw.entities.Producto;
+
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import taw.entities.Favoritos;
-import taw.entities.Producto;
-import taw.entities.Usuario;
+import java.util.List;
 
 /**
  *
@@ -20,7 +22,7 @@ import taw.entities.Usuario;
  */
 @Stateless
 public class FavoritosFacade extends AbstractFacade<Favoritos> {
-
+    @EJB UsuarioFacade usuarioFacade;
     @PersistenceContext(unitName = "TAWBDPU")
     private EntityManager em;
 
@@ -33,25 +35,17 @@ public class FavoritosFacade extends AbstractFacade<Favoritos> {
         super(Favoritos.class);
     }
   
-    public Favoritos findByProductoAndUsuario(int productoid, int usuarioid) {
+    public FavoritosDTO findByProductoAndUsuario(int productoid, int usuarioid) {
         Query q;
         q = this.em.createQuery("SELECT f from Favoritos f WHERE f.producto.id = :productoid AND f.usuario.id = :usuarioid");
         q.setParameter("productoid", productoid);
         q.setParameter("usuarioid", usuarioid);
-        List<Favoritos> res = q.getResultList();
-        return(res.isEmpty())?null:res.get(0);
-    } 
-
-    public void crearNuevoFavorito(Usuario usuario, Producto p) {
-        Favoritos nuevoFavorito = new Favoritos();
-        nuevoFavorito.setUsuario(usuario);
-        nuevoFavorito.setProducto(p);
-        
-        this.create(nuevoFavorito);
-    }
-
-    public void borrarFavorito(Favoritos f) {
-        this.remove(f);
+        List<Favoritos> ent = q.getResultList();
+        if(ent.isEmpty()){
+            return null;
+        }else{
+            return ent.get(0).toDTO();
+        }
     }
     
 }

@@ -5,17 +5,18 @@
     Author     : Alfonso García Gálvez          50%            
 --%>
 
+<%@page import="taw.dto.UsuarioDTO"%>
 <%@page import="taw.entities.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Logged</title>
     </head>
     <body>
         <%
-            Usuario u = (Usuario)session.getAttribute("usuario");
+            UsuarioDTO u = (UsuarioDTO)session.getAttribute("usuario");
             String rol = u.getRol().getNombre();
         %>
         

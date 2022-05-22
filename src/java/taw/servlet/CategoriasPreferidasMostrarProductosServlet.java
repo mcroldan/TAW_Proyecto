@@ -6,26 +6,25 @@
 package taw.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import taw.dao.CategoriaFacade;
-import taw.dao.CategoriasPreferidasFacade;
-import taw.entities.Categoria;
-import taw.entities.Usuario;
+import javax.servlet.http.HttpSession;
+import taw.dto.ProductoDTO;
+import taw.dto.UsuarioDTO;
+import taw.services.CategoriasPreferidasService;
 
 /**
  *
- * @author Carlos Ortega Chirito
+ * @author PC
  */
-@WebServlet(name = "CategoriaPreferidaQuitarServlet", urlPatterns = {"/CategoriaPreferidaQuitarServlet"})
-public class CategoriaPreferidaQuitarServlet extends HttpServlet {
-    @EJB CategoriasPreferidasFacade categoriasPreferidasFacade;
-    @EJB CategoriaFacade categoriaFacade;
+@WebServlet(name = "CategoriasPreferidasMostrarProductosServlet", urlPatterns = {"/CategoriasPreferidasMostrarProductosServlet"})
+public class CategoriasPreferidasMostrarProductosServlet extends HttpServlet {
+    @EJB CategoriasPreferidasService categoriasPreferidasService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,11 +36,13 @@ public class CategoriaPreferidaQuitarServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Integer categoriaid = Integer.valueOf(request.getParameter("categoriaid"));
-        Categoria catBorrar = categoriaFacade.find(categoriaid);
-        Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
-        categoriasPreferidasFacade.borrarCategoriaPreferida(catBorrar, usuario);
-        response.sendRedirect("CategoriasPreferidasServlet");
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        String categoriaid = (String)request.getParameter("categoriaid");
+        UsuarioDTO usuarioDTO = (UsuarioDTO)session.getAttribute("usuario");
+        List<ProductoDTO> productos = this.categoriasPreferidasService.mostrarProductos(Integer.parseInt(categoriaid), usuarioDTO.getId());
+        request.setAttribute("productos", productos);
+        request.getRequestDispatcher("/WEB-INF/comprador/categoriasPreferidasMostrarProductos.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

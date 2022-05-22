@@ -5,9 +5,10 @@
  */
 package taw.servlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
+import taw.dao.ProductoFacade;
+import taw.dto.ProductoDTO;
+import taw.dto.UsuarioDTO;
+
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,17 +16,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import taw.dao.ProductoFacade;
-import taw.entities.Producto;
-import taw.entities.Usuario;
+import java.io.IOException;
+import java.util.List;
+import taw.services.ProductoService;
 
 /**
  *
  * @author Carlos Ortega Chirito
  */
-@WebServlet(name = "ListadoCompradosYFavoritosServlet", urlPatterns = {"/ListadoCompradosYFavoritosServlet"})
-public class ListadoCompradosYFavoritosServlet extends HttpServlet {
-    @EJB ProductoFacade productoFacade;
+@WebServlet(name = "UsuarioProductosCompradosYFavoritosServlet", urlPatterns = {"/UsuarioProductosCompradosYFavoritosServlet"})
+public class UsuarioProductosCompradosYFavoritosServlet extends HttpServlet {
+    @EJB ProductoService productoService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,12 +38,12 @@ public class ListadoCompradosYFavoritosServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Producto> productos;
+        List<ProductoDTO> productos;
         HttpSession session = request.getSession();
-        Usuario user = (Usuario)session.getAttribute("usuario");
+        UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
         int userid = user.getId();
         
-        productos = this.productoFacade.findBoughtAndFavorites(userid);
+        productos = this.productoService.findBoughtAndFavorites(userid);
         request.setAttribute("productos", productos);
         
         request.getRequestDispatcher("/WEB-INF/comprador/compradosYFavoritos.jsp").forward(request, response);

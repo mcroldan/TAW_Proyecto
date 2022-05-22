@@ -5,12 +5,15 @@
  */
 package taw.dao;
 
-import java.util.List;
+import taw.dto.CategoriaDTO;
+import taw.entities.Categoria;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import taw.entities.Categoria;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -32,25 +35,35 @@ public class CategoriaFacade extends AbstractFacade<Categoria> {
         super(Categoria.class);
     }
 
-    public List<Categoria> findByUserID(int userid) {
+    public List<CategoriaDTO> findByUserID(int userid) {
         Query q;
         q = this.getEntityManager().createQuery("select DISTINCT c from Categoria c join c.categoriasPreferidasList cp ON c.id = cp.categoria.id WHERE cp.usuario.id = :userid");
         q.setParameter("userid", userid);
-        return q.getResultList();
+        List<Categoria> ent = q.getResultList();
+        if(ent.isEmpty()){
+            return null;
+        }else{
+            return this.toDTOList(ent);
+        }
     }
 
-    public List<Categoria> findCategoriasDisponibles(int userid) {
+    public List<CategoriaDTO> findCategoriasDisponibles(int userid) {
         Query q, q2;
 //        WHERE NOT EXISTS (SELECT ca FROM CategoriasPreferidas ca WHERE ca.usuario.id = :userid)
         q = this.getEntityManager().createQuery("SELECT c FROM Categoria c JOIN c.categoriasPreferidasList ca where ca.usuario.id != :userid");
         q.setParameter("userid", userid);
-        List<Categoria> res = q.getResultList();
+        List<Categoria> ent = q.getResultList();
         q2 = this.getEntityManager().createQuery("SELECT c FROM Categoria c WHERE NOT EXISTS(select ca FROM CategoriasPreferidas ca WHERE ca.categoria = c)");
-        res.addAll(q2.getResultList());
-        return res;
+        ent.addAll(q2.getResultList());
+        
+        if(ent.isEmpty()){
+            return null;
+        }else{
+            return this.toDTOList(ent);
+        }
     }
     
-    public Categoria findBynombre(String N){
+    public CategoriaDTO findBynombre(String N){
         Query q = this.getEntityManager().createQuery("SELECT c FROM categoria c WHERE c.ID LIKE :categoria OR c.nombre LIKE :categoria");
         q.setParameter("categoria", "%" + N + "%");
 
@@ -58,9 +71,29 @@ public class CategoriaFacade extends AbstractFacade<Categoria> {
         if (lista == null || lista.isEmpty()) {
             return null;
         } else {
-            return lista.get(0);
+            return lista.get(0).toDTO();
         }
 
+    }
+
+    private List<CategoriaDTO> toDTOList(List<Categoria> ent) {
+        List<CategoriaDTO> res = new ArrayList<>();
+        for(Categoria c : ent){
+            res.add(c.toDTO());
+        }
+        return res;
+    }
+
+    public Categoria findBynombreEntity(String n) {
+        Query q = this.getEntityManager().createQuery("SELECT c FROM categoria c WHERE c.ID LIKE :categoria OR c.nombre LIKE :categoria");
+        q.setParameter("categoria", "%" + n + "%");
+
+        List<Categoria> lista = q.getResultList();
+        if (lista == null || lista.isEmpty()) {
+            return null;
+        } else {
+            return lista.get(0);
+        }
     }
     
 }

@@ -5,9 +5,12 @@
  */
 package taw.servlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
+import taw.dao.CategoriaFacade;
+import taw.dao.CategoriasPreferidasFacade;
+import taw.dao.UsuarioFacade;
+import taw.dto.CategoriaDTO;
+import taw.dto.UsuarioDTO;
+
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,22 +18,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import taw.dao.CategoriaFacade;
-import taw.dao.CategoriasPreferidasFacade;
-import taw.dao.UsuarioFacade;
-import taw.entities.Categoria;
-import taw.entities.Usuario;
+import java.io.IOException;
+import java.util.List;
+import taw.services.CategoriaService;
+import taw.services.CategoriasPreferidasService;
 
 /**
  *
  * @author Carlos Ortega Chirito
  */
-@WebServlet(name = "AnyadirCategoriaPreferidaServlet", urlPatterns = {"/AnyadirCategoriaPreferidaServlet"})
-public class AnyadirCategoriaPreferidaServlet extends HttpServlet {
-    @EJB UsuarioFacade usuarioFacade;
-    @EJB CategoriasPreferidasFacade categoriasPreferidasFacade;
-    @EJB CategoriaFacade categoriaFacade;
-   
+@WebServlet(name = "CategoriasPreferidasAnyadirServlet", urlPatterns = {"/CategoriasPreferidasAnyadirServlet"})
+public class CategoriasPreferidasAnyadirServlet extends HttpServlet {
+    @EJB CategoriasPreferidasService categoriasPreferidasService;
+    @EJB CategoriaService categoriaService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,10 +44,10 @@ public class AnyadirCategoriaPreferidaServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         String categoriaid = request.getParameter("categoriaid");
-        Usuario user = (Usuario)session.getAttribute("usuario");
+        UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
         if(categoriaid == null){
-            List<Categoria> categoriasDisponibles = categoriaFacade.findCategoriasDisponibles((int)user.getId());
-            if(categoriasDisponibles.isEmpty()){
+            List<CategoriaDTO> categoriasDisponibles = categoriaService.findCategoriasDisponibles((int)user.getId());
+            if(categoriasDisponibles == null){
                 String strerror = "No hay categorías disponibles para añadir";
                 request.setAttribute("error", strerror);
             }else{
@@ -55,9 +55,8 @@ public class AnyadirCategoriaPreferidaServlet extends HttpServlet {
             }
             request.getRequestDispatcher("/WEB-INF/comprador/anyadirCategoriaUsuario.jsp").forward(request, response);
         }else{
-            Categoria cat = categoriaFacade.find(Integer.parseInt(categoriaid));
-            categoriasPreferidasFacade.crearRelacion(user, cat);
-            response.sendRedirect(request.getContextPath()+"/CategoriasPreferidasServlet");
+            categoriasPreferidasService.crearRelacion(user.getId(), Integer.valueOf(categoriaid));
+            response.sendRedirect(request.getContextPath()+"/UsuarioCategoriasPreferidasServlet");
         }
         
     }

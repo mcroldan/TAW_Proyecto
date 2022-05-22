@@ -5,20 +5,19 @@
  */
 package taw.servlet.administrador;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import taw.dao.RolFacade;
+import taw.dao.UsuarioFacade;
+import taw.dto.UsuarioDTO;
+import taw.entities.Usuario;
+import taw.servlet.BaseTAWServlet;
+
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import taw.dao.ListasUsuarioFacade;
-import taw.dao.RolFacade;
-import taw.dao.UsuarioFacade;
-import taw.entities.Usuario;
-import taw.servlet.BaseTAWServlet;
+import java.io.IOException;
 
 
 /**
@@ -55,7 +54,7 @@ public class UsuarioBorrarServlet extends BaseTAWServlet {
         HttpSession session = request.getSession();
                 
         if(super.comprobarSesion(request, response)){
-            if(((Usuario)session.getAttribute("usuario")).getRol().getNombre().equalsIgnoreCase("administrador")){
+            if(((UsuarioDTO)session.getAttribute("usuario")).getRol().getNombre().equalsIgnoreCase("administrador")){
                 
                 Integer id = Integer.parseInt(request.getParameter("id"));
                 Usuario u = this.usuarioFacade.find(id);

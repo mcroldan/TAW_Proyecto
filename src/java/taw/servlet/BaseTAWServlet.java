@@ -5,15 +5,15 @@ package taw.servlet;
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import taw.dto.UsuarioDTO;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import taw.entities.Usuario;
+import java.io.IOException;
 
 /**
  *
@@ -33,7 +33,7 @@ public abstract class BaseTAWServlet extends HttpServlet {
     protected boolean comprobarSesion(HttpServletRequest request, HttpServletResponse response) 
                 throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Usuario u = (Usuario)session.getAttribute("usuario");
+        UsuarioDTO u = (UsuarioDTO)session.getAttribute("usuario");
         if(u == null){
             response.sendRedirect(request.getContextPath());
             return false;

@@ -14,9 +14,9 @@
     <body>
         <jsp:include page="/WEB-INF/cabecera.jsp" />
         <h1>Página de inicio</h1> <br>
-        <a href="CategoriasPreferidasServlet">Categorías preferidas</a> <br>
-        <a href="ListadoCompradosYFavoritosServlet">Productos comprados y favoritos</a> <br>
-        <a href="ListadoProductosServlet">Listado de productos</a> <br>
+        <a href="UsuarioCategoriasPreferidasServlet">Categorías preferidas</a> <br>
+        <a href="UsuarioProductosCompradosYFavoritosServlet">Productos comprados y favoritos</a> <br>
+        <a href="ListadoProductosDisponiblesServlet">Listado de productos</a> <br>
         <a href="PujaServlet">Mis pujas abiertas</a>
     </body>
 </html>

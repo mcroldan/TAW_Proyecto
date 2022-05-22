@@ -5,14 +5,15 @@
  */
 package taw.dao;
 
-import java.util.List;
+import taw.dto.ProductoDTO;
+import taw.entities.Producto;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import taw.entities.Favoritos;
-import taw.entities.Producto;
-import taw.entities.Puja;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -34,75 +35,61 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         super(Producto.class);
     }
 
-    public List<Producto> findAllSalvoMisProductosYLosAdjudicados(int userid) {
+    public List<ProductoDTO> findAllSalvoMisProductosYLosAdjudicados(int userid) {
         Query q;
         q = this.getEntityManager().createQuery("select DiSTINCT p FROM Producto p LEFT JOIN p.pujaList pu WHERE (pu.adjudicado = FALSE OR pu.adjudicado = NULL) AND (p.vendedor.id != :vendedor)");
         q.setParameter("vendedor", userid);
-        List<Producto> res = q.getResultList();
-        return res;
+        List<Producto> ent = q.getResultList();
+        if(ent.isEmpty()){
+            return null;
+        }else{
+            return this.toDTOList(ent);
+        }
     }
-    public List<Producto> findAllSalvoMisProductosYLosAdjudicadosFiltroTitulo(int userid, String filtroTitulo) {
+    public List<ProductoDTO> findAllSalvoMisProductosYLosAdjudicadosFiltroTitulo(int userid, String filtroTitulo) {
         Query q;
         q = this.getEntityManager().createQuery("select DiSTINCT p FROM Producto p LEFT JOIN p.pujaList pu WHERE (pu.adjudicado = FALSE OR pu.adjudicado = NULL) AND (p.vendedor.id != :vendedor AND LOWER(p.titulo) LIKE :filtroTitulo)");
         q.setParameter("vendedor", userid);
         q.setParameter("filtroTitulo", "%"+filtroTitulo.toLowerCase()+"%");
-        List<Producto> res = q.getResultList();
-        return res;
+        List<Producto> ent = q.getResultList();
+        if(ent.isEmpty()){
+            return null;
+        }else{
+            return this.toDTOList(ent);
+        }
     }    
 
-    public List<Producto> findBoughtAndFavorites(int userid) {
+    public List<ProductoDTO> findBoughtAndFavorites(int userid) {
         Query q;
         q = this.getEntityManager().createQuery("select DISTINCT p FROM Producto p LEFT JOIN p.favoritosList pf LEFT JOIN p.pujaList pu WHERE (pu.adjudicado = TRUE) OR (pf.usuario.id = :userid)");
         q.setParameter("userid", userid);
-        List<Producto> res = q.getResultList();
-        return res;
-    }
-    
-    public List<Producto> filtroNombreSimilar(String filtro){
-        Query q;
-        q = em.createNamedQuery("Producto.findbyTitulo");
-        q.setParameter("titulo","%"+filtro+"%");
-        return q.getResultList();
-    }
-    
-    public List<Producto> filtroPrecioSalida (String filtro){
-        Query q;
-        
-        q = em.createNamedQuery("SELECT e FROM Producto e WHERE e.precioSalida >= :precioSalida");
-        q.setParameter("precioSalida", "%" + filtro + "%");
-        return q.getResultList();
-    }
-    
-    public List<Producto> filtroMarca (String filtro){
-        Query q;
-        
-        q = em.createNamedQuery("SELECT e FROM Producto e WHERE e.marca >= :marca");
-        q.setParameter("marca", "%" + filtro + "%");
-        return q.getResultList();
-    }
-    
-    public List<Producto> filtroFechaInicio (String filtro){
-        Query q;
-        
-        q = em.createNamedQuery("SELECT e FROM Producto e WHERE e.FechaInicio >= :FechaInicio");
-        q.setParameter("FechaInicio", "%" + filtro + "%");
-        return q.getResultList();
+        List<Producto> ent = q.getResultList();
+        if(ent.isEmpty()){
+            return null;
+        }else{
+            return this.toDTOList(ent);
+        }
     }
 
-    public Double maxPuja(Integer id) {
+    public Double maxPuja(Integer productoid) {
         Query q;
-        q = this.em.createQuery("SELECT max(p.precio) FROM Puja p");
+        q = this.em.createQuery("SELECT max(p.precio) FROM Puja p WHERE p.producto.id = :productoid");
+        q.setParameter("productoid", productoid);
         List<Double> res = q.getResultList();
-        return(res.isEmpty())?null:res.get(0);
+        return(res.isEmpty() || res.get(0) <= 0 )?null:res.get(0);
     }
 
-    public List<Producto> findAllSalvoMisProductosYLosAdjudicadosFiltroMarca(int userid, String filtroMarca) {
+    public List<ProductoDTO> findAllSalvoMisProductosYLosAdjudicadosFiltroMarca(int userid, String filtroMarca) {
         Query q;
         q = this.getEntityManager().createQuery("select DiSTINCT p FROM Producto p LEFT JOIN p.pujaList pu WHERE (pu.adjudicado = FALSE OR pu.adjudicado = NULL) AND (p.vendedor.id != :vendedor AND LOWER(p.marca) LIKE :filtroMarca)");
         q.setParameter("vendedor", userid);
         q.setParameter("filtroMarca", "%"+filtroMarca.toLowerCase()+"%");
-        List<Producto> res = q.getResultList();
-        return res;
+        List<Producto> ent = q.getResultList();
+        if(ent.isEmpty()){
+            return null;
+        }else{
+            return this.toDTOList(ent);
+        }
     }
     
     public List<Producto> findByCategoria(String filtro){
@@ -116,6 +103,14 @@ public class ProductoFacade extends AbstractFacade<Producto> {
             return lista;
         }
 
+    }
+
+    private List<ProductoDTO> toDTOList(List<Producto> ent) {
+        List<ProductoDTO> res = new ArrayList<>();
+        for(Producto p : ent){
+            res.add(p.toDTO());
+        }
+        return res;
     }
     
 }

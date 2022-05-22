@@ -4,6 +4,7 @@
     Author     : Carlos Ortega Chirito
 --%>
 
+<%@page import="taw.dto.CategoriaDTO"%>
 <%@page import="taw.entities.Categoria"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,7 +17,7 @@
     <body>
         <jsp:include page="/WEB-INF/comprador/cabeceraComprador.jsp" />
         <h1>Nueva categoría preferida</h1>
-        <form action="AnyadirCategoriaPreferidaServlet" method="POST">
+        <form action="CategoriasPreferidasAnyadirServlet" method="POST">
         <% String error = (String)request.getAttribute("error");
             if(error != null){ %>
             <%= error %>
@@ -26,8 +27,8 @@
             Elegir categoría:
             <select name="categoriaid">
             <% 
-                List<Categoria> categorias = (List)request.getAttribute("categorias");
-                for(Categoria c : categorias){
+                List<CategoriaDTO> categorias = (List)request.getAttribute("categorias");
+                for(CategoriaDTO c : categorias){
             %>
                 <option value="<%= c.getId() %>"><%= c.getNombre() %></option>
             <% }%>

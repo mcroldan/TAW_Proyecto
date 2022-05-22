@@ -4,6 +4,8 @@
  */
 package taw.dto;
 
+import java.util.List;
+
 /**
  *
  * @author Manuel Cristóbal Roldán Gómez
@@ -24,6 +26,8 @@ public class UsuarioDTO {
     private String password;
     private RolDTO rol;
 
+    private List<FavoritosDTO> favoritos;
+    
     public Integer getId() {
         return id;
     }
@@ -134,6 +138,14 @@ public class UsuarioDTO {
 
     public void setRol(RolDTO rol) {
         this.rol = rol;
+    }
+
+    public List<FavoritosDTO> getFavoritos() {
+        return favoritos;
+    }
+
+    public void setFavoritos(List<FavoritosDTO> favoritos) {
+        this.favoritos = favoritos;
     }
     
     

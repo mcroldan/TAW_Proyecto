@@ -5,25 +5,19 @@
  */
 package taw.servlet.administrador;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
+import taw.dao.ProductoFacade;
+import taw.dto.UsuarioDTO;
+import taw.entities.Producto;
+import taw.servlet.BaseTAWServlet;
+
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import taw.dao.EstudioFacade;
-import taw.dao.ProductoFacade;
-import taw.dao.UsuarioFacade;
-import taw.entities.Estudio;
-import taw.entities.Usuario;
-import taw.servlet.BaseTAWServlet;
-import taw.dao.UsuarioFacade;
-import taw.entities.Producto;
-import taw.entities.Usuario;
+import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -59,7 +53,7 @@ public class AdministradorProductoServlet extends BaseTAWServlet {
         HttpSession session = request.getSession();
                 
         if(super.comprobarSesion(request, response)){
-            if(((Usuario)session.getAttribute("usuario")).getRol().getNombre().equalsIgnoreCase("administrador")){
+            if(((UsuarioDTO)session.getAttribute("usuario")).getRol().getNombre().equalsIgnoreCase("administrador")){
                 if(filtro == null || filtro.equals("")){
                     productos = this.productoFacade.findAll();
                 } else {

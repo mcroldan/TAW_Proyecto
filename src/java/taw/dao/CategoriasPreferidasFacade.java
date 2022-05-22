@@ -5,15 +5,15 @@
  */
 package taw.dao;
 
-import java.util.List;
+import taw.entities.CategoriasPreferidas;
+
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import taw.entities.Categoria;
-import taw.entities.CategoriasPreferidas;
-import taw.entities.Usuario;
-import taw.servlet.CategoriaPreferidaQuitarServlet;
+import java.util.List;
+import taw.entities.Producto;
 
 /**
  *
@@ -21,7 +21,7 @@ import taw.servlet.CategoriaPreferidaQuitarServlet;
  */
 @Stateless
 public class CategoriasPreferidasFacade extends AbstractFacade<CategoriasPreferidas> {
-
+    
     @PersistenceContext(unitName = "TAWBDPU")
     private EntityManager em;
 
@@ -33,28 +33,22 @@ public class CategoriasPreferidasFacade extends AbstractFacade<CategoriasPreferi
     public CategoriasPreferidasFacade() {
         super(CategoriasPreferidas.class);
     }
-
-    public void crearRelacion(Usuario user, Categoria cat) {
-        CategoriasPreferidas nuevaRelacion = new CategoriasPreferidas();
-        
-        nuevaRelacion.setUsuario(user);
-        nuevaRelacion.setCategoria(cat);
-        
-        this.create(nuevaRelacion);
-    }
-    public CategoriasPreferidas findByUserAndCategory(Categoria categoria, Usuario usuario){
+    public CategoriasPreferidas findByUserAndCategory(int categoriaid, int userid){
         Query q;
-        q = this.em.createQuery("SELECT cat FROM CategoriasPreferidas cat WHERE cat.categoria = :categ AND cat.usuario = :user");
-        q.setParameter("categ", categoria);
-        q.setParameter("user", usuario);
+        q = this.em.createQuery("SELECT cat FROM CategoriasPreferidas cat WHERE cat.categoria.id = :categoriaid AND cat.usuario.id = :userid");
+        q.setParameter("categoriaid", categoriaid);
+        q.setParameter("userid", userid);
         List<CategoriasPreferidas> res = q.getResultList();
         return (res.isEmpty())?null:res.get(0);
         
     }
-    public void borrarCategoriaPreferida(Categoria cat, Usuario user) {
-        CategoriasPreferidas catBorrar = this.findByUserAndCategory(cat,user);
-        if(catBorrar != null){
-            this.remove(catBorrar);
-        }
+
+    public List<Producto> mostrarProductos(int categoriaid, int usuarioid) {
+        Query q;
+        q = this.em.createQuery("select DiSTINCT p FROM Producto p LEFT JOIN p.pujaList pu WHERE (pu.adjudicado = FALSE OR pu.adjudicado = NULL) AND (p.vendedor.id != :usuarioid) AND (p.categoria.id = :categoriaid)");
+        q.setParameter("categoriaid", categoriaid);
+        q.setParameter("usuarioid", usuarioid);
+        List<Producto> res = q.getResultList();
+        return (res.isEmpty())?null:res;
     }
 }
