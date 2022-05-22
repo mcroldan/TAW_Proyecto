@@ -30,7 +30,8 @@
             %>
             <tr>
                 <th>Nombre</th>
-                <th>Quitar categoría</th>                
+                <th>Quitar categoría</th>
+                <th>Ver productos</th>                
             </tr>
             <%      for (CategoriaDTO categoria: categorias) {
             %>
@@ -39,6 +40,7 @@
                 <%= categoria.getNombre() %>
             </td>
             <td><a href="CategoriasPreferidasQuitarServlet?categoriaid=<%= categoria.getId() %>">Quitar</a></td>
+            <td><a href="CategoriasPreferidasMostrarProductosServlet?categoriaid=<%= categoria.getId() %>">Mostrar</a></td>
            </tr>
            <%
                     }

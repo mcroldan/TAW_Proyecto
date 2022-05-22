@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
+import taw.entities.Producto;
 
 /**
  *
@@ -40,5 +41,14 @@ public class CategoriasPreferidasFacade extends AbstractFacade<CategoriasPreferi
         List<CategoriasPreferidas> res = q.getResultList();
         return (res.isEmpty())?null:res.get(0);
         
+    }
+
+    public List<Producto> mostrarProductos(int categoriaid, int usuarioid) {
+        Query q;
+        q = this.em.createQuery("select DiSTINCT p FROM Producto p LEFT JOIN p.pujaList pu WHERE (pu.adjudicado = FALSE OR pu.adjudicado = NULL) AND (p.vendedor.id != :usuarioid) AND (p.categoria.id = :categoriaid)");
+        q.setParameter("categoriaid", categoriaid);
+        q.setParameter("usuarioid", usuarioid);
+        List<Producto> res = q.getResultList();
+        return (res.isEmpty())?null:res;
     }
 }

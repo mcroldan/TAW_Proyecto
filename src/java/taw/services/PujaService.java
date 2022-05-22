@@ -42,7 +42,7 @@ public class PujaService {
         nuevaPuja.setComprador(this.usuarioFacade.find(usuarioid));
         nuevaPuja.setFecha(new Date());
         nuevaPuja.setPrecio(Double.parseDouble(precio));
-        nuevaPuja.setProducto(this.productoFacade.find(this));
+        nuevaPuja.setProducto(this.productoFacade.find(productoid));
         
         this.pujaFacade.create(nuevaPuja);
     }

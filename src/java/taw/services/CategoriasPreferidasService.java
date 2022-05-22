@@ -5,12 +5,16 @@
  */
 package taw.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import taw.dao.CategoriaFacade;
 import taw.dao.CategoriasPreferidasFacade;
 import taw.dao.UsuarioFacade;
+import taw.dto.ProductoDTO;
 import taw.entities.CategoriasPreferidas;
+import taw.entities.Producto;
 
 /**
  *
@@ -36,6 +40,18 @@ public class CategoriasPreferidasService {
         CategoriasPreferidas catBorrar = this.findByUserAndCategory(categoriaid, userid);
         if(catBorrar != null){
             this.categoriasPreferidasFacade.remove(catBorrar);
+        }
+    }
+
+    public List<ProductoDTO> mostrarProductos(int categoriaid, int usuarioid) {
+        List<Producto> productos = this.categoriasPreferidasFacade.mostrarProductos(categoriaid, usuarioid);
+        if (productos == null) {
+            return null;
+        }else{
+            List<ProductoDTO> res = new ArrayList<>();
+            for(Producto p : productos)
+                res.add(p.toDTO());
+            return res;
         }
     }
 }

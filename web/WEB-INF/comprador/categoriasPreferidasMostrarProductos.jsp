@@ -1,28 +1,26 @@
 <%-- 
-    Document   : compradosYFavoritos
-    Created on : 01-may-2022, 15:35:19
-    Author     : Carlos Ortega Chirito
+    Document   : categoriasPreferidasMostrarProductos
+    Created on : 22-may-2022, 21:23:24
+    Author     : PC
 --%>
 
 <%@page import="taw.dto.ProductoDTO"%>
-<%@page import="taw.dto.UsuarioDTO"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Mis productos</title>
+        <title>Productos de la categoría</title>
     </head>
     <body> <jsp:include page="/WEB-INF/comprador/cabeceraComprador.jsp" />
-        <h1>Productos comprados y favoritos</h1>
+        <h1>Productos de la categoría</h1>
             <%
                 List<ProductoDTO> productos = (List)request.getAttribute("productos");
-                UsuarioDTO user =  (UsuarioDTO)session.getAttribute("usuario");
                 java.text.DateFormat df = new java.text.SimpleDateFormat("dd.MM.yyyy 'a las' HH:mm:ss z");
                 if(productos == null){
             %>
-                    No tienes productos favoritos ni comprados.
+                    Esta categoría no tiene productos en este momento.
             <% }else { %>
                     <table border="1"> 
                         <tr>
@@ -44,14 +42,12 @@
                         <td> <%= df.format(prod.getFechaInicio()) %> </td>
                         <td><form action="AlternarFavoritoServlet" method="POST">
                             <input type="hidden" name="productoid" value="<%= prod.getId() %>"/>
-                            <input type="hidden" name="desdefavoritos" value="1"/>
                             <input type="submit" value="Alternar favorito" />
                             </form>
                         </td>
                         <td>
                         <form action="PujaNuevaServlet" method="POST">
                             <input type="hidden" name="productoid" value="<%= prod.getId() %>"/>
-                            <input type="hidden" name="desdefavoritos" value="1"/>
                             <input type="submit" value="Hacer puja" />
                         </form>
                         
