@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import taw.services.FavoritosService;
 
 /**
  *
@@ -26,8 +27,8 @@ import java.io.IOException;
  */
 @WebServlet(name = "AlternarFavoritoServlet", urlPatterns = {"/AlternarFavoritoServlet"})
 public class AlternarFavoritoServlet extends HttpServlet {
-    @EJB FavoritosFacade favoritosFacade;
-    @EJB ProductoFacade productoFacade;
+    @EJB FavoritosService favoritosService;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,13 +43,12 @@ public class AlternarFavoritoServlet extends HttpServlet {
         HttpSession session = request.getSession();
         int productoid = Integer.parseInt((String)request.getParameter("productoid"));
         UsuarioDTO usuario = (UsuarioDTO)session.getAttribute("usuario");
-        FavoritosDTO f = favoritosFacade.findByProductoAndUsuario(productoid, (int)usuario.getId());
+        FavoritosDTO f = favoritosService.findByProductoAndUsuario(productoid, (int)usuario.getId());
         String ocurrido; 
         if(f == null){
-            Producto p = productoFacade.find(productoid);
-            favoritosFacade.crearNuevoFavorito(usuario.getId(), p);
+            favoritosService.crearNuevoFavorito(usuario.getId(), productoid);
         }else{
-            favoritosFacade.borrarFavorito(f.getId());
+            favoritosService.borrarFavorito(f.getId());
         }
         if(request.getParameter("desdefavoritos")==null){
             response.sendRedirect(request.getContextPath()+"/ListadoProductosDisponiblesServlet");

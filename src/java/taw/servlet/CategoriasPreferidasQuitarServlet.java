@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import taw.services.CategoriasPreferidasService;
 
 /**
  *
@@ -23,8 +24,7 @@ import java.io.IOException;
  */
 @WebServlet(name = "CategoriasPreferidasQuitarServlet", urlPatterns = {"/CategoriasPreferidasQuitarServlet"})
 public class CategoriasPreferidasQuitarServlet extends HttpServlet {
-    @EJB CategoriasPreferidasFacade categoriasPreferidasFacade;
-    @EJB CategoriaFacade categoriaFacade;
+    @EJB CategoriasPreferidasService categoriasPreferidasService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,7 +38,7 @@ public class CategoriasPreferidasQuitarServlet extends HttpServlet {
             throws ServletException, IOException {
         Integer categoriaid = Integer.valueOf(request.getParameter("categoriaid"));
         UsuarioDTO usuario = (UsuarioDTO)request.getSession().getAttribute("usuario");
-        categoriasPreferidasFacade.borrarCategoriaPreferida(categoriaid, usuario.getId());
+        categoriasPreferidasService.borrarCategoriaPreferida(categoriaid, usuario.getId());
         response.sendRedirect("UsuarioCategoriasPreferidasServlet");
     }
 

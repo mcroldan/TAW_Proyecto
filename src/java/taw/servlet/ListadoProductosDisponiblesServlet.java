@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import taw.services.ProductoService;
 
 /**
  *
@@ -25,7 +26,7 @@ import java.util.List;
  */
 @WebServlet(name = "ListadoProductosDisponiblesServlet", urlPatterns = {"/ListadoProductosDisponiblesServlet"})
 public class ListadoProductosDisponiblesServlet extends HttpServlet {
-    @EJB ProductoFacade productoFacade;
+    @EJB ProductoService productoService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,12 +45,12 @@ public class ListadoProductosDisponiblesServlet extends HttpServlet {
         String filtroTitulo = (String)request.getParameter("filtroTitulo");
         String filtroMarca = (String)request.getParameter("filtroMarca");
         if(filtroTitulo == null && filtroMarca == null){
-            productos = this.productoFacade.findAllSalvoMisProductosYLosAdjudicados(userid);
+            productos = this.productoService.findAllSalvoMisProductosYLosAdjudicados(userid);
         }else if(filtroMarca != null){
-            productos = this.productoFacade.findAllSalvoMisProductosYLosAdjudicadosFiltroMarca(userid, filtroMarca);
+            productos = this.productoService.findAllSalvoMisProductosYLosAdjudicadosFiltroMarca(userid, filtroMarca);
             request.setAttribute("filtroMarca", filtroMarca);
         }else{
-            productos = this.productoFacade.findAllSalvoMisProductosYLosAdjudicadosFiltroTitulo(userid, filtroTitulo);
+            productos = this.productoService.findAllSalvoMisProductosYLosAdjudicadosFiltroTitulo(userid, filtroTitulo);
             request.setAttribute("filtroTitulo", filtroTitulo);
         }
         request.setAttribute("productos", productos);

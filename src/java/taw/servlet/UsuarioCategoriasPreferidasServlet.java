@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import taw.services.CategoriaService;
 
 /**
  *
@@ -25,7 +26,7 @@ import java.util.List;
  */
 @WebServlet(name = "UsuarioCategoriasPreferidasServlet", urlPatterns = {"/UsuarioCategoriasPreferidasServlet"})
 public class UsuarioCategoriasPreferidasServlet extends HttpServlet {
-    @EJB CategoriaFacade categoriaFacade;
+    @EJB CategoriaService categoriaService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,7 +42,7 @@ public class UsuarioCategoriasPreferidasServlet extends HttpServlet {
         HttpSession session = request.getSession();
         UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
         int userid = user.getId();
-        categorias = this.categoriaFacade.findByUserID(userid);
+        categorias = this.categoriaService.findByUserID(userid);
         
         request.setAttribute("categorias", categorias);
         request.getRequestDispatcher("/WEB-INF/comprador/categoriasPreferidas.jsp").forward(request, response);

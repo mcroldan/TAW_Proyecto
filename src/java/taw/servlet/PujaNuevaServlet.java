@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import taw.dto.ProductoDTO;
+import taw.services.ProductoService;
+import taw.services.PujaService;
 
 /**
  *
@@ -25,8 +28,8 @@ import java.io.IOException;
  */
 @WebServlet(name = "PujaNuevaServlet", urlPatterns = {"/PujaNuevaServlet"})
 public class PujaNuevaServlet extends HttpServlet {
-    @EJB ProductoFacade productoFacade;
-    @EJB PujaFacade pujaFacade;
+    @EJB PujaService pujaService;
+    @EJB ProductoService productoService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,10 +43,10 @@ public class PujaNuevaServlet extends HttpServlet {
             throws ServletException, IOException {
         String precio = (String)request.getParameter("precio");
         String productoid = (String)request.getParameter("productoid");
-        Producto producto = productoFacade.find(Integer.parseInt(productoid));
+        ProductoDTO producto = productoService.findDTO(Integer.parseInt(productoid));
         String desdefavoritos = (String)request.getParameter("desdefavoritos");
         if(precio == null){
-            Double preciomayorPuja = productoFacade.maxPuja(producto.getId());
+            Double preciomayorPuja = productoService.maxPuja(producto.getId());
             request.setAttribute("producto", producto);
             request.setAttribute("preciopujanterior", preciomayorPuja);
             request.setAttribute("desdefavoritos", desdefavoritos);
@@ -52,7 +55,7 @@ public class PujaNuevaServlet extends HttpServlet {
             HttpSession session = request.getSession();
             UsuarioDTO usuario = (UsuarioDTO)session.getAttribute("usuario");
             if(Integer.valueOf(precio) >= producto.getPreciosalida() + 0.1)
-                pujaFacade.nuevaPuja(precio, usuario.getId(), producto);
+                pujaService.nuevaPuja(precio, usuario.getId(), producto.getId());
         }
         if(request.getAttribute("desdefavoritos")==null){
             request.getRequestDispatcher("ListadoProductosDisponiblesServlet").forward(request, response);

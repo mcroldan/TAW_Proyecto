@@ -46,18 +46,6 @@ public class FavoritosFacade extends AbstractFacade<Favoritos> {
         }else{
             return ent.get(0).toDTO();
         }
-    } 
-
-    public void crearNuevoFavorito(int userid, Producto p) {
-        Favoritos nuevoFavorito = new Favoritos();
-        nuevoFavorito.setUsuario(this.usuarioFacade.find(userid));
-        nuevoFavorito.setProducto(p);
-        
-        this.create(nuevoFavorito);
-    }
-
-    public void borrarFavorito(Integer favoritoid) {
-        this.remove(this.find(favoritoid));
     }
     
 }

@@ -20,8 +20,6 @@ import java.util.List;
  */
 @Stateless
 public class CategoriasPreferidasFacade extends AbstractFacade<CategoriasPreferidas> {
-    @EJB UsuarioFacade usuarioFacade;
-    @EJB CategoriaFacade categoriaFacade;
     
     @PersistenceContext(unitName = "TAWBDPU")
     private EntityManager em;
@@ -34,16 +32,6 @@ public class CategoriasPreferidasFacade extends AbstractFacade<CategoriasPreferi
     public CategoriasPreferidasFacade() {
         super(CategoriasPreferidas.class);
     }
-
-    public void crearRelacion(Integer userid, Integer categoriaid) {
-        CategoriasPreferidas nuevaRelacion = new CategoriasPreferidas();
-        
-        
-        nuevaRelacion.setUsuario(this.usuarioFacade.find(userid));
-        nuevaRelacion.setCategoria(this.categoriaFacade.find(categoriaid));
-        
-        this.create(nuevaRelacion);
-    }
     public CategoriasPreferidas findByUserAndCategory(int categoriaid, int userid){
         Query q;
         q = this.em.createQuery("SELECT cat FROM CategoriasPreferidas cat WHERE cat.categoria.id = :categoriaid AND cat.usuario.id = :userid");
@@ -52,11 +40,5 @@ public class CategoriasPreferidasFacade extends AbstractFacade<CategoriasPreferi
         List<CategoriasPreferidas> res = q.getResultList();
         return (res.isEmpty())?null:res.get(0);
         
-    }
-    public void borrarCategoriaPreferida(int categoriaid, int userid) {
-        CategoriasPreferidas catBorrar = this.findByUserAndCategory(categoriaid, userid);
-        if(catBorrar != null){
-            this.remove(catBorrar);
-        }
     }
 }

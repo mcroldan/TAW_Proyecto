@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import taw.services.PujaService;
 
 /**
  *
@@ -25,7 +26,7 @@ import java.util.List;
  */
 @WebServlet(name = "PujaServlet", urlPatterns = {"/PujaServlet"})
 public class PujaServlet extends HttpServlet {
-    @EJB PujaFacade pujaFacade;
+    @EJB PujaService pujaService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,7 +42,7 @@ public class PujaServlet extends HttpServlet {
         HttpSession session = request.getSession();
         UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
         int userid = user.getId();
-        pujas = this.pujaFacade.findByUserID(userid);
+        pujas = this.pujaService.findByUserID(userid);
         
         request.setAttribute("pujas", pujas);
         request.getRequestDispatcher("/WEB-INF/comprador/pujas.jsp").forward(request, response);

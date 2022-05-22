@@ -57,34 +57,11 @@ public class PujaFacade extends AbstractFacade<Puja> {
         return res;
     }
     
-    private List<Puja> findByUserIDAndProductID(int userid, int productoid) {
+    public List<Puja> findByUserIDAndProductID(int userid, int productoid) {
         Query q;
         q = this.getEntityManager().createQuery("select p from Puja p where p.comprador.id = :comprador AND p.producto.id = :productoid");
         q.setParameter("comprador", userid);
         q.setParameter("productoid", productoid);
         return q.getResultList();
     }
-
-    
-    
-    public void nuevaPuja(String precio, Integer usuarioid, Producto producto) {
-        List<Puja> pujaAnt = this.findByUserIDAndProductID(usuarioid, producto.getId());
-        if(!pujaAnt.isEmpty()){
-            this.remove(pujaAnt.get(0));
-        }
-        Puja nuevaPuja = new Puja();
-        nuevaPuja.setAdjudicado(false);
-        nuevaPuja.setComprador(this.usuarioFacade.find(usuarioid));
-        nuevaPuja.setFecha(new Date());
-        nuevaPuja.setPrecio(Double.parseDouble(precio));
-        nuevaPuja.setProducto(producto);
-        
-        this.create(nuevaPuja);
-    }
-
-    public void borrarPuja(Integer id) {
-        Puja pujaABorrar = this.find(id);
-        this.remove(pujaABorrar);
-    }
-    
 }

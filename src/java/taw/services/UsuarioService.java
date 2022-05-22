@@ -5,6 +5,7 @@
  */
 package taw.services;
 
+import java.util.List;
 import taw.dao.UsuarioFacade;
 import taw.dto.UsuarioDTO;
 import taw.entities.Usuario;
@@ -27,8 +28,15 @@ public class UsuarioService{
         }else{
             return null;
         }
-        
     }
+    
+    public List<Usuario> findByName(String filtro){
+        return this.usuarioFacade.findByName(filtro);
+    }
+    public Integer getLastId(){
+        return this.usuarioFacade.getLastId();
+    }
+            
 
     public void create(Usuario u) throws Exception{
             this.usuarioFacade.create(u);

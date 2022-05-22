@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import taw.services.RolService;
 
 /**
  *
@@ -26,7 +27,7 @@ import java.io.IOException;
 public class RegisterServlet extends HttpServlet {
     
     @EJB UsuarioService usuarioService;
-    @EJB RolFacade rolFacade;
+    @EJB RolService rolService;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -75,7 +76,7 @@ public class RegisterServlet extends HttpServlet {
             u.setSexo(sexo);
             u.setUsername(usuario);
             u.setPassword(password);
-            u.setRol(rolFacade.comprobarRol(rol));
+            u.setRol(rolService.comprobarRol(rol));
           
             this.usuarioService.create(u);
             

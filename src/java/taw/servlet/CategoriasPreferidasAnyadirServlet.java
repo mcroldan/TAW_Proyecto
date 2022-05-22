@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import taw.services.CategoriaService;
+import taw.services.CategoriasPreferidasService;
 
 /**
  *
@@ -27,10 +29,8 @@ import java.util.List;
  */
 @WebServlet(name = "CategoriasPreferidasAnyadirServlet", urlPatterns = {"/CategoriasPreferidasAnyadirServlet"})
 public class CategoriasPreferidasAnyadirServlet extends HttpServlet {
-    @EJB UsuarioFacade usuarioFacade;
-    @EJB CategoriasPreferidasFacade categoriasPreferidasFacade;
-    @EJB CategoriaFacade categoriaFacade;
-   
+    @EJB CategoriasPreferidasService categoriasPreferidasService;
+    @EJB CategoriaService categoriaService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,7 +46,7 @@ public class CategoriasPreferidasAnyadirServlet extends HttpServlet {
         String categoriaid = request.getParameter("categoriaid");
         UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
         if(categoriaid == null){
-            List<CategoriaDTO> categoriasDisponibles = categoriaFacade.findCategoriasDisponibles((int)user.getId());
+            List<CategoriaDTO> categoriasDisponibles = categoriaService.findCategoriasDisponibles((int)user.getId());
             if(categoriasDisponibles == null){
                 String strerror = "No hay categorías disponibles para añadir";
                 request.setAttribute("error", strerror);
@@ -55,7 +55,7 @@ public class CategoriasPreferidasAnyadirServlet extends HttpServlet {
             }
             request.getRequestDispatcher("/WEB-INF/comprador/anyadirCategoriaUsuario.jsp").forward(request, response);
         }else{
-            categoriasPreferidasFacade.crearRelacion(user.getId(), Integer.valueOf(categoriaid));
+            categoriasPreferidasService.crearRelacion(user.getId(), Integer.valueOf(categoriaid));
             response.sendRedirect(request.getContextPath()+"/UsuarioCategoriasPreferidasServlet");
         }
         

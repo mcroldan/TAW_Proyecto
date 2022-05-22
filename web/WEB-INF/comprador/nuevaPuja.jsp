@@ -4,6 +4,7 @@
     Author     : Carlos Ortega Chirito
 --%>
 
+<%@page import="taw.dto.ProductoDTO"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="taw.entities.Producto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,7 +15,7 @@
         <title>Nueva puja</title>
     </head>
     <body> <jsp:include page="/WEB-INF/comprador/cabeceraComprador.jsp" />
-        <% Producto prod = (Producto)request.getAttribute("producto"); 
+        <% ProductoDTO prod = (ProductoDTO)request.getAttribute("producto"); 
            java.text.DateFormat df = new java.text.SimpleDateFormat("dd.MM.yyyy 'a las' HH:mm:ss z");%>
         <h1>Puja por el producto</h1>
         <table border="1"> 
@@ -33,7 +34,7 @@
             </td>
             <td> <%= prod.getMarca() %> </td>
             <td> <%= prod.getCategoria().getNombre() %>
-            <td> <%= df.format(prod.getFechainicio()) %> </td>
+            <td> <%= df.format(prod.getFechaInicio()) %> </td>
             <td><form action="AlternarFavoritoServlet" method="POST">
                 <input type="hidden" name="productoid" value="<%= prod.getId() %>"/>
                 <input type="submit" value="Alternar favorito" />

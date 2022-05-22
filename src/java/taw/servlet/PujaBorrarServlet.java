@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import taw.services.PujaService;
 
 /**
  *
@@ -21,7 +22,7 @@ import java.io.IOException;
  */
 @WebServlet(name = "PujaBorrarServlet", urlPatterns = {"/PujaBorrarServlet"})
 public class PujaBorrarServlet extends HttpServlet {
-    @EJB PujaFacade pujaFacade;
+    @EJB PujaService pujaService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,7 +36,7 @@ public class PujaBorrarServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Integer pujaid = Integer.valueOf(request.getParameter("pujaid"));
-        pujaFacade.borrarPuja(pujaid);
+        pujaService.borrarPuja(pujaid);
         response.sendRedirect("PujaServlet");
     }
 
