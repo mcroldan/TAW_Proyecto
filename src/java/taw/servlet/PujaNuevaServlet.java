@@ -54,7 +54,7 @@ public class PujaNuevaServlet extends HttpServlet {
         }else{
             HttpSession session = request.getSession();
             UsuarioDTO usuario = (UsuarioDTO)session.getAttribute("usuario");
-            if(Integer.valueOf(precio) >= producto.getPreciosalida() + 0.1)
+            if(Double.parseDouble(precio) >= producto.getPreciosalida() + 0.1)
                 pujaService.nuevaPuja(precio, usuario.getId(), producto.getId());
         }
         if(request.getAttribute("desdefavoritos")==null){
