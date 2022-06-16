@@ -165,7 +165,7 @@ INSERT INTO USUARIO (CP, NOMBRE, APELLIDOS, DIRECCION, CIUDAD, PAIS, TELEFONO, E
 INSERT INTO USUARIO (CP, NOMBRE, APELLIDOS, DIRECCION, CIUDAD, PAIS, TELEFONO, EMAIL, EDAD, SEXO, USERNAME, PASSWORD, ROL) 
 	VALUES ('1000', 'a', 'a', 'a', 'a', 'Afganistan', '777777777', 'a@gmail.com', 20, 'H', 'a', 'a', 1);
 INSERT INTO USUARIO (CP, NOMBRE, APELLIDOS, DIRECCION, CIUDAD, PAIS, TELEFONO, EMAIL, EDAD, SEXO, USERNAME, PASSWORD, ROL) 
-	VALUES ('29650', 'Alfonso', 'Garcia Galvez', 'calle telera', 'malaga', 'Spain', '633771036', 'alf@gmail.com', 22, 'H', 'admin', 'admin', 4);
+	VALUES ('29650', 'Alfonso', 'Garcia Galvez', 'calle telera', 'malaga', 'Spain', '633771036', 'alf@gmail.com', 22, 'H', 'admin', 'admin', 3);
 INSERT INTO USUARIO (CP, NOMBRE, APELLIDOS, DIRECCION, CIUDAD, PAIS, TELEFONO, EMAIL, EDAD, SEXO, USERNAME, PASSWORD, ROL) 
 	VALUES ('29900', 'Manuel Cristóbal', 'Roldán Gómez', 'calle telera', 'malaga', 'Spain', '683551036', 'man@gmail.com', 20, 'H', 'man', 'man', 2);
 INSERT INTO USUARIO (CP, NOMBRE, APELLIDOS, DIRECCION, CIUDAD, PAIS, TELEFONO, EMAIL, EDAD, SEXO, USERNAME, PASSWORD, ROL) 
