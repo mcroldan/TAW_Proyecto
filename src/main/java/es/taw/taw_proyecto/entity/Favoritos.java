@@ -1,6 +1,11 @@
 package es.taw.taw_proyecto.entity;
 
+import es.taw.taw_proyecto.dto.FavoritosDTO;
+import es.taw.taw_proyecto.dto.UsuarioDTO;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Favoritos {
@@ -80,5 +85,14 @@ public class Favoritos {
 
     public void setUsuarioByUsuario(Usuario usuarioByUsuario) {
         this.usuarioByUsuario = usuarioByUsuario;
+    }
+
+    public FavoritosDTO toDTO() {
+        FavoritosDTO dto = new FavoritosDTO();
+        dto.setProducto(this.productoByProducto.toDTO());
+        dto.setUsuario(this.usuarioByUsuario.toDTO());
+        dto.setId(this.getId());
+
+        return dto;
     }
 }

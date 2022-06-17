@@ -75,4 +75,6 @@ public class UsuarioController {
         model.addAttribute("error", "Nuevo usuario creado con éxito. Inicie sesión");
         return("Login");
     }
+
+
 }

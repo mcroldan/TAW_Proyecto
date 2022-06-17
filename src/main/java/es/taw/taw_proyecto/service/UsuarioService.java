@@ -8,6 +8,9 @@ import es.taw.taw_proyecto.entity.Usuario;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UsuarioService {
     private UsuarioRepository usuarioRepository;
@@ -31,5 +34,19 @@ public class UsuarioService {
 
     public void guardarUsuario(Usuario u){
         this.usuarioRepository.save(u);
+    }
+
+    public List<Usuario> findByName(String filtro){
+        return this.usuarioRepository.findByName(filtro);
+    }
+    public Integer getLastId(){
+        return this.usuarioRepository.getLastId();
+    }
+
+    private List<UsuarioDTO> toDTOList(List<Usuario> listaUsuarios){
+        List<UsuarioDTO> res = new ArrayList<>();
+        for(Usuario u : listaUsuarios)
+            res.add(u.toDTO());
+        return res;
     }
 }

@@ -1,5 +1,7 @@
 package es.taw.taw_proyecto.entity;
 
+import es.taw.taw_proyecto.dto.CategoriaDTO;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
@@ -78,5 +80,13 @@ public class Categoria {
 
     public void setUsuariosCategoria(List<Usuario> usuariosCategoria) {
         UsuariosCategoria = usuariosCategoria;
+    }
+
+    public CategoriaDTO toDTO(){
+        CategoriaDTO dto = new CategoriaDTO();
+        dto.setId(id);
+        dto.setNombre(nombre);
+
+        return dto;
     }
 }

@@ -1,5 +1,7 @@
 package es.taw.taw_proyecto.entity;
 
+import es.taw.taw_proyecto.dto.PujaDTO;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -121,4 +123,17 @@ public class Puja {
     public void setUsuarioByComprador(Usuario usuarioByComprador) {
         this.usuarioByComprador = usuarioByComprador;
     }
+
+    public PujaDTO toDTO() {
+        PujaDTO dto = new PujaDTO();
+        dto.setId(this.getId());
+        dto.setFecha(this.getFecha());
+        dto.setAdjudicado(this.getAdjudicado());
+        dto.setPrecio(this.getPrecio());
+        dto.setProducto(this.productoByProducto.toDTO());
+        dto.setComprador(this.usuarioByComprador.toDTO());
+
+        return dto;
+    }
+
 }

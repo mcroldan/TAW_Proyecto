@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface PujaRepository extends JpaRepository<Puja, Integer> {
     // findByUserId
-    public List<Puja> findByUsuarioByComprador(String userid);
+    public List<Puja> findByUsuarioByComprador(int userid);
     // findByUserIDAndProductID
     public List<Puja> findByCompradorAndProducto(int userid, int productoid);
 

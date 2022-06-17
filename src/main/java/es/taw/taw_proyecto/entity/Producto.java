@@ -1,5 +1,7 @@
 package es.taw.taw_proyecto.entity;
 
+import es.taw.taw_proyecto.dto.ProductoDTO;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -183,5 +185,20 @@ public class Producto {
 
     public void setPujasById(Collection<Puja> pujasById) {
         this.pujasById = pujasById;
+    }
+
+    public ProductoDTO toDTO(){
+        ProductoDTO dto = new ProductoDTO();
+        dto.setId(id);
+        dto.setTitulo(titulo);
+        dto.setDescripcion(descripcion);
+        dto.setPreciosalida(preciosalida);
+        dto.setUrlFoto(urlFoto);
+        dto.setMarca(marca);
+        dto.setFechaInicio(fechainicio);
+        dto.setCategoria(categoriaByCategoria.toDTO());
+        dto.setVendedor(usuarioByVendedor.toDTO());
+
+        return dto;
     }
 }
