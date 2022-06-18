@@ -1,9 +1,12 @@
 package es.taw.taw_proyecto.entity;
 
+import es.taw.taw_proyecto.dto.EstudioDTO;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Estudio {
@@ -100,32 +103,26 @@ public class Estudio {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Estudio estudio = (Estudio) o;
-
-        if (id != null ? !id.equals(estudio.id) : estudio.id != null) return false;
-        if (nombre != null ? !nombre.equals(estudio.nombre) : estudio.nombre != null) return false;
-        if (tabla != null ? !tabla.equals(estudio.tabla) : estudio.tabla != null) return false;
-        if (ordenar != null ? !ordenar.equals(estudio.ordenar) : estudio.ordenar != null) return false;
-        if (agrupar != null ? !agrupar.equals(estudio.agrupar) : estudio.agrupar != null) return false;
-        if (operacion != null ? !operacion.equals(estudio.operacion) : estudio.operacion != null) return false;
-        if (tipoOrden != null ? !tipoOrden.equals(estudio.tipoOrden) : estudio.tipoOrden != null) return false;
-        if (numElementos != null ? !numElementos.equals(estudio.numElementos) : estudio.numElementos != null)
-            return false;
-
-        return true;
+        return Objects.equals(id, estudio.id) && Objects.equals(nombre, estudio.nombre) && Objects.equals(tabla, estudio.tabla) && Objects.equals(ordenar, estudio.ordenar) && Objects.equals(agrupar, estudio.agrupar) && Objects.equals(operacion, estudio.operacion) && Objects.equals(tipoOrden, estudio.tipoOrden) && Objects.equals(numElementos, estudio.numElementos);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
-        result = 31 * result + (tabla != null ? tabla.hashCode() : 0);
-        result = 31 * result + (ordenar != null ? ordenar.hashCode() : 0);
-        result = 31 * result + (agrupar != null ? agrupar.hashCode() : 0);
-        result = 31 * result + (operacion != null ? operacion.hashCode() : 0);
-        result = 31 * result + (tipoOrden != null ? tipoOrden.hashCode() : 0);
-        result = 31 * result + (numElementos != null ? numElementos.hashCode() : 0);
-        return result;
+        return Objects.hash(id, nombre, tabla, ordenar, agrupar, operacion, tipoOrden, numElementos);
+    }
+
+    public EstudioDTO toDTO(){
+        EstudioDTO dto = new EstudioDTO();
+        dto.setId(id);
+        dto.setNombre(nombre);
+        dto.setTabla(tabla);
+        dto.setOrdenar(ordenar);
+        dto.setAgrupar(agrupar);
+        dto.setOperacion(operacion);
+        dto.setTipoOrden(tipoOrden);
+        dto.setNumElementos(numElementos);
+
+        return dto;
     }
 }

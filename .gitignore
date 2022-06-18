@@ -39,10 +39,10 @@ TAW_Proyecto.iml
 .gitignorebackup
 .mvn/
 HELP.md
-TAW_Proyecto/
 derby.log
 diagram.jpg
 diagram.png
 mvnw
 mvnw.cmd
 target/
+TAW_Proyecto/
