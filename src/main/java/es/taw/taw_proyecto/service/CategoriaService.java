@@ -5,6 +5,7 @@ import es.taw.taw_proyecto.dto.CategoriaDTO;
 import es.taw.taw_proyecto.dto.UsuarioDTO;
 import es.taw.taw_proyecto.entity.Categoria;
 import es.taw.taw_proyecto.entity.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,6 +15,10 @@ import java.util.List;
 public class CategoriaService {
     private CategoriaRepository categoriaRepository;
 
+    @Autowired
+    public void setCategoriaRepository(CategoriaRepository categoriaRepository) {
+        this.categoriaRepository = categoriaRepository;
+    }
 
     public List<CategoriaDTO> findByUserID(int userid){
         return toDTOList(this.categoriaRepository.findByUsuariosCategoria_Id(userid));

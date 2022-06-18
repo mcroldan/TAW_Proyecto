@@ -5,6 +5,7 @@ import es.taw.taw_proyecto.dto.ProductoDTO;
 import es.taw.taw_proyecto.dto.ProductoDTO;
 import es.taw.taw_proyecto.entity.Producto;
 import es.taw.taw_proyecto.entity.Producto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,6 +14,11 @@ import java.util.List;
 @Service
 public class ProductoService {
     private ProductoRepository productoRepository;
+
+    @Autowired
+    public void setProductoRepository(ProductoRepository productoRepository) {
+        this.productoRepository = productoRepository;
+    }
 
     public List<ProductoDTO> listarProductosDisponibles(int usuarioid){
         return this.toDTOList(this.productoRepository.findAllSalvoMisProductosYLosAdjudicados(usuarioid));

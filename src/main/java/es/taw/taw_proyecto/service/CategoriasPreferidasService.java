@@ -6,14 +6,30 @@ import es.taw.taw_proyecto.dao.UsuarioRepository;
 import es.taw.taw_proyecto.dto.ProductoDTO;
 import es.taw.taw_proyecto.entity.CategoriasPreferidas;
 import es.taw.taw_proyecto.entity.Producto;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriadPreferidasService {
+public class CategoriasPreferidasService {
     private UsuarioRepository usuarioRepository;
     private CategoriaRepository categoriaRepository;
     private CategoriasPreferidasRepository categoriasPreferidasRepository;
+
+    @Autowired
+    public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
+
+    @Autowired
+    public void setCategoriaRepository(CategoriaRepository categoriaRepository) {
+        this.categoriaRepository = categoriaRepository;
+    }
+
+    @Autowired
+    public void setCategoriasPreferidasRepository(CategoriasPreferidasRepository categoriasPreferidasRepository) {
+        this.categoriasPreferidasRepository = categoriasPreferidasRepository;
+    }
 
     public void crearRelacion(Integer userid, Integer categoriaid){
         CategoriasPreferidas nuevaRelacion = new CategoriasPreferidas();

@@ -7,6 +7,7 @@ import es.taw.taw_proyecto.dto.PujaDTO;
 import es.taw.taw_proyecto.dto.PujaDTO;
 import es.taw.taw_proyecto.entity.Puja;
 import es.taw.taw_proyecto.entity.Puja;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +20,20 @@ public class PujaService {
     private UsuarioRepository usuarioRepository;
     private ProductoRepository productoRepository;
 
+    @Autowired
+    public void setPujaRepository(PujaRepository pujaRepository) {
+        this.pujaRepository = pujaRepository;
+    }
+
+    @Autowired
+    public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
+
+    @Autowired
+    public void setProductoRepository(ProductoRepository productoRepository) {
+        this.productoRepository = productoRepository;
+    }
 
     public List<PujaDTO> findByUserID(int userid){
         return toDTOList(this.pujaRepository.findByUsuarioByComprador(userid));
