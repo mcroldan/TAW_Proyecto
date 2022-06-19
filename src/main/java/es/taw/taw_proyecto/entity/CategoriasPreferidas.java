@@ -64,7 +64,10 @@ public class CategoriasPreferidas {
     }
 
     @ManyToOne
-    @JoinColumn(name = "CATEGORIA", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "CATEGORIA", referencedColumnName = "ID", nullable = false,
+                // codigo de abajo puesto aqui para evitar el
+                // Unable to build Hibernate SessionFactory; nested exception is org.hibernate.MappingException: Repeated column in mapping for entity: es.taw.taw_proyecto.entity.CategoriasPreferidas column: categoria (should be mapped with insert="false" update="false")
+                insertable = false, updatable = false)
     public Categoria getCategoriaByCategoria() {
         return categoriaByCategoria;
     }
@@ -74,7 +77,10 @@ public class CategoriasPreferidas {
     }
 
     @ManyToOne
-    @JoinColumn(name = "USUARIO", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "USUARIO", referencedColumnName = "ID", nullable = false,
+                // codigo de abajo puesto aqui para evitar el
+                // Unable to build Hibernate SessionFactory; nested exception is org.hibernate.MappingException: Repeated column in mapping for entity: es.taw.taw_proyecto.entity.CategoriasPreferidas column: categoria (should be mapped with insert="false" update="false")
+                insertable = false, updatable = false)
     public Usuario getUsuarioByUsuario() {
         return usuarioByUsuario;
     }

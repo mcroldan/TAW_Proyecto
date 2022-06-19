@@ -12,7 +12,8 @@ public class Categoria {
     private String nombre;
     private Collection<CategoriasPreferidas> categoriasPreferidasById;
     private Collection<Producto> productosById;
-    private List<Usuario> UsuariosCategoria;
+    @ManyToMany(mappedBy = "categoriasPreferidas")
+    private List<Usuario> usuariosCategoria;
 
     @Id
     @Column(name = "ID")
@@ -72,14 +73,12 @@ public class Categoria {
         this.productosById = productosById;
     }
 
-    @ManyToMany
-    @JoinTable(name = "CATEGORIAS_PREFERIDAS", catalog = "", schema = "TAW_Proyecto", joinColumns = @JoinColumn(name = "CATEGORIA", referencedColumnName = "ID", nullable = false), inverseJoinColumns = @JoinColumn(name = "USUARIO", referencedColumnName = "ID", nullable = false))
     public List<Usuario> getUsuariosCategoria() {
-        return UsuariosCategoria;
+        return usuariosCategoria;
     }
 
     public void setUsuariosCategoria(List<Usuario> usuariosCategoria) {
-        UsuariosCategoria = usuariosCategoria;
+        this.usuariosCategoria = usuariosCategoria;
     }
 
     public CategoriaDTO toDTO(){

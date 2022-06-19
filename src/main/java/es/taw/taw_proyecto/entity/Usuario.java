@@ -22,13 +22,18 @@ public class Usuario {
     private String username;
     private String password;
     private Integer rol;
-    private Collection<CategoriasPreferidas> categoriasPreferidasById;
     private Collection<Favoritos> favoritosById;
     private Collection<ListasUsuario> listasUsuariosById;
     private Collection<Producto> productosById;
     private Collection<Puja> pujasById;
     private Rol rolByRol;
-    private List<Categoria> CategoriasPreferidas;
+    @ManyToMany
+    @JoinTable(name = "CATEGORIAS_PREFERIDAS",
+                joinColumns = @JoinColumn(name = "USUARIO",
+                referencedColumnName = "ID"),
+                inverseJoinColumns = @JoinColumn(name = "CATEGORIA",
+                referencedColumnName = "ID"))
+    private List<Categoria> categoriasPreferidas;
 
     @Id
     @Column(name = "ID")
@@ -215,15 +220,6 @@ public class Usuario {
     }
 
     @OneToMany(mappedBy = "usuarioByUsuario")
-    public Collection<CategoriasPreferidas> getCategoriasPreferidasById() {
-        return categoriasPreferidasById;
-    }
-
-    public void setCategoriasPreferidasById(Collection<CategoriasPreferidas> categoriasPreferidasById) {
-        this.categoriasPreferidasById = categoriasPreferidasById;
-    }
-
-    @OneToMany(mappedBy = "usuarioByUsuario")
     public Collection<Favoritos> getFavoritosById() {
         return favoritosById;
     }
@@ -269,13 +265,12 @@ public class Usuario {
         this.rolByRol = rolByRol;
     }
 
-    @ManyToMany(mappedBy = "UsuariosCategoria")
     public List<Categoria> getCategoriasPreferidas() {
-        return CategoriasPreferidas;
+        return categoriasPreferidas;
     }
 
     public void setCategoriasPreferidas(List<Categoria> categoriasPreferidas) {
-        CategoriasPreferidas = categoriasPreferidas;
+        this.categoriasPreferidas = categoriasPreferidas;
     }
 
     public UsuarioDTO toDTO() {
