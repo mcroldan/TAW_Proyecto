@@ -6,10 +6,12 @@ import es.taw.taw_proyecto.dao.UsuarioRepository;
 import es.taw.taw_proyecto.dto.FavoritosDTO;
 import es.taw.taw_proyecto.entity.Favoritos;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class FavoritosService {
     private FavoritosRepository favoritosRepository;
     private UsuarioRepository usuarioRepository;
@@ -34,7 +36,13 @@ public class FavoritosService {
         return (favoritosRepository.findByProductoAndUsuario(productoid, usuarioid).toDTO());
     }
 
-    public void crearNuevoFavorito(int userid, int productoid) {
+    public void alternarFavorito(int userid, int productoid){
+        FavoritosDTO f = this.findByIdByProductoAndUsuario(userid, productoid);
+        if(f == null) this.crearNuevoFavorito(userid,productoid);
+        else this.borrarFavorito(f.getId());
+    }
+
+    private void crearNuevoFavorito(int userid, int productoid) {
         Favoritos nuevoFavorito = new Favoritos();
         nuevoFavorito.setUsuarioByUsuario(this.usuarioRepository.findById(userid).orElse(null));
         nuevoFavorito.setProductoByProducto(this.productoRepository.findById(productoid).orElse(null));
@@ -42,7 +50,7 @@ public class FavoritosService {
         this.favoritosRepository.save(nuevoFavorito);
     }
 
-    public void borrarFavorito(Integer favoritoid) {
+    private void borrarFavorito(Integer favoritoid) {
         this.favoritosRepository.delete(this.favoritosRepository.findById(favoritoid).orElse(null));
     }
 

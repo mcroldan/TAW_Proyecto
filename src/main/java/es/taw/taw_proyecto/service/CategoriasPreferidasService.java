@@ -7,10 +7,13 @@ import es.taw.taw_proyecto.dto.ProductoDTO;
 import es.taw.taw_proyecto.entity.CategoriasPreferidas;
 import es.taw.taw_proyecto.entity.Producto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class CategoriasPreferidasService {
     private UsuarioRepository usuarioRepository;
     private CategoriaRepository categoriaRepository;
