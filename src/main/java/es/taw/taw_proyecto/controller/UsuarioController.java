@@ -1,10 +1,6 @@
 package es.taw.taw_proyecto.controller;
 
-import es.taw.taw_proyecto.dao.RolRepository;
-import es.taw.taw_proyecto.dao.UsuarioRepository;
-import es.taw.taw_proyecto.dto.CategoriaDTO;
 import es.taw.taw_proyecto.dto.UsuarioDTO;
-import es.taw.taw_proyecto.entity.Rol;
 import es.taw.taw_proyecto.entity.Usuario;
 import es.taw.taw_proyecto.service.CategoriaService;
 import es.taw.taw_proyecto.service.FavoritosService;
@@ -19,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 public class UsuarioController {
@@ -105,7 +100,7 @@ public class UsuarioController {
 
         // redirecciona aqui al listado general de los productos
         // tip: se podría crear otro metodo para que redireccionara a productos comprados y favoritos
-        return("redirect:/productos/mostrar");
+        return("redirect:/comprador/productos/mostrar");
     }
 
 

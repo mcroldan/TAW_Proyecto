@@ -1,10 +1,6 @@
 package es.taw.taw_proyecto.controller;
 
-import es.taw.taw_proyecto.dao.EstudioRepository;
-import es.taw.taw_proyecto.dao.UsuarioRepository;
 import es.taw.taw_proyecto.dto.EstudioDTO;
-import es.taw.taw_proyecto.dto.UsuarioDTO;
-import es.taw.taw_proyecto.entity.Estudio;
 import es.taw.taw_proyecto.service.EstudioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

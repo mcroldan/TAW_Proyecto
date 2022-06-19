@@ -14,7 +14,7 @@
 %>
 <table width="80%">
     <tr width="80%">
-        <td><a href="inicioComprador.jsp">Volver a la página principal</a></td>        
-        <td><a href="LogoutServlet">Salir</a></td>        
+        <td><a href="inicioComprador">Volver a la página principal</a></td>
+        <td><a href="logout">Salir</a></td>
     </tr>
 </table>

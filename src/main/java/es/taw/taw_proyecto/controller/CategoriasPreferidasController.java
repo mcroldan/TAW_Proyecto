@@ -6,14 +6,12 @@ import es.taw.taw_proyecto.entity.Usuario;
 import es.taw.taw_proyecto.service.CategoriaService;
 import es.taw.taw_proyecto.service.CategoriasPreferidasService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -39,7 +37,7 @@ public class CategoriasPreferidasController {
         int userid = ((Usuario)session.getAttribute("usuario")).getId();
         List<CategoriaDTO> categorias = this.categoriaService.findByUserID(userid);
         model.addAttribute("categorias", categorias);
-        return("categoriasPreferidas");
+        return("/mostrar");
     }
 
     @GetMapping("/elegir")
@@ -50,7 +48,7 @@ public class CategoriasPreferidasController {
             model.addAttribute("error", "No hay categorías disponibles para añadir");
         else
             model.addAttribute("categorias", categoriasDisponibles);
-        return("/elegir/");
+        return("elegir");
     }
 
     @PostMapping("/nueva")
@@ -67,7 +65,7 @@ public class CategoriasPreferidasController {
         }
         else{*/
         this.categoriasPreferidasService.crearRelacion(userid, Integer.valueOf(categoriaid));
-        return("redirect:/categoriasPreferidas/");
+        return("redirect:/categoriasPreferidas/mostrar");
     }
 
     @PostMapping("/borrar")
@@ -75,11 +73,11 @@ public class CategoriasPreferidasController {
                                           @RequestParam("categoriaid") String categoriaid){
         int userid = ((UsuarioDTO)session.getAttribute("usuario")).getId();
         this.categoriasPreferidasService.borrarCategoriaPreferida(Integer.parseInt(categoriaid), userid);
-        return("redirect:/categoriasPreferidas/");
+        return("redirect:/categoriasPreferidas/mostrar");
     }
 
     @PostMapping("/mostrarProductos")
     public String mostrarProductos(){
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 }

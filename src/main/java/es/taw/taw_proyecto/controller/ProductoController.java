@@ -1,6 +1,5 @@
 package es.taw.taw_proyecto.controller;
 
-import es.taw.taw_proyecto.dto.CategoriaDTO;
 import es.taw.taw_proyecto.dto.ProductoDTO;
 import es.taw.taw_proyecto.entity.Usuario;
 import es.taw.taw_proyecto.service.ProductoService;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -39,4 +37,10 @@ public class ProductoController {
         model.addAttribute("categorias", categorias);
         return("categoriasPreferidas");
     }*/
+
+    @PostMapping("/mostrarCompradosYFavoritos")
+    public String compradosYFavoritos(){
+        throw new UnsupportedOperationException();
+//        return("mostrarCompradosYFavoritos");
+    }
 }

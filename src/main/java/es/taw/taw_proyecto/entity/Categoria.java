@@ -10,7 +10,6 @@ import java.util.List;
 public class Categoria {
     private Integer id;
     private String nombre;
-    private Collection<CategoriasPreferidas> categoriasPreferidasById;
     private Collection<Producto> productosById;
     @ManyToMany(mappedBy = "categoriasPreferidas")
     private List<Usuario> usuariosCategoria;
@@ -53,15 +52,6 @@ public class Categoria {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "categoriaByCategoria")
-    public Collection<CategoriasPreferidas> getCategoriasPreferidasById() {
-        return categoriasPreferidasById;
-    }
-
-    public void setCategoriasPreferidasById(Collection<CategoriasPreferidas> categoriasPreferidasById) {
-        this.categoriasPreferidasById = categoriasPreferidasById;
     }
 
     @OneToMany(mappedBy = "categoriaByCategoria")
