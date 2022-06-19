@@ -46,4 +46,4 @@ mvnw
 mvnw.cmd
 target/
 TAW_Proyecto/
-src/java/taw/servlet/
+src/java/
